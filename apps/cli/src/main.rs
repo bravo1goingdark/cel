@@ -9,9 +9,9 @@ use std::io::{stdout, Write};
 use std::path::PathBuf;
 use std::{fs, thread, time::Duration};
 
-/// ASCII Anim CLI — validate, inspect, and play .aanim scene files.
+/// Cel CLI — validate, inspect, and play .aanim scene files.
 #[derive(Parser)]
-#[command(name = "ascii-anim", version, about)]
+#[command(name = "cel", version, about)]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -53,7 +53,7 @@ enum Commands {
     },
 }
 
-// ── Scene types (mirrors @ascii-anim/core) ────────────────────────
+// ── Scene types (mirrors @cel/core) ───────────────────────────────
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Scene {
@@ -391,18 +391,11 @@ fn cmd_play(path: &PathBuf, looping: bool) -> i32 {
     0
 }
 
-fn ctrlc_setup(_running: std::sync::Arc<std::sync::atomic::AtomicBool>) {
-    #[cfg(unix)]
-    unsafe {
-        libc::signal(libc::SIGINT, {
-            extern "C" fn handler(_: libc::c_int) {
-                let mut stdout = stdout();
-                execute!(stdout, Show).ok();
-                std::process::exit(0);
-            }
-            handler as *const () as libc::sighandler_t
-        });
-    }
+fn ctrlc_setup(running: std::sync::Arc<std::sync::atomic::AtomicBool>) {
+    ctrlc::set_handler(move || {
+        running.store(false, std::sync::atomic::Ordering::Relaxed);
+    })
+    .expect("failed to set Ctrl-C handler");
 }
 
 fn cmd_render(path: &PathBuf, format: &str, out: &Option<PathBuf>) -> i32 {

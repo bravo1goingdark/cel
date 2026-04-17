@@ -1,5 +1,5 @@
 /**
- * @ascii-anim/core — Zero-dependency TypeScript engine for ASCII character-grid animations.
+ * @cel/core — Zero-dependency TypeScript engine for ASCII character-grid animations.
  *
  * @packageDocumentation
  */
@@ -47,6 +47,8 @@ export {
   DEFAULT_TRANSFORM,
   DEFAULT_FPS,
   DEFAULT_GRID,
+  DEFAULT_CHAR_WIDTH,
+  DEFAULT_LINE_HEIGHT,
   SCHEMA_URL,
   COLOR_TOKENS,
 } from './types';

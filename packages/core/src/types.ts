@@ -1,6 +1,6 @@
 /**
  * @module types
- * All type definitions for the ASCII Anim scene format.
+ * All type definitions for the Cel scene format.
  * This is a CLOSED set — adding a field is a breaking schema change.
  */
 
@@ -179,4 +179,10 @@ export const DEFAULT_GRID: Readonly<Grid> = Object.freeze({
 });
 
 /** Published JSON Schema URL for .aanim files. */
-export const SCHEMA_URL = 'https://ascii-anim.app/schema/v1.json';
+export const SCHEMA_URL = 'https://cel.dev/schema/v1.json';
+
+/** Default character width in px for monospace rendering. */
+export const DEFAULT_CHAR_WIDTH = 10.2;
+
+/** Default line height in px for monospace rendering. */
+export const DEFAULT_LINE_HEIGHT = 22;

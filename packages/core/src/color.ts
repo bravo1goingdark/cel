@@ -12,12 +12,12 @@ export function isColorToken(c: string): c is ColorToken {
   return (COLOR_TOKENS as readonly string[]).includes(c);
 }
 
-/** Parse a hex color string (#RGB, #RRGGBB, or #RRGGBBAA) to [R, G, B]. */
+/** Parse a hex color string (#RGB, #RGBA, #RRGGBB, or #RRGGBBAA) to [R, G, B]. */
 export function parseHexToRgb(hex: string): [number, number, number] | null {
   if (!hex.startsWith('#')) return null;
   const h = hex.slice(1);
 
-  if (h.length === 3) {
+  if (h.length === 3 || h.length === 4) {
     const r = parseInt(h[0]! + h[0]!, 16);
     const g = parseInt(h[1]! + h[1]!, 16);
     const b = parseInt(h[2]! + h[2]!, 16);
@@ -36,11 +36,13 @@ export function parseHexToRgb(hex: string): [number, number, number] | null {
   return null;
 }
 
-/** Parse an rgb(...) or rgba(...) string to [R, G, B]. */
+/** Parse an rgb(...) or rgba(...) string to [R, G, B]. Returns null if out of 0-255 range. */
 function parseRgbString(str: string): [number, number, number] | null {
   const m = str.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
   if (!m) return null;
-  return [Number(m[1]), Number(m[2]), Number(m[3])];
+  const r = Number(m[1]), g = Number(m[2]), b = Number(m[3]);
+  if (r > 255 || g > 255 || b > 255) return null;
+  return [r, g, b];
 }
 
 /** Resolve a Color value to an RGB triplet, using the optional resolver for tokens. */

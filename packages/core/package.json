@@ -1,5 +1,5 @@
 {
-  "name": "@ascii-anim/core",
+  "name": "@cel/core",
   "version": "0.1.0-alpha.0",
   "description": "Zero-dependency TypeScript engine for ASCII character-grid animations",
   "type": "module",

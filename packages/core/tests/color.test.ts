@@ -43,6 +43,11 @@ describe('rgb() string interpolation', () => {
     expect(interpolateColor('notacolor', 'alsonotacolor', 0.3)).toBe('notacolor');
     expect(interpolateColor('notacolor', 'alsonotacolor', 0.7)).toBe('alsonotacolor');
   });
+
+  it('returns null for rgb values exceeding 0-255 range', () => {
+    expect(interpolateColor('rgb(300, 0, 0)', '#ff0000', 0.5)).toBe('#ff0000');
+    expect(interpolateColor('rgb(0, 256, 0)', '#ff0000', 0.5)).toBe('#ff0000');
+  });
 });
 
 describe('parseHexToRgb', () => {
@@ -55,6 +60,11 @@ describe('parseHexToRgb', () => {
     expect(parseHexToRgb('#ff0000')).toEqual([255, 0, 0]);
     expect(parseHexToRgb('#00ff00')).toEqual([0, 255, 0]);
     expect(parseHexToRgb('#0000ff')).toEqual([0, 0, 255]);
+  });
+
+  it('parses 4-digit hex (ignores alpha)', () => {
+    expect(parseHexToRgb('#f00f')).toEqual([255, 0, 0]);
+    expect(parseHexToRgb('#abcf')).toEqual([170, 187, 204]);
   });
 
   it('parses 8-digit hex (ignores alpha)', () => {

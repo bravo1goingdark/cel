@@ -1,125 +1,149 @@
-# Ascii Anim — minimal Tauri desktop
+# cel.
 
-A small, self-contained desktop port of the ASCII frame-by-frame animation
-studio, using **Tauri v2** + **@tauri-apps/plugin-store** for persistence.
+ASCII animation studio. Design character-grid animations visually, export to any format.
+
+---
+
+## What it does
+
+Cel is a desktop app for creating ASCII animations — the kind that appear in CLI spinners, terminal UIs, documentation banners, and retro web interfaces. You work with characters on a grid, not pixels. Keyframe-based timeline, real-time preview, one-click export.
 
 ## Stack
 
-- **Tauri v2** — Rust shell, native window, ~10 MB installed
-- **Vite** — dev server + bundler, no frontend framework
-- **Vanilla JS** — the whole animation engine in a single `src/main.js`
-- **tauri-plugin-store** — persistent JSON key-value store on disk
+| Layer | Technology |
+|-------|-----------|
+| Engine | `@cel/core` — zero-dep TypeScript, 3.9KB gzipped |
+| Desktop | Tauri 2 + Rust + Vite |
+| Frontend | Vanilla JS (SolidJS migration planned) |
+| CLI | Rust + clap, 1.3MB binary |
+| Exports | HTML, React, CSS, ANSI, ES module, .aanim, GIF (planned) |
+
+## Quick start
+
+```bash
+# run the desktop app
+pnpm install
+cd apps/desktop && pnpm run tauri dev
+
+# or use the CLI
+cd apps/cli && cargo run -- validate ../presets/*.aanim
+cd apps/cli && cargo run -- play ../presets/sleeping.aanim --loop
+cd apps/cli && cargo run -- info ../presets/heartbeat.aanim
+```
+
+First Rust build takes ~2 minutes. Subsequent rebuilds are seconds.
+
+## Project structure
+
+```
+cel/
+├── packages/
+│   ├── core/          @cel/core — engine (sampling, easing, validation, serialization)
+│   ├── exporters/     @cel/export — 7 format exporters
+│   ├── player/        @cel/player — tiny playback runtime
+│   └── react/         @cel/react — React wrapper (planned)
+├── apps/
+│   ├── desktop/       Tauri app (editor UI + Rust shell)
+│   └── cli/           Rust CLI binary
+├── presets/           31 bundled .aanim scenes
+└── docs/public/       Landing page + JSON Schema
+```
+
+## The engine
+
+Zero dependencies. Works in Node, Deno, Bun, any browser.
+
+```bash
+npm install @cel/core
+```
+
+```typescript
+import { sampleScene, serialize, validate } from '@cel/core';
+
+// Sample all sprites at 1500ms
+const frame = sampleScene(scene, 1500);
+
+// Deterministic serialization (git-friendly)
+const json = serialize(scene);
+
+// Full schema validation with error paths
+const result = validate(input);
+```
+
+## File format
+
+`.aanim` — UTF-8 JSON with strict conventions. Deterministic output: alphabetical keys, fixed numeric precision, trailing newline. Every save produces a clean git diff.
+
+```json
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "version": 1,
+  "duration": 4000,
+  "sprites": [
+    {
+      "id": "face",
+      "keyframes": [
+        { "t": 0, "x": 5.5, "y": 5, "fontSize": 22, "opacity": 1 },
+        { "t": 2000, "x": 5.5, "y": 5.6, "rotation": -1, "easing": "inout" }
+      ],
+      "text": "( -_- )"
+    }
+  ]
+}
+```
+
+## Export targets
+
+| Format | Output | Status |
+|--------|--------|--------|
+| HTML | Self-contained page with embedded player | Done |
+| React | Typed `.tsx` component with props | Done |
+| CSS | `@keyframes` rules per sprite | Done |
+| ANSI | Node.js terminal playback script | Done |
+| JS Module | ESM/CJS with `mount()` | Done |
+| JSON | Deterministic `.aanim` | Done |
+| GIF | Animated GIF via Rust rasterizer | Planned |
+
+## Desktop app features
+
+- Visual timeline with draggable keyframes
+- Real-time preview with playback controls
+- Sprite list with add/delete/rename/duplicate
+- Properties panel for all keyframe values
+- Undo/redo (30-entry stack)
+- Native OS menu bar (File, Edit, View, Help)
+- Native open/save dialogs with atomic writes (crash-safe)
+- Autosave every 400ms to Tauri store
+- Light/dark theme with system detection
+- 31 bundled presets
+
+## CLI
+
+```bash
+ascii-anim validate scenes/*.aanim        # schema check
+ascii-anim info scene.aanim               # metadata + stats
+ascii-anim play scene.aanim --loop        # ANSI terminal playback
+ascii-anim render scene.aanim -o out.json # export
+```
+
+## Tests
+
+```bash
+pnpm run test    # 210 tests (186 core + 24 exporter)
+```
+
+- 100% line coverage on the core engine
+- Golden-file tests with 5 fixture scenes
+- Property tests via fast-check
+- Performance benchmark: 0.6ms per frame (100 sprites x 10 keyframes)
+- Exporter contract tests for all 7 formats
 
 ## Prerequisites
 
-- **Node.js 18+** — for the Vite dev server
-- **Rust (stable)** — install via [rustup](https://rustup.rs)
-- **Platform deps** — see the [Tauri prereqs](https://v2.tauri.app/start/prerequisites/) for your OS (Linux needs `webkit2gtk`, macOS needs Xcode CLI tools, Windows needs WebView2 + MSVC)
+- **Node.js 20+** and **pnpm**
+- **Rust stable** — [rustup.rs](https://rustup.rs)
+- **Platform deps** — [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/)
 
-## Run
+## License
 
-```bash
-npm install
-npm run tauri dev
-```
-
-The first Rust build takes a few minutes. Subsequent rebuilds are seconds.
-
-## Package
-
-```bash
-npm run tauri build
-```
-
-Produces a signed app bundle for your current platform in
-`src-tauri/target/release/bundle/`.
-
-> **Icons** — dev mode works with default icons. To bundle a release build, add
-> a source PNG (at least 1024×1024, preferably transparent) and run
-> `npm run tauri icon path/to/icon.png` — Tauri generates every size
-> automatically into `src-tauri/icons/`.
-
-## What the store does
-
-The store file lives at the OS app-data dir:
-
-| OS      | Path                                                            |
-|---------|-----------------------------------------------------------------|
-| Linux   | `~/.local/share/com.example.ascii-anim/ascii-anim.json`         |
-| macOS   | `~/Library/Application Support/com.example.ascii-anim/ascii-anim.json` |
-| Windows | `%APPDATA%\com.example.ascii-anim\ascii-anim.json`              |
-
-Three keys live there:
-
-- `current` — the scene you're editing, autosaved on every change (400 ms debounce)
-- `settings` — `{ looping, speed, duration }`
-- `scenes` — `{ [name]: { sprites, duration, saved } }` — your named library
-
-Close the app, reopen it — you land exactly where you left off.
-
-## How the store is wired
-
-**Rust side** (`src-tauri/src/main.rs`) — one line to register the plugin:
-
-```rust
-tauri::Builder::default()
-    .plugin(tauri_plugin_store::Builder::new().build())
-```
-
-**Permissions** (`src-tauri/capabilities/default.json`) — grant the main window access:
-
-```json
-{ "permissions": ["core:default", "store:default"] }
-```
-
-**JS side** (`src/main.js`) — use `LazyStore` for a file-backed key-value store:
-
-```js
-import { LazyStore } from "@tauri-apps/plugin-store";
-const store = new LazyStore("ascii-anim.json");
-
-await store.set("current", sceneData);
-await store.save();                  // flush to disk
-const scene = await store.get("current");
-```
-
-`LazyStore` loads the file on first access and lets both the JS side and
-Rust side share the same resource.
-
-## Project layout
-
-```
-ascii-anim-desktop/
-├── package.json              npm scripts + deps
-├── vite.config.js            Vite tuned for Tauri
-├── index.html                entry point
-├── src/
-│   ├── main.js               engine + UI + store wiring
-│   └── style.css             self-contained styles + dark mode
-└── src-tauri/
-    ├── Cargo.toml            Rust deps: tauri, plugin-store
-    ├── build.rs              tauri_build::build()
-    ├── tauri.conf.json       window config, dev URL, bundle info
-    ├── capabilities/
-    │   └── default.json      store permissions
-    └── src/
-        └── main.rs           register store plugin, run
-```
-
-## Extending
-
-**Add a native menu** — in `main.rs`, wire up `tauri::menu::MenuBuilder`
-before `.run(...)`.
-
-**Add custom Rust commands** — define `#[tauri::command]` functions and
-register them with `.invoke_handler(tauri::generate_handler![...])`.
-Call from JS with `invoke("command_name", args)`.
-
-**Swap the store for a real DB** — replace `plugin-store` with
-`tauri-plugin-sql` and a SQLite backend. The autosave pattern stays the same,
-but writes go through custom Rust commands instead.
-
-**File export** — `@tauri-apps/plugin-fs` exposes the native filesystem; pair
-it with `@tauri-apps/plugin-dialog` to show a save-file dialog.
-
-**Auto-updater** — add `tauri-plugin-updater` for signed in-app updates.
+MIT

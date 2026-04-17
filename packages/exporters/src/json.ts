@@ -1,4 +1,4 @@
-import { serialize } from '@cel/core';
+import { serialize } from 'cel-core';
 import type { Exporter } from './types';
 
 export const jsonExporter: Exporter<object> = {

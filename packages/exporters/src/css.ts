@@ -1,5 +1,5 @@
-import type { Scene, Easing, BezierEasing } from '@cel/core';
-import { DEFAULT_TRANSFORM, DEFAULT_CHAR_WIDTH, DEFAULT_LINE_HEIGHT } from '@cel/core';
+import type { Scene, Easing, BezierEasing } from 'cel-core';
+import { DEFAULT_TRANSFORM, DEFAULT_CHAR_WIDTH, DEFAULT_LINE_HEIGHT } from 'cel-core';
 import type { Exporter } from './types';
 
 export interface CssOpts {

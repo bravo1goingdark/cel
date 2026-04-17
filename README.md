@@ -70,11 +70,11 @@ cd apps/cli && cargo run -- play ../presets/sleeping.aanim --loop
 Zero dependencies. 3.9KB gzipped. Works everywhere.
 
 ```bash
-npm install @cel/core
+npm install cel-core
 ```
 
 ```typescript
-import { sampleScene, serialize, validate } from '@cel/core';
+import { sampleScene, serialize, validate } from 'cel-core';
 
 const frame = sampleScene(scene, 1500);     // sample at any time
 const json  = serialize(scene);              // deterministic output
@@ -84,11 +84,11 @@ const check = validate(input);              // full error paths
 ## React
 
 ```bash
-npm install @cel/react @cel/core
+npm install cel-react cel-core
 ```
 
 ```tsx
-import { CelAnimation } from '@cel/react';
+import { CelAnimation } from 'cel-react';
 
 <CelAnimation scene={scene} autoplay loop speed={1} />
 ```
@@ -149,10 +149,10 @@ $ cel play presets/sleeping.aanim --loop
 ```
 cel/
 ├── packages/
-│   ├── core/        @cel/core     3.9KB engine
-│   ├── exporters/   @cel/export   7 format exporters
-│   ├── player/      @cel/player   playback runtime
-│   └── react/       @cel/react    React component + hook
+│   ├── core/        cel-core     3.9KB engine
+│   ├── exporters/   cel-export   7 format exporters
+│   ├── player/      cel-player   playback runtime
+│   └── react/       cel-react    React component + hook
 ├── apps/
 │   ├── desktop/     Tauri 2 editor
 │   └── cli/         Rust CLI

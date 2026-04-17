@@ -5,8 +5,8 @@
  */
 
 import { useEffect, useRef } from 'react';
-import type { Scene, Player, RenderTarget, ColorResolver } from '@cel/core';
-import { createPlayer } from '@cel/core';
+import type { Scene, Player, RenderTarget, ColorResolver } from 'cel-core';
+import { createPlayer } from 'cel-core';
 
 /**
  * Create and manage a Cel player tied to a React component lifecycle.

@@ -10,8 +10,8 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@cel/core": "workspace:*",
-    "@cel/export": "workspace:*",
+    "cel-core": "workspace:*",
+    "cel-export": "workspace:*",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-dialog": "^2",
     "@tauri-apps/plugin-fs": "^2",

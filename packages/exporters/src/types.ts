@@ -3,7 +3,7 @@
  * Exporter interfaces. Every exporter is a pure function: scene + opts → result.
  */
 
-import type { Scene } from '@cel/core';
+import type { Scene } from 'cel-core';
 
 /** An exporter that converts a scene to a specific output format. */
 export interface Exporter<Opts = object> {

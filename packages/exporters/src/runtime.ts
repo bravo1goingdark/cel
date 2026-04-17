@@ -2,10 +2,10 @@
  * @module runtime
  * Canonical runtime code strings for embedding in self-contained exports.
  * All exporters import from here instead of hand-duplicating sampling logic.
- * Uses binary search for O(log n) keyframe lookup, matching @cel/core.
+ * Uses binary search for O(log n) keyframe lookup, matching cel-core.
  */
 
-import { DEFAULT_TRANSFORM, DEFAULT_CHAR_WIDTH, DEFAULT_LINE_HEIGHT } from '@cel/core';
+import { DEFAULT_TRANSFORM, DEFAULT_CHAR_WIDTH, DEFAULT_LINE_HEIGHT } from 'cel-core';
 
 const D = DEFAULT_TRANSFORM;
 

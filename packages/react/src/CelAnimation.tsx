@@ -5,8 +5,8 @@
  */
 
 import { useEffect, useRef } from 'react';
-import type { Scene, SampledSprite, Player, RenderTarget } from '@cel/core';
-import { createPlayer, DEFAULT_CHAR_WIDTH, DEFAULT_LINE_HEIGHT } from '@cel/core';
+import type { Scene, SampledSprite, Player, RenderTarget } from 'cel-core';
+import { createPlayer, DEFAULT_CHAR_WIDTH, DEFAULT_LINE_HEIGHT } from 'cel-core';
 
 export interface CelAnimationProps {
   /** The scene to play. */

@@ -1,6 +1,6 @@
 {
-  "name": "@cel/player",
-  "version": "0.1.0-alpha.0",
+  "name": "cel-player",
+  "version": "0.1.1",
   "description": "Tiny runtime that plays Cel scene files (~1KB)",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -13,13 +13,16 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@cel/core": "workspace:*"
+    "cel-core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8",

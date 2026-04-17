@@ -490,9 +490,12 @@ h2 {
 
 /* ── install ────────────────────────────────── */
 .install-wrap {
-  max-width: 520px;
+  max-width: 720px;
   margin: 0 auto;
   text-align: center;
+}
+.install-wrap a[href*="npmjs"]:hover {
+  border-color: var(--accent) !important;
 }
 
 .code-block {
@@ -922,17 +925,28 @@ footer a:hover { color: var(--fg); }
     <div class="section-label">Engine</div>
     <h2>3.9KB. Zero deps.<br>Runs everywhere.</h2>
     <p class="section-desc">The core engine works in Node, Deno, Bun, and any browser. Import three functions and you're done.</p>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+      <a href="https://www.npmjs.com/package/cel-core" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
+        <span style="color:var(--fg-3)">npm</span> cel-core <span style="color:var(--accent)">v0.1.1</span>
+      </a>
+      <a href="https://www.npmjs.com/package/cel-export" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
+        <span style="color:var(--fg-3)">npm</span> cel-export <span style="color:var(--accent)">v0.1.1</span>
+      </a>
+      <a href="https://www.npmjs.com/package/cel-player" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
+        <span style="color:var(--fg-3)">npm</span> cel-player <span style="color:var(--accent)">v0.1.1</span>
+      </a>
+    </div>
     <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
 <span style="color:var(--fg-3)">// install</span><br>
-<span class="dim">$</span> npm install <span class="hl">@cel/core</span><br><br>
+<span class="dim">$</span> npm install <span class="hl">cel-core</span><br><br>
 <span style="color:var(--fg-3)">// sample a scene at any timestamp</span><br>
-<span style="color:var(--accent)">import</span> { sampleScene } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/core'</span>;<br>
+<span style="color:var(--accent)">import</span> { sampleScene } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-core'</span>;<br>
 <span style="color:var(--fg-3)">const</span> frame = sampleScene(scene, 1500);<br><br>
 <span style="color:var(--fg-3)">// deterministic serialization</span><br>
-<span style="color:var(--accent)">import</span> { serialize } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/core'</span>;<br>
+<span style="color:var(--accent)">import</span> { serialize } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-core'</span>;<br>
 <span style="color:var(--fg-3)">const</span> json = serialize(scene); <span style="color:var(--fg-3)">// identical input = identical bytes</span><br><br>
 <span style="color:var(--fg-3)">// validate with full error paths</span><br>
-<span style="color:var(--accent)">import</span> { validate } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/core'</span>;<br>
+<span style="color:var(--accent)">import</span> { validate } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-core'</span>;<br>
 <span style="color:var(--fg-3)">const</span> { valid, errors } = validate(input);
     </div>
   </div>
@@ -942,12 +956,20 @@ footer a:hover { color: var(--fg); }
   <div class="features-wrap">
     <div class="section-label">React</div>
     <h2>Drop-in component.<br>One import.</h2>
-    <p class="section-desc">@cel/react ships a ready-to-use component. Pass a scene, get a playing animation. Tree-shakeable, typed, 3KB.</p>
+    <p class="section-desc">A ready-to-use component that plays any scene. Tree-shakeable, fully typed, 3KB.</p>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+      <a href="https://www.npmjs.com/package/cel-react" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
+        <span style="color:var(--fg-3)">npm</span> cel-react <span style="color:var(--accent)">v0.1.1</span>
+      </a>
+      <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-3);">
+        peer react ^18 || ^19
+      </span>
+    </div>
     <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
 <span style="color:var(--fg-3)">// install</span><br>
-<span class="dim">$</span> npm install <span class="hl">@cel/react</span> <span class="hl">@cel/core</span><br><br>
+<span class="dim">$</span> npm install <span class="hl">cel-react</span> <span class="hl">cel-core</span><br><br>
 <span style="color:var(--fg-3)">// drop into any React app</span><br>
-<span style="color:var(--accent)">import</span> { CelAnimation } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/react'</span>;<br>
+<span style="color:var(--accent)">import</span> { CelAnimation } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-react'</span>;<br>
 <span style="color:var(--accent)">import</span> scene <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'./sleeping.aanim'</span>;<br><br>
 <span style="color:var(--accent)">export default</span> <span style="color:var(--fg-3)">function</span> App() {<br>
 &nbsp;&nbsp;<span style="color:var(--accent)">return</span> &lt;<span style="color:var(--fg)">CelAnimation</span><br>
@@ -1047,11 +1069,30 @@ footer a:hover { color: var(--fg); }
   <div class="install-wrap">
     <div class="section-label">Get started</div>
     <h2>Add to any project</h2>
-    <p class="section-desc" style="margin: 0 auto;">Install the engine. Import it. Ship.</p>
-    <div class="code-block">
-      <span class="dim">$</span> npm install <span class="hl">@cel/core</span>
+    <p class="section-desc" style="margin: 0 auto;">Four packages on npm. Pick what you need.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;max-width:700px;margin:32px auto 0;text-align:left;">
+      <a href="https://www.npmjs.com/package/cel-core" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
+        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-core</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">3.9KB engine. Zero deps. Runs anywhere.</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-core</div>
+      </a>
+      <a href="https://www.npmjs.com/package/cel-react" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
+        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-react</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">Drop-in React component + useCelPlayer hook.</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-react cel-core</div>
+      </a>
+      <a href="https://www.npmjs.com/package/cel-export" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
+        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-export</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">Export to HTML, React, CSS, JS, ANSI and more.</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-export</div>
+      </a>
+      <a href="https://www.npmjs.com/package/cel-player" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
+        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-player</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">Playback runtime for custom render targets.</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-player</div>
+      </a>
     </div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
       <a href="https://github.com/bravo1goingdark/cel/releases/latest" class="btn btn-accent btn-large">Download latest release</a>
       <a href="https://github.com/bravo1goingdark/cel" class="btn btn-ghost btn-large">View source</a>
     </div>

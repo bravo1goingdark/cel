@@ -1,6 +1,6 @@
 {
-  "name": "@cel/core",
-  "version": "0.1.0-alpha.0",
+  "name": "cel-core",
+  "version": "0.1.1",
   "description": "Zero-dependency TypeScript engine for ASCII character-grid animations",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -14,7 +14,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify",

@@ -5,8 +5,8 @@ import { listen } from "@tauri-apps/api/event";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { open as dialogOpen, save as dialogSave } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
-import { sampleSprite as coreSample, serialize as coreSerialize, DEFAULT_TRANSFORM } from "@cel/core";
-import { exporters as allExporters } from "@cel/export";
+import { sampleSprite as coreSample, serialize as coreSerialize, DEFAULT_TRANSFORM } from "cel-core";
+import { exporters as allExporters } from "cel-export";
 
 const store = new LazyStore("cel.json");
 
@@ -86,7 +86,7 @@ function lerpColor(a, b, t) {
   return `rgb(${Math.round(lerp(pa[0], pb[0], t))},${Math.round(lerp(pa[1], pb[1], t))},${Math.round(lerp(pa[2], pb[2], t))})`;
 }
 
-// ─── Keyframe interpolation (delegates to @cel/core) ────────
+// ─── Keyframe interpolation (delegates to cel-core) ────────
 // DOM-based color resolver for named tokens
 const _domResolver = {
   resolve(token) {

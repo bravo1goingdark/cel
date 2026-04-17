@@ -1,5 +1,5 @@
 /**
- * @cel/react — React components for playing Cel ASCII animations.
+ * cel-react — React components for playing Cel ASCII animations.
  *
  * @packageDocumentation
  */
@@ -15,4 +15,4 @@ export type {
   RenderTarget,
   SampledSprite,
   ColorResolver,
-} from '@cel/core';
+} from 'cel-core';

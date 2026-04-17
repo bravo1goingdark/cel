@@ -1,5 +1,5 @@
-import type { Scene } from '@cel/core';
-import { serialize, DEFAULT_TRANSFORM } from '@cel/core';
+import type { Scene } from 'cel-core';
+import { serialize, DEFAULT_TRANSFORM } from 'cel-core';
 import type { Exporter } from './types';
 import {
   RUNTIME_DEFAULTS,

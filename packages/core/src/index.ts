@@ -1,5 +1,5 @@
 /**
- * @cel/core — Zero-dependency TypeScript engine for ASCII character-grid animations.
+ * cel-core — Zero-dependency TypeScript engine for ASCII character-grid animations.
  *
  * @packageDocumentation
  */

@@ -357,6 +357,34 @@ h1 .thin { font-weight: 400; color: var(--fg-2); }
   border-radius: 1px;
 }
 
+/* ── demo controls ─────────────────────────── */
+.demo-controls {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border-top: 1px solid var(--fg-4);
+}
+.demo-ctrl {
+  background: transparent; border: 1px solid var(--fg-4); border-radius: 6px;
+  color: var(--fg-3); cursor: pointer; width: 32px; height: 28px; font-size: 10px;
+  display: flex; align-items: center; justify-content: center; transition: all 150ms;
+}
+.demo-ctrl:hover { color: var(--fg); border-color: var(--fg-3); }
+.demo-progress {
+  flex: 1; height: 4px; background: var(--fg-4); border-radius: 2px;
+  cursor: pointer; position: relative;
+}
+.demo-progress-bar {
+  height: 100%; background: var(--accent); border-radius: 2px; width: 0%;
+}
+.demo-time {
+  font-family: var(--mono); font-size: 11px; color: var(--fg-3);
+  min-width: 40px; text-align: right;
+}
+.demo-speed {
+  font-family: var(--mono); font-size: 11px; background: transparent;
+  border: 1px solid var(--fg-4); border-radius: 6px; color: var(--fg-3);
+  padding: 4px 8px; cursor: pointer;
+}
+
 /* ── section styling ────────────────────────── */
 section { padding: 120px 24px; }
 
@@ -667,6 +695,12 @@ footer a:hover { color: var(--fg); }
         <button data-p="neon">neon</button>
         <button data-p="rain">rain</button>
       </div>
+      <div class="demo-controls">
+        <button class="demo-ctrl" id="demo-pp" title="Play/Pause">&#10074;&#10074;</button>
+        <div class="demo-progress" id="demo-prog"><div class="demo-progress-bar" id="demo-bar-fill"></div></div>
+        <span class="demo-time" id="demo-time">0.0s</span>
+        <select class="demo-speed" id="demo-speed"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option></select>
+      </div>
     </div>
   </div>
 </section>
@@ -755,16 +789,16 @@ footer a:hover { color: var(--fg); }
     <h2>Validate, play, render.<br>From your terminal.</h2>
     <p class="section-desc">1.3MB static Rust binary. Batch export from YAML configs. Plays animations directly in the terminal with ANSI.</p>
     <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.8;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
-<span class="dim">$</span> ascii-anim validate scenes/*.aanim<br>
+<span class="dim">$</span> cel validate scenes/*.aanim<br>
 &nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> sleeping.aanim<br>
 &nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> spinner.aanim<br>
 &nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> heartbeat.aanim<br>
 &nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> 31 files validated, 0 errors<br><br>
-<span class="dim">$</span> ascii-anim info presets/sleeping.aanim<br>
+<span class="dim">$</span> cel info presets/sleeping.aanim<br>
 &nbsp;&nbsp;duration: 4000ms (4.0s)<br>
 &nbsp;&nbsp;sprites:&nbsp; 4<br>
 &nbsp;&nbsp;keyframes: 17 total<br><br>
-<span class="dim">$</span> ascii-anim play presets/sleeping.aanim --loop
+<span class="dim">$</span> cel play presets/sleeping.aanim --loop
     </div>
   </div>
 </section>
@@ -1077,14 +1111,19 @@ function sam(kf,t){
   if(!kf.length)return{x:D.x,y:D.y,op:D.op,fs:D.fs,rot:D.rot};
   if(t<=kf[0].t){const k=kf[0];return{x:k.x??D.x,y:k.y??D.y,op:k.op??D.op,fs:k.fs??D.fs,rot:k.rot??D.rot}}
   const l=kf[kf.length-1];if(t>=l.t)return{x:l.x??D.x,y:l.y??D.y,op:l.op??D.op,fs:l.fs??D.fs,rot:l.rot??D.rot};
-  let i=0;while(i<kf.length-1&&kf[i+1].t<=t)i++;
-  const a=kf[i],b=kf[i+1],p=ease((t-a.t)/(b.t-a.t),b.e);
+  let lo=0,hi=kf.length-2;while(lo<hi){const m=(lo+hi+1)>>>1;if(kf[m].t<=t)lo=m;else hi=m-1}
+  const a=kf[lo],b=kf[lo+1],p=ease((t-a.t)/(b.t-a.t),b.e);
   return{x:lerp(a.x??D.x,b.x??D.x,p),y:lerp(a.y??D.y,b.y??D.y,p),op:lerp(a.op??D.op,b.op??D.op,p),fs:lerp(a.fs??D.fs,b.fs??D.fs,p),rot:lerp(a.rot??D.rot,b.rot??D.rot,p)}
 }
 function txt(sp,t){let r=sp.text;for(const k of sp.kf){if(k.t>t)break;if(k.tx!=null)r=k.tx}return r}
 
 const cv=document.getElementById("canvas");
-let scene,els=[],time=0,last=null,raf=0;
+const ppBtn=document.getElementById("demo-pp");
+const progBar=document.getElementById("demo-bar-fill");
+const progWrap=document.getElementById("demo-prog");
+const timeDisp=document.getElementById("demo-time");
+const spdSel=document.getElementById("demo-speed");
+let scene,els=[],time=0,last=null,raf=0,playing=true,speed=1;
 
 function load(name){
   cancelAnimationFrame(raf);
@@ -1094,15 +1133,13 @@ function load(name){
     el.className="sp"; cv.appendChild(el);
     els.push({sp,el});
   }
-  time=0;last=null;
+  time=0;last=null;playing=true;
+  ppBtn.innerHTML="&#10074;&#10074;";
   document.querySelectorAll(".demo-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.p===name));
   raf=requestAnimationFrame(tick);
 }
 
-function tick(now){
-  if(last===null)last=now;
-  time+=Math.min(now-last,100);last=now;
-  if(time>=scene.duration)time%=scene.duration;
+function renderFrame(){
   for(const{sp,el}of els){
     const p=sam(sp.kf,time);
     el.textContent=txt(sp,time);
@@ -1110,9 +1147,30 @@ function tick(now){
     el.style.opacity=p.op.toFixed(2);
     el.style.fontSize=Math.round(p.fs)+"px";
   }
+  progBar.style.width=(time/scene.duration*100)+"%";
+  timeDisp.textContent=(time/1000).toFixed(1)+"s";
+}
+
+function tick(now){
+  if(!playing){last=null;return}
+  if(last===null)last=now;
+  time+=Math.min(now-last,100)*speed;last=now;
+  if(time>=scene.duration)time%=scene.duration;
+  renderFrame();
   raf=requestAnimationFrame(tick);
 }
 
+ppBtn.addEventListener("click",()=>{
+  playing=!playing;
+  ppBtn.innerHTML=playing?"&#10074;&#10074;":"&#9654;";
+  if(playing){last=null;raf=requestAnimationFrame(tick)}
+});
+progWrap.addEventListener("click",e=>{
+  const r=progWrap.getBoundingClientRect();
+  time=(e.clientX-r.left)/r.width*scene.duration;
+  renderFrame();
+});
+spdSel.addEventListener("change",e=>{speed=parseFloat(e.target.value)});
 document.querySelectorAll(".demo-tabs button").forEach(b=>b.addEventListener("click",()=>load(b.dataset.p)));
 load("sleeping");
 </script>

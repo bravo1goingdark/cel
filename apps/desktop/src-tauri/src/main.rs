@@ -66,7 +66,7 @@ fn main() {
 
             let help_menu = SubmenuBuilder::new(app, "Help")
                 .item(&MenuItemBuilder::with_id("shortcuts", "Keyboard Shortcuts").build(app)?)
-                .item(&MenuItemBuilder::with_id("about", "About ASCII Anim").build(app)?)
+                .item(&MenuItemBuilder::with_id("about", "About Cel").build(app)?)
                 .build()?;
 
             let menu = MenuBuilder::new(app)

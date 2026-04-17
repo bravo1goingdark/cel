@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ascii-anim.app/schema/v1.json",
-  "title": "ASCII Anim Scene",
+  "$id": "https://cel.dev/schema/v1.json",
+  "title": "Cel Scene",
   "description": "A complete ASCII character-grid animation scene (v1).",
   "type": "object",
   "required": ["version", "duration", "sprites"],

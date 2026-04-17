@@ -1,7 +1,7 @@
 [package]
-name = "ascii-anim"
+name = "cel"
 version = "0.1.0"
-description = "ASCII animation studio — Tauri desktop app"
+description = "Cel — ASCII animation studio desktop app"
 edition = "2021"
 
 [build-dependencies]

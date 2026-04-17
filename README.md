@@ -76,7 +76,7 @@ const result = validate(input);
 
 ```json
 {
-  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "$schema": "https://cel.dev/schema/v1.json",
   "version": 1,
   "duration": 4000,
   "sprites": [
@@ -120,10 +120,10 @@ const result = validate(input);
 ## CLI
 
 ```bash
-ascii-anim validate scenes/*.aanim        # schema check
-ascii-anim info scene.aanim               # metadata + stats
-ascii-anim play scene.aanim --loop        # ANSI terminal playback
-ascii-anim render scene.aanim -o out.json # export
+cel validate scenes/*.aanim        # schema check
+cel info scene.aanim               # metadata + stats
+cel play scene.aanim --loop        # ANSI terminal playback
+cel render scene.aanim -o out.json # export
 ```
 
 ## Tests

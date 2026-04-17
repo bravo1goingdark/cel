@@ -1,5 +1,5 @@
 {
-  "name": "ascii-anim-desktop",
+  "name": "cel-desktop",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -10,8 +10,8 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@ascii-anim/core": "workspace:*",
-    "@ascii-anim/export": "workspace:*",
+    "@cel/core": "workspace:*",
+    "@cel/export": "workspace:*",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-dialog": "^2",
     "@tauri-apps/plugin-fs": "^2",

@@ -17,10 +17,10 @@ importers:
 
   apps/desktop:
     dependencies:
-      '@ascii-anim/core':
+      '@cel/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@ascii-anim/export':
+      '@cel/export':
         specifier: workspace:*
         version: link:../../packages/exporters
       '@tauri-apps/api':
@@ -63,7 +63,7 @@ importers:
 
   packages/exporters:
     dependencies:
-      '@ascii-anim/core':
+      '@cel/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -79,7 +79,7 @@ importers:
 
   packages/player:
     dependencies:
-      '@ascii-anim/core':
+      '@cel/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -92,7 +92,7 @@ importers:
 
   packages/react:
     dependencies:
-      '@ascii-anim/core':
+      '@cel/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

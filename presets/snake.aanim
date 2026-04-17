@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "$schema": "https://cel.dev/schema/v1.json",
   "duration": 3000,
   "sprites": [
     {

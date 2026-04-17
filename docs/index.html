@@ -514,12 +514,106 @@ footer a:hover { color: var(--fg); }
 }
 .hero > *:not(#hero-bg) { position: relative; z-index: 1; }
 
-/* ── responsive ─────────────────────────────── */
-@media (max-width: 768px) {
-  .feature-grid { grid-template-columns: 1fr; }
-  nav { padding: 0 16px; gap: 16px; }
+/* ── responsive: tablet ──────────────────────── */
+@media (max-width: 900px) {
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  #stage-wrap { height: 260px; }
+  #canvas { width: 440px; height: 210px; transform: scale(0.95); }
+}
+
+/* ── responsive: mobile ─────────────────────── */
+@media (max-width: 640px) {
+  nav {
+    padding: 0 16px;
+    gap: 12px;
+    height: 50px;
+  }
   .nav-links { display: none; }
-  footer { flex-direction: column; gap: 16px; text-align: center; }
+  .nav-right .btn-ghost { display: none; }
+  .nav-right { gap: 8px; }
+  .btn { padding: 6px 14px; font-size: 12px; }
+  .btn-large { padding: 10px 22px; font-size: 13px; }
+
+  .hero {
+    padding: 70px 18px 32px;
+    min-height: auto;
+  }
+  .hero::before { width: 400px; height: 300px; }
+  .hero-tag { font-size: 10px; margin-bottom: 20px; }
+  h1 { font-size: 32px; margin-bottom: 16px; }
+  .hero-sub { font-size: 15px; margin-bottom: 28px; max-width: 320px; }
+  .hero-actions { flex-direction: column; width: 100%; max-width: 280px; margin-bottom: 48px; }
+  .hero-actions .btn { justify-content: center; }
+
+  .demo { padding: 0 12px; }
+  .demo-frame { border-radius: 12px; }
+  .demo-bar { padding: 10px 12px; gap: 6px; }
+  .dot { width: 8px; height: 8px; }
+  #stage-wrap { height: 200px; }
+  #canvas { width: 320px; height: 160px; transform: scale(0.85); transform-origin: center; }
+  .demo-tabs { flex-wrap: wrap; }
+  .demo-tabs button {
+    flex: 1 1 calc(33.33% - 1px);
+    padding: 9px 4px;
+    font-size: 11px;
+    border-bottom: 1px solid var(--fg-4);
+  }
+  .demo-tabs button:nth-child(3) { border-right: none; }
+  .demo-tabs button:nth-child(n+4) { border-bottom: none; }
+
+  section { padding: 72px 18px; }
+  .section-label { font-size: 10px; margin-bottom: 12px; }
+  h2 { font-size: 24px; margin-bottom: 10px; }
+  .section-desc { font-size: 14px; }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    border-radius: 12px;
+    margin-top: 36px;
+  }
+  .fc { padding: 24px 20px; }
+  .fc-icon { font-size: 18px; margin-bottom: 12px; }
+  .fc h3 { font-size: 14px; }
+  .fc p { font-size: 12px; }
+
+  .export-grid { gap: 6px; margin-top: 28px; }
+  .export-chip { padding: 8px 14px; font-size: 12px; border-radius: 8px; }
+
+  .code-block { font-size: 12px; padding: 14px 18px; border-radius: 10px; margin: 24px 0 20px; }
+  .install-wrap .btn-large { width: 100%; justify-content: center; }
+  #install > .install-wrap > div { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
+  #install > .install-wrap > div .btn { justify-content: center; }
+
+  footer {
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    padding: 28px 18px;
+  }
+  .footer-links { gap: 16px; }
+}
+
+/* ── responsive: small mobile ───────────────── */
+@media (max-width: 380px) {
+  h1 { font-size: 28px; }
+  .hero-sub { font-size: 14px; }
+  #canvas { width: 280px; height: 140px; transform: scale(0.75); }
+  #stage-wrap { height: 170px; }
+  .demo-tabs button { font-size: 10px; padding: 8px 2px; }
+  .fc { padding: 20px 16px; }
+}
+
+/* ── touch improvements ─────────────────────── */
+@media (hover: none) {
+  .btn:active:not(:disabled) { transform: scale(0.96); }
+  .fc:hover { background: var(--bg); }
+  .export-chip:hover { border-color: var(--fg-4); color: var(--fg-2); background: var(--bg-3); }
+}
+
+/* ── safe area for notched phones ───────────── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  footer { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
+  nav { padding-left: calc(16px + env(safe-area-inset-left)); padding-right: calc(16px + env(safe-area-inset-right)); }
 }
 </style>
 </head>

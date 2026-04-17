@@ -1,23 +1,23 @@
 /* ── design tokens ───────────────────────────────────────────── */
 :root, [data-theme="light"] {
   color-scheme: light dark;
-  --bg-0: #faf9f7;
+  --bg-0: #fafaf8;
   --bg-1: #ffffff;
-  --bg-2: #f4f3f0;
-  --bg-3: #eae8e3;
+  --bg-2: #f0eeeb;
+  --bg-3: #e8e5e1;
   --bg-4: #dddbd5;
-  --fg-1: #1a1a19;
+  --fg-1: #0e0e0f;
   --fg-2: #555550;
   --fg-3: #8a897f;
   --fg-4: #b0afa6;
-  --primary: #2c2c2a;
-  --secondary: #5f5e5a;
-  --tertiary: #888780;
-  --info: #2a7de1;
+  --primary: #0e0e0f;
+  --secondary: #555550;
+  --tertiary: #8a897f;
+  --info: #5b9cf5;
   --success: #3b9411;
   --warning: #c47a0e;
   --danger: #d13838;
-  --accent: #2a7de1;
+  --accent: #e8720c;
   --border: rgba(0, 0, 0, 0.08);
   --border-strong: rgba(0, 0, 0, 0.15);
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
@@ -27,8 +27,8 @@
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 18px;
-  --font-mono: "Berkeley Mono", "SF Mono", ui-monospace, "Cascadia Code", "Menlo", "Consolas", monospace;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --font-sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --transition: 120ms ease;
 }
 
@@ -36,25 +36,25 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg-0: #141413;
-  --bg-1: #1a1a19;
-  --bg-2: #222220;
-  --bg-3: #2c2c2a;
-  --bg-4: #383835;
-  --fg-1: #f0ede5;
+  --bg-0: #0e0e0f;
+  --bg-1: #141415;
+  --bg-2: #1a1a1c;
+  --bg-3: #242426;
+  --bg-4: #333336;
+  --fg-1: #f2f2f0;
   --fg-2: #b4b2a9;
   --fg-3: #888780;
   --fg-4: #5a5955;
-  --primary: #f0ede5;
+  --primary: #f2f2f0;
   --secondary: #b4b2a9;
   --tertiary: #888780;
   --info: #6aadff;
   --success: #7ec944;
   --warning: #efaa47;
   --danger: #f06060;
-  --accent: #6aadff;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-strong: rgba(255, 255, 255, 0.12);
+  --accent: #e8720c;
+  --border: rgba(242, 242, 240, 0.09);
+  --border-strong: rgba(242, 242, 240, 0.12);
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
   --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
@@ -62,25 +62,25 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg-0: #141413;
-    --bg-1: #1a1a19;
-    --bg-2: #222220;
-    --bg-3: #2c2c2a;
-    --bg-4: #383835;
-    --fg-1: #f0ede5;
+    --bg-0: #0e0e0f;
+    --bg-1: #141415;
+    --bg-2: #1a1a1c;
+    --bg-3: #242426;
+    --bg-4: #333336;
+    --fg-1: #f2f2f0;
     --fg-2: #b4b2a9;
     --fg-3: #888780;
     --fg-4: #5a5955;
-    --primary: #f0ede5;
+    --primary: #f2f2f0;
     --secondary: #b4b2a9;
     --tertiary: #888780;
     --info: #6aadff;
     --success: #7ec944;
     --warning: #efaa47;
     --danger: #f06060;
-    --accent: #6aadff;
-    --border: rgba(255, 255, 255, 0.06);
-    --border-strong: rgba(255, 255, 255, 0.12);
+    --accent: #e8720c;
+    --border: rgba(242, 242, 240, 0.09);
+    --border-strong: rgba(242, 242, 240, 0.12);
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
     --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
     --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);

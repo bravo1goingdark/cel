@@ -903,7 +903,7 @@ function applyTheme(pref) {
   _elPrev.forEach(p => { p.cl = ""; });
   const btn = $("btheme");
   if (btn) {
-    btn.textContent = effective === "dark" ? "\u25D1" : "\u25D0";
+    btn.textContent = effective === "dark" ? "\u2600" : "\u263E";
   }
 }
 

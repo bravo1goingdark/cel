@@ -32,8 +32,8 @@
 <meta name="twitter:image" content="https://bravo1goingdark.github.io/cel/og.png">
 
 <!-- Theme -->
-<meta name="theme-color" content="#0a0a09" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0e0f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
 <meta name="color-scheme" content="dark light">
 <meta name="apple-mobile-web-app-title" content="Cel">
 
@@ -61,1380 +61,715 @@
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0e0e0f;--fg:#f2f2f0;--sub:rgba(242,242,240,0.42);
+  --border:rgba(242,242,240,0.09);--card:#141415;--card2:#1a1a1c;
+  --accent:#e8720c;--mono:'DM Mono',monospace;--sans:'Space Grotesk',sans-serif;
+}
+.light{
+  --bg:#fafaf8;--fg:#0e0e0f;--sub:rgba(14,14,15,0.42);
+  --border:rgba(14,14,15,0.09);--card:#f0eeeb;--card2:#e8e5e1;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);
+  transition:background 0.3s,color 0.3s;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.container{max-width:1160px;margin:0 auto;padding:0 40px}
+.mono{font-family:var(--mono)}
+pre,code{font-family:var(--mono)}
 
-:root {
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
-  --sans: 'Inter', -apple-system, system-ui, sans-serif;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(14,14,15,0.72)}
+.light nav{background:rgba(250,250,248,0.82)}
+nav .inner{display:flex;align-items:center;gap:32px;height:56px;max-width:1160px;margin:0 auto;padding:0 40px}
+nav .logo{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:16px;font-weight:500;letter-spacing:-0.03em;white-space:nowrap;flex-shrink:0}
+nav .logo .glob{color:var(--sub);font-weight:300;font-size:13px}
+nav .logo .star{color:var(--accent)}
+nav .links{display:flex;gap:24px;flex:1;font-size:13.5px;color:var(--sub)}
+nav .links a:hover{color:var(--fg);transition:color 0.15s}
+nav .right{display:flex;align-items:center;gap:16px;margin-left:auto}
+nav .theme-btn{background:none;border:none;cursor:pointer;color:var(--sub);font-size:16px;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px}
+nav .theme-btn:hover{color:var(--fg);background:var(--card)}
+nav .gh-link{font-size:13.5px;color:var(--sub)}
+nav .gh-link:hover{color:var(--fg)}
+nav .dl-btn{background:var(--fg);color:var(--bg);border:none;cursor:pointer;
+  font-family:var(--sans);font-size:13px;font-weight:600;padding:7px 16px;border-radius:6px;
+  white-space:nowrap;letter-spacing:-0.01em;transition:opacity 0.15s}
+nav .dl-btn:hover{opacity:0.88}
 
-/* ── dark (default) ─────────────────────────── */
-:root, [data-theme="dark"] {
-  --bg: #0a0a09;
-  --bg-2: #131312;
-  --bg-3: #1c1c1a;
-  --bg-4: #262624;
-  --fg: #e8e5dd;
-  --fg-2: #a09e95;
-  --fg-3: #6b6a63;
-  --fg-4: #3d3d38;
-  --accent: #c8ff3e;
-  --accent-dim: rgba(200,255,62,0.08);
-  --accent-mid: rgba(200,255,62,0.15);
-  --nav-bg: rgba(10,10,9,0.8);
-  --btn-accent-fg: #0a0a09;
-  --demo-shadow: 0 40px 100px rgba(0,0,0,0.5);
-  --glow: rgba(200,255,62,0.04);
-}
+/* Sections */
+section{padding:96px 0}
 
-/* ── light ──────────────────────────────────── */
-[data-theme="light"] {
-  --bg: #faf9f7;
-  --bg-2: #f0eee9;
-  --bg-3: #e4e1da;
-  --bg-4: #d5d2cb;
-  --fg: #1a1a19;
-  --fg-2: #555550;
-  --fg-3: #8a897f;
-  --fg-4: #c5c3bb;
-  --accent: #2d7a1e;
-  --accent-dim: rgba(45,122,30,0.06);
-  --accent-mid: rgba(45,122,30,0.12);
-  --nav-bg: rgba(250,249,247,0.85);
-  --btn-accent-fg: #ffffff;
-  --demo-shadow: 0 40px 100px rgba(0,0,0,0.08);
-  --glow: rgba(45,122,30,0.04);
-}
+/* Hero */
+.hero{padding:140px 0 96px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+.hero h1{font-size:clamp(40px,5vw,64px);font-weight:700;letter-spacing:-0.03em;
+  line-height:1.05;margin-bottom:20px}
+.hero-sub{font-size:17px;color:var(--sub);line-height:1.65;margin-bottom:36px;max-width:420px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--fg);color:var(--bg);border:none;cursor:pointer;
+  font-family:var(--sans);font-size:14px;font-weight:600;padding:11px 22px;
+  border-radius:7px;letter-spacing:-0.01em;transition:opacity 0.15s}
+.btn-primary:hover{opacity:0.88}
+.btn-ghost{background:none;color:var(--fg);border:1px solid var(--border);cursor:pointer;
+  font-family:var(--sans);font-size:14px;font-weight:500;padding:11px 22px;border-radius:7px;transition:border-color 0.15s,background 0.15s}
+.btn-ghost:hover{border-color:var(--fg);background:var(--card)}
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
-    --bg: #faf9f7;
-    --bg-2: #f0eee9;
-    --bg-3: #e4e1da;
-    --bg-4: #d5d2cb;
-    --fg: #1a1a19;
-    --fg-2: #555550;
-    --fg-3: #8a897f;
-    --fg-4: #c5c3bb;
-    --accent: #2d7a1e;
-    --accent-dim: rgba(45,122,30,0.06);
-    --accent-mid: rgba(45,122,30,0.12);
-    --nav-bg: rgba(250,249,247,0.85);
-    --btn-accent-fg: #ffffff;
-    --demo-shadow: 0 40px 100px rgba(0,0,0,0.08);
-    --glow: rgba(45,122,30,0.04);
-  }
-}
+/* ASCII Player */
+.player-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--card)}
+.player-header{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card2)}
+.player-dot{width:10px;height:10px;border-radius:50%}
+.player-title{font-family:var(--mono);font-size:11px;color:var(--sub);letter-spacing:0.04em;margin-left:auto;margin-right:auto}
+.player-screen{padding:28px 24px;font-family:var(--mono);font-size:14px;line-height:1.8;
+  min-height:220px;position:relative;overflow:hidden;white-space:pre}
+.player-controls{display:flex;gap:0;border-top:1px solid var(--border)}
+.scene-tab{flex:1;background:none;border:none;border-right:1px solid var(--border);
+  cursor:pointer;font-family:var(--mono);font-size:11px;color:var(--sub);padding:9px 4px;letter-spacing:0.04em;transition:color 0.15s,background 0.15s}
+.scene-tab:last-child{border-right:none}
+.scene-tab.active{color:var(--accent);background:var(--card2)}
+.scene-tab:hover:not(.active){color:var(--fg)}
 
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--fg);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  transition: background 300ms ease, color 300ms ease;
-}
+/* Features */
+.section-label{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.section-title{font-size:clamp(28px,3.5vw,40px);font-weight:700;letter-spacing:-0.025em;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--sub);margin-bottom:56px;max-width:520px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.feat{background:var(--bg);padding:28px 24px;transition:background 0.3s}
+.feat-icon{font-size:20px;margin-bottom:14px;display:block;color:var(--accent)}
+.feat h3{font-size:15px;font-weight:600;letter-spacing:-0.01em;margin-bottom:8px}
+.feat p{font-size:13.5px;color:var(--sub);line-height:1.6}
 
-/* ── theme toggle ───────────────────────────── */
-.theme-toggle {
-  width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center;
-  background: transparent;
-  border: 1px solid var(--fg-4);
-  border-radius: 8px;
-  cursor: pointer;
-  color: var(--fg-3);
-  font-size: 15px;
-  transition: all 200ms;
-  flex-shrink: 0;
-}
-.theme-toggle:hover { border-color: var(--fg-3); color: var(--fg); background: var(--bg-3); }
+/* Desktop mock */
+.desktop-mock{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--card)}
+.mock-titlebar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--card2);border-bottom:1px solid var(--border)}
+.mock-dots{display:flex;gap:6px}
+.mock-dot{width:11px;height:11px;border-radius:50%}
+.mock-filename{font-family:var(--mono);font-size:12px;color:var(--sub);margin-left:auto;margin-right:auto}
+.mock-body{display:grid;grid-template-columns:160px 1fr 220px;min-height:340px}
+.mock-sidebar{border-right:1px solid var(--border);padding:16px}
+.mock-sidebar-title{font-family:var(--mono);font-size:10px;color:var(--sub);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px}
+.mock-sprite-item{font-family:var(--mono);font-size:12px;padding:5px 8px;border-radius:4px;cursor:default;color:var(--sub)}
+.mock-sprite-item.active{background:var(--card2);color:var(--fg)}
+.mock-stage{display:flex;align-items:center;justify-content:center;flex:1;background:var(--bg);font-family:var(--mono);font-size:22px;white-space:pre;line-height:2.2;transition:background 0.3s}
+.mock-panel{border-left:1px solid var(--border);display:flex;flex-direction:column}
+.mock-panel-row{padding:10px 14px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px}
+.mock-panel-label{color:var(--sub);margin-bottom:3px}
+.mock-panel-val{color:var(--fg);font-size:13px}
+.mock-timeline{border-top:1px solid var(--border);padding:12px 16px;background:var(--card2)}
+.timeline-track{height:3px;background:var(--border);border-radius:2px;margin-top:10px;position:relative}
+.timeline-head{height:100%;background:var(--accent);border-radius:2px;transition:width 0.3s linear}
 
-a { color: inherit; text-decoration: none; }
+/* Code blocks */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:0}
+.tab{background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;
+  color:var(--sub);padding:10px 18px;border-bottom:2px solid transparent;letter-spacing:0.03em;transition:color 0.15s}
+.tab.active{color:var(--fg);border-bottom-color:var(--accent)}
+.tab:hover:not(.active){color:var(--fg)}
+.code-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--card)}
+.code-block{padding:28px;font-family:var(--mono);font-size:13px;line-height:1.9;overflow-x:auto;display:none}
+.code-block.active{display:block}
+.cm{color:var(--sub)} .kw{color:#a78bfa} .str{color:#6ee7b7} .fn{color:#fbbf24}
+.cmt{color:var(--sub);font-style:italic} .acc{color:var(--accent)}
 
-/* ── nav ────────────────────────────────────── */
-nav {
-  position: fixed; top: 0; width: 100%; z-index: 100;
-  padding: 0 40px;
-  height: 56px;
-  display: flex; align-items: center; gap: 32px;
-  background: var(--nav-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--fg-4);
-  transition: background 300ms ease, border-color 300ms ease;
-}
+/* 2-col layout */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
 
-nav *, .demo-frame, .demo-bar, .demo-tabs, .demo-tabs button,
-.fc, .feature-grid, .export-chip, .code-block, .btn-ghost, footer {
-  transition: background 300ms ease, color 300ms ease, border-color 300ms ease;
-}
+/* Package cards */
+.pkg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pkg-card{border:1px solid var(--border);border-radius:10px;padding:24px;background:var(--card);
+  transition:border-color 0.15s}
+.pkg-card:hover{border-color:rgba(232,114,12,0.35)}
+.pkg-name{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--accent);margin-bottom:6px}
+.pkg-desc{font-size:13px;color:var(--sub);line-height:1.5;margin-bottom:14px}
+.pkg-install{font-family:var(--mono);font-size:11px;color:var(--sub);background:var(--card2);
+  padding:7px 10px;border-radius:5px;letter-spacing:0.02em}
 
-.logo {
-  font-family: var(--mono);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  color: var(--fg);
-}
-.logo em { font-style: normal; color: var(--accent); }
+/* CTA section */
+.cta-section{text-align:center;padding:96px 0;border-top:1px solid var(--border)}
+.cta-section h2{font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-0.03em;margin-bottom:14px}
+.cta-section p{font-size:16px;color:var(--sub);margin-bottom:36px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-.nav-links { display: flex; gap: 24px; }
-.nav-links a {
-  font-size: 13px;
-  color: var(--fg-3);
-  transition: color 200ms;
-}
-.nav-links a:hover { color: var(--fg); }
+/* Footer */
+footer{border-top:1px solid var(--border);padding:48px 0}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
+.footer-brand{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--fg);margin-bottom:8px}
+.footer-tagline{font-size:13px;color:var(--sub);line-height:1.6}
+.footer-col h4{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--sub);margin-bottom:14px}
+.footer-col a{display:block;font-size:13.5px;color:var(--sub);margin-bottom:8px;transition:color 0.15s}
+.footer-col a:hover{color:var(--fg)}
+.footer-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center}
+.footer-bottom span{font-size:12.5px;color:var(--sub)}
 
-.nav-right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
-
-.btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 18px;
-  font-size: 13px; font-weight: 500; font-family: var(--sans);
-  border-radius: 8px;
-  border: none; cursor: pointer;
-  transition: all 200ms var(--ease);
+/* Responsive */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;gap:40px;padding:120px 0 64px}
+  .two-col{grid-template-columns:1fr;gap:40px}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .mock-body{grid-template-columns:1fr;min-height:auto}
+  .mock-sidebar,.mock-panel{display:none}
+  .pkg-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
 }
-.btn-accent {
-  background: var(--accent);
-  color: var(--btn-accent-fg);
-}
-.btn-accent:hover { filter: brightness(1.1); transform: translateY(-1px); }
-.btn-ghost {
-  background: transparent;
-  color: var(--fg-2);
-  border: 1px solid var(--fg-4);
-}
-.btn-ghost:hover { border-color: var(--fg-3); color: var(--fg); }
-.btn-large {
-  padding: 12px 28px;
-  font-size: 14px;
-  border-radius: 10px;
-}
-
-/* ── hero ───────────────────────────────────── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 80px 24px 40px;
-  position: relative;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  width: 800px; height: 600px;
-  transform: translate(-50%, -30%);
-  background: radial-gradient(ellipse, var(--glow) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero-tag {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 28px;
-  opacity: 0.8;
-}
-
-h1 {
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.04em;
-  margin-bottom: 24px;
-  max-width: 680px;
-}
-
-h1 .thin { font-weight: 400; color: var(--fg-2); }
-
-.hero-sub {
-  font-size: 17px;
-  color: var(--fg-2);
-  max-width: 420px;
-  line-height: 1.7;
-  margin-bottom: 40px;
-}
-
-.hero-actions {
-  display: flex; gap: 12px;
-  margin-bottom: 80px;
-}
-
-/* ── demo ───────────────────────────────────── */
-.demo {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.demo-frame {
-  border: 1px solid var(--fg-4);
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--bg-2);
-  box-shadow: var(--demo-shadow);
-}
-
-.demo-bar {
-  display: flex; align-items: center;
-  padding: 12px 16px;
-  gap: 8px;
-  border-bottom: 1px solid var(--fg-4);
-}
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot-r { background: #ff5f57; }
-.dot-y { background: #ffbd2e; }
-.dot-g { background: #28c840; }
-.demo-bar-title {
-  flex: 1; text-align: center;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--fg-3);
-}
-
-#stage-wrap {
-  display: flex; align-items: center; justify-content: center;
-  height: 300px;
-  position: relative;
-  overflow: hidden;
-}
-#canvas {
-  position: relative;
-  width: 520px; height: 240px;
-}
-#canvas .sp {
-  position: absolute; top: 0; left: 0;
-  white-space: pre;
-  font-family: var(--mono);
-  line-height: 1.375;
-  color: var(--fg-2);
-  will-change: transform, opacity;
-}
-
-.demo-tabs {
-  display: flex;
-  border-top: 1px solid var(--fg-4);
-}
-.demo-tabs button {
-  flex: 1;
-  padding: 11px 8px;
-  font-family: var(--mono);
-  font-size: 12px;
-  background: transparent;
-  border: none;
-  color: var(--fg-3);
-  cursor: pointer;
-  transition: all 150ms;
-  border-right: 1px solid var(--fg-4);
-  position: relative;
-}
-.demo-tabs button:last-child { border-right: none; }
-.demo-tabs button:hover { color: var(--fg); background: var(--bg-3); }
-.demo-tabs button.on {
-  color: var(--accent);
-  background: var(--accent-dim);
-}
-.demo-tabs button.on::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 20%; right: 20%;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 1px;
-}
-
-/* ── demo controls ─────────────────────────── */
-.demo-controls {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 16px; border-top: 1px solid var(--fg-4);
-}
-.demo-ctrl {
-  background: transparent; border: 1px solid var(--fg-4); border-radius: 6px;
-  color: var(--fg-3); cursor: pointer; width: 32px; height: 28px; font-size: 10px;
-  display: flex; align-items: center; justify-content: center; transition: all 150ms;
-}
-.demo-ctrl:hover { color: var(--fg); border-color: var(--fg-3); }
-.demo-progress {
-  flex: 1; height: 4px; background: var(--fg-4); border-radius: 2px;
-  cursor: pointer; position: relative;
-}
-.demo-progress-bar {
-  height: 100%; background: var(--accent); border-radius: 2px; width: 0%;
-}
-.demo-time {
-  font-family: var(--mono); font-size: 11px; color: var(--fg-3);
-  min-width: 40px; text-align: right;
-}
-.demo-speed {
-  font-family: var(--mono); font-size: 11px; background: transparent;
-  border: 1px solid var(--fg-4); border-radius: 6px; color: var(--fg-3);
-  padding: 4px 8px; cursor: pointer;
-}
-
-/* ── section styling ────────────────────────── */
-section { padding: 120px 24px; }
-
-.section-label {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-  opacity: 0.7;
-}
-
-h2 {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 14px;
-}
-
-.section-desc {
-  font-size: 16px;
-  color: var(--fg-2);
-  line-height: 1.7;
-  max-width: 480px;
-}
-
-/* ── features ───────────────────────────────── */
-.features-wrap {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 56px;
-}
-
-.fc {
-  padding: 32px 28px;
-  background: var(--bg-3);
-  border: 1px solid var(--fg-4);
-  border-radius: 14px;
-  transition: background 300ms, border-color 300ms;
-}
-.fc:hover { background: var(--bg-2); border-color: var(--fg-3); }
-
-.fc-icon {
-  font-family: var(--mono);
-  font-size: 20px;
-  color: var(--accent);
-  margin-bottom: 18px;
-  display: block;
-  opacity: 0.8;
-}
-
-.fc h3 {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 8px;
-}
-
-.fc p {
-  font-size: 13px;
-  color: var(--fg-3);
-  line-height: 1.65;
-}
-
-/* ── exports ────────────────────────────────── */
-.exports-wrap {
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.export-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.export-chip {
-  font-family: var(--mono);
-  font-size: 13px;
-  padding: 10px 20px;
-  background: var(--bg-3);
-  border: 1px solid var(--fg-4);
-  border-radius: 10px;
-  color: var(--fg-2);
-  transition: all 200ms;
-}
-.export-chip:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-dim);
-}
-
-/* ── install ────────────────────────────────── */
-.install-wrap {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
-}
-.install-wrap a[href*="npmjs"]:hover {
-  border-color: var(--accent) !important;
-}
-
-.code-block {
-  font-family: var(--mono);
-  font-size: 14px;
-  background: var(--bg-2);
-  border: 1px solid var(--fg-4);
-  border-radius: 12px;
-  padding: 20px 28px;
-  text-align: left;
-  margin: 32px 0 24px;
-  color: var(--fg-2);
-}
-.code-block .dim { color: var(--fg-4); }
-.code-block .hl { color: var(--accent); }
-
-/* ── footer ─────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--fg-4);
-  padding: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--fg-4);
-}
-footer a { color: var(--fg-3); transition: color 200ms; }
-footer a:hover { color: var(--fg); }
-.footer-links { display: flex; gap: 20px; }
-
-/* ── hero background canvas ──────────────────── */
-#hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-#hero-bg .glyph {
-  position: absolute;
-  font-family: var(--mono);
-  color: var(--accent);
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-.hero > *:not(#hero-bg) { position: relative; z-index: 1; }
-
-/* ── responsive: tablet ──────────────────────── */
-@media (max-width: 900px) {
-  .feature-grid { grid-template-columns: repeat(2, 1fr); }
-  #stage-wrap { height: 260px; }
-  #canvas { width: 440px; height: 210px; transform: scale(0.95); }
-}
-
-/* ── responsive: mobile ─────────────────────── */
-@media (max-width: 640px) {
-  nav {
-    padding: 0 16px;
-    gap: 12px;
-    height: 50px;
-  }
-  .nav-links { display: none; }
-  .nav-right .btn-ghost { display: none; }
-  .nav-right { gap: 8px; }
-  .btn { padding: 6px 14px; font-size: 12px; }
-  .btn-large { padding: 10px 22px; font-size: 13px; }
-
-  .hero {
-    padding: 70px 18px 32px;
-    min-height: auto;
-  }
-  .hero::before { width: 400px; height: 300px; }
-  .hero-tag { font-size: 10px; margin-bottom: 20px; }
-  h1 { font-size: 32px; margin-bottom: 16px; }
-  .hero-sub { font-size: 15px; margin-bottom: 28px; max-width: 320px; }
-  .hero-actions { flex-direction: column; width: 100%; max-width: 280px; margin-bottom: 48px; }
-  .hero-actions .btn { justify-content: center; }
-
-  .demo { padding: 0 12px; }
-  .demo-frame { border-radius: 12px; }
-  .demo-bar { padding: 10px 12px; gap: 6px; }
-  .dot { width: 8px; height: 8px; }
-  #stage-wrap { height: 200px; }
-  #canvas { width: 320px; height: 160px; transform: scale(0.85); transform-origin: center; }
-  .demo-tabs { flex-wrap: wrap; }
-  .demo-tabs button {
-    flex: 1 1 calc(33.33% - 1px);
-    padding: 9px 4px;
-    font-size: 11px;
-    border-bottom: 1px solid var(--fg-4);
-  }
-  .demo-tabs button:nth-child(3) { border-right: none; }
-  .demo-tabs button:nth-child(n+4) { border-bottom: none; }
-
-  section { padding: 72px 18px; }
-  .section-label { font-size: 10px; margin-bottom: 12px; }
-  h2 { font-size: 24px; margin-bottom: 10px; }
-  .section-desc { font-size: 14px; }
-
-  .feature-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 36px;
-  }
-  .fc { padding: 24px 20px; }
-  .fc-icon { font-size: 18px; margin-bottom: 12px; }
-  .fc h3 { font-size: 14px; }
-  .fc p { font-size: 12px; }
-
-  .app-ui { font-size: 10px !important; }
-  #desktop-app div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
-  #react div[style*="grid-template-columns:repeat(2"] { grid-template-columns: 1fr !important; }
-
-  .export-grid { gap: 6px; margin-top: 28px; }
-  #stats-section div[style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
-  .export-chip { padding: 8px 14px; font-size: 12px; border-radius: 8px; }
-
-  .code-block { font-size: 12px; padding: 14px 18px; border-radius: 10px; margin: 24px 0 20px; }
-  .install-wrap .btn-large { width: 100%; justify-content: center; }
-  #install > .install-wrap > div { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
-  #install > .install-wrap > div .btn { justify-content: center; }
-
-  footer {
-    flex-direction: column;
-    gap: 14px;
-    text-align: center;
-    padding: 28px 18px;
-  }
-  .footer-links { gap: 16px; }
-}
-
-/* ── responsive: small mobile ───────────────── */
-@media (max-width: 380px) {
-  h1 { font-size: 28px; }
-  .hero-sub { font-size: 14px; }
-  #canvas { width: 280px; height: 140px; transform: scale(0.75); }
-  #stage-wrap { height: 170px; }
-  .demo-tabs button { font-size: 10px; padding: 8px 2px; }
-  .fc { padding: 20px 16px; }
-}
-
-/* ── touch improvements ─────────────────────── */
-@media (hover: none) {
-  .btn:active:not(:disabled) { transform: scale(0.96); }
-  .fc:hover { background: var(--bg); }
-  .export-chip:hover { border-color: var(--fg-4); color: var(--fg-2); background: var(--bg-3); }
-}
-
-/* ── safe area for notched phones ───────────── */
-@supports (padding: env(safe-area-inset-bottom)) {
-  footer { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
-  nav { padding-left: calc(16px + env(safe-area-inset-left)); padding-right: calc(16px + env(safe-area-inset-right)); }
+@media(max-width:640px){
+  .container{padding:0 20px}
+  nav .inner{padding:0 20px;gap:16px}
+  nav .links{display:none}
+  .hero{padding:100px 0 48px}
+  .hero h1{font-size:36px}
+  .features-grid{grid-template-columns:1fr}
+  .pkg-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .mock-body{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .react-cards{grid-template-columns:1fr !important}
 }
 </style>
 </head>
 <body>
 
+<!-- Nav -->
 <nav>
-  <a href="/" class="logo">cel<em>.</em></a>
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#desktop-app">Desktop</a>
-    <a href="#exports">Exports</a>
-    <a href="#react">React</a>
-    <a href="#install">Install</a>
-  </div>
-  <div class="nav-right">
-    <button class="theme-toggle" id="theme-btn" title="Toggle theme" aria-label="Toggle light/dark mode">&#9790;</button>
-    <a href="https://github.com/bravo1goingdark/cel" class="btn btn-ghost">GitHub</a>
-    <a href="https://github.com/bravo1goingdark/cel/releases/latest" class="btn btn-accent">Download</a>
+  <div class="inner">
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      <span>cel</span><span class="glob"><span class="star">*</span>.<span class="star">*</span></span>
+    </a>
+    <div class="links">
+      <a href="#features">Features</a>
+      <a href="#desktop">Desktop</a>
+      <a href="#exports">Exports</a>
+      <a href="#react">React</a>
+      <a href="#install">Install</a>
+    </div>
+    <div class="right">
+      <button class="theme-btn" id="themeToggle" title="Toggle theme"></button>
+      <a class="gh-link" href="https://github.com/bravo1goingdark/cel" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/bravo1goingdark/cel/releases/latest" class="dl-btn">Download</a>
+    </div>
   </div>
 </nav>
 
-<section class="hero">
-  <div id="hero-bg"></div>
-  <div class="hero-tag">ascii animation studio</div>
-  <h1>Characters<br><span class="thin">in motion.</span></h1>
-  <p class="hero-sub">Design ASCII animations visually. Export to any format. Ship in seconds. Open source, offline, under 4KB.</p>
-  <div class="hero-actions">
-    <a href="https://github.com/bravo1goingdark/cel/releases/latest" class="btn btn-accent btn-large">Download free</a>
-    <a href="#demo" class="btn btn-ghost btn-large">Watch demo</a>
-  </div>
-</section>
-
-<section id="demo" style="padding-top:0; padding-bottom: 140px;">
-  <div class="demo">
-    <div class="demo-frame">
-      <div class="demo-bar">
-        <div class="dot dot-r"></div>
-        <div class="dot dot-y"></div>
-        <div class="dot dot-g"></div>
-        <div class="demo-bar-title">cel.</div>
-      </div>
-      <div id="stage-wrap">
-        <div id="canvas"></div>
-      </div>
-      <div class="demo-tabs">
-        <button class="on" data-p="sleeping">sleeping</button>
-        <button data-p="cityscape">cityscape</button>
-        <button data-p="fireworks">fireworks</button>
-        <button data-p="typewriter">typewriter</button>
-        <button data-p="rocket">rocket</button>
-        <button data-p="ocean">ocean</button>
-        <button data-p="neon">neon</button>
-        <button data-p="rain">rain</button>
-      </div>
-      <div class="demo-controls">
-        <button class="demo-ctrl" id="demo-pp" title="Play/Pause">&#10074;&#10074;</button>
-        <div class="demo-progress" id="demo-prog"><div class="demo-progress-bar" id="demo-bar-fill"></div></div>
-        <span class="demo-time" id="demo-time">0.0s</span>
-        <select class="demo-speed" id="demo-speed"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option></select>
+<!-- Hero -->
+<div class="container">
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">ascii animation studio</div>
+      <h1>Characters<br>in motion.</h1>
+      <p class="hero-sub">Design ASCII animations visually. Export to any format. Ship in seconds. Open source, offline, under 4 KB.</p>
+      <div class="hero-ctas">
+        <a href="https://github.com/bravo1goingdark/cel/releases/latest" class="btn-primary">Download free</a>
+        <a href="https://github.com/bravo1goingdark/cel" class="btn-ghost">View on GitHub</a>
       </div>
     </div>
+    <!-- ASCII Player -->
+    <div class="player-wrap" id="asciiPlayer">
+      <div class="player-header">
+        <div class="player-dot" style="background:#ff5f56"></div>
+        <div class="player-dot" style="background:#ffbd2e"></div>
+        <div class="player-dot" style="background:#27c93f"></div>
+        <span class="player-title mono" id="playerTitle">sleeping.aanim</span>
+      </div>
+      <div class="player-screen" id="playerScreen">
+        <span style="color:#e8720c">&#10074;&#10074; </span><span id="playerFrame"></span>
+      </div>
+      <div class="player-controls" id="playerControls"></div>
+    </div>
   </div>
-</section>
+</div>
 
+<!-- Features -->
 <section id="features">
-  <div class="features-wrap">
+  <div class="container">
     <div class="section-label">Capabilities</div>
-    <h2>Everything you need.<br>Nothing you don't.</h2>
-    <p class="section-desc">A focused tool for one job: making ASCII characters move beautifully.</p>
-    <div class="feature-grid">
-      <div class="fc">
-        <span class="fc-icon">&#9654;</span>
-        <h3>Visual timeline</h3>
-        <p>Drag keyframes, scrub the playhead, preview at any speed. Feels like editing video.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">{&thinsp;}</span>
-        <h3>Git-friendly format</h3>
-        <p>Deterministic JSON. Alphabetical keys, fixed precision. Every save produces a clean diff.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#8594;</span>
-        <h3>One-click export</h3>
-        <p>HTML, React, CSS keyframes, ANSI terminal, ES module. Pick a format, get working code.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">3.9K</span>
-        <h3>Tiny runtime</h3>
-        <p>The engine is 3.9KB gzipped. Zero dependencies. Runs in Node, Deno, Bun, or any browser.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#9632;</span>
-        <h3>Native desktop</h3>
-        <p>Built with Tauri + Rust. Sub-second launch, native menus, atomic file saves. Under 10MB.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&gt;_</span>
-        <h3>CLI included</h3>
-        <p>Validate, render, and play scenes from the command line. 1.3MB static Rust binary.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#8630;</span>
-        <h3>Undo / redo</h3>
-        <p>30-step undo stack. Every edit is reversible. Structural cloning keeps memory lean.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#10710;</span>
-        <h3>Bezier easing</h3>
-        <p>Visual cubic bezier curve editor with SVG drag handles. 4 presets, full numeric control.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#8693;</span>
-        <h3>Drag reorder</h3>
-        <p>Drag sprites to reorder z-index layering. Drop to reposition, undo to revert.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#9883;</span>
-        <h3>Light &amp; dark</h3>
-        <p>System-aware theme with manual toggle. CSS custom properties for consistent design tokens.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#128190;</span>
-        <h3>Autosave</h3>
-        <p>Debounced 400ms autosave to native Tauri store. Atomic writes prevent corruption on crash.</p>
-      </div>
-      <div class="fc">
-        <span class="fc-icon">&#9881;</span>
-        <h3>31 presets</h3>
-        <p>Sleeping, spinner, heartbeat, matrix, fire, rain, orbit, typewriter, and 23 more built in.</p>
-      </div>
-    </div>
+    <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
+    <p class="section-sub">A focused tool for one job: making ASCII characters move beautifully.</p>
+    <div class="features-grid" id="featuresGrid"></div>
   </div>
 </section>
 
-<section id="desktop-app">
-  <div class="features-wrap">
-    <div class="section-label">Desktop</div>
-    <h2>A real editor.<br>Not a toy.</h2>
-    <p class="section-desc">Full desktop app built with Tauri 2 and Rust. Native menus, file dialogs, keyboard shortcuts. Under 10MB installed.</p>
-    <div class="app-ui" style="max-width:760px;margin:48px auto 0;border:1px solid var(--fg-4);border-radius:16px;overflow:hidden;background:var(--bg-3);font-family:var(--mono);font-size:12px;line-height:1.5;">
-      <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--fg-4);background:var(--bg-2);">
-        <div class="dot dot-r" style="width:10px;height:10px;"></div>
-        <div class="dot dot-y" style="width:10px;height:10px;"></div>
-        <div class="dot dot-g" style="width:10px;height:10px;"></div>
-        <span style="flex:1;text-align:center;color:var(--fg-3);font-size:11px;">sleeping.aanim — Cel</span>
+<!-- Desktop -->
+<section id="desktop" style="padding-top:0">
+  <div class="container">
+    <div class="two-col" style="margin-bottom:56px">
+      <div>
+        <div class="section-label">Desktop</div>
+        <h2 class="section-title">A real editor.<br>Not a toy.</h2>
+        <p style="color:var(--sub);font-size:15px;line-height:1.7">
+          Full desktop app built with Tauri 2 and Rust. Native menus, file dialogs, keyboard shortcuts. Under 10 MB installed.
+        </p>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px" id="desktopChecklist"></div>
       </div>
-      <div style="display:flex;padding:8px 12px;gap:8px;border-bottom:1px solid var(--fg-4);background:var(--bg-2);flex-wrap:wrap;">
-        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">presets ▾</span>
-        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">+ sprite</span>
-        <span style="flex:1;"></span>
-        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">export</span>
-        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">.aanim</span>
-        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">open</span>
-      </div>
-      <div style="display:flex;">
-        <div style="flex:1;padding:32px;text-align:center;min-height:160px;display:flex;align-items:center;justify-content:center;">
-          <span style="font-size:28px;color:var(--accent);opacity:0.8;">( -_- ) z z Z</span>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;border-top:1px solid var(--fg-4);border-bottom:1px solid var(--fg-4);background:var(--bg-2);">
-        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">&#9654; play</span>
-        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">loop on</span>
-        <span style="color:var(--fg-3);font-size:10px;">1.20s / 4.00s</span>
-        <span style="flex:1;"></span>
-        <span style="color:var(--fg-3);font-size:10px;">speed 1x</span>
-        <span style="color:var(--fg-3);font-size:10px;">duration 4.0s</span>
-      </div>
-      <div style="display:flex;min-height:100px;">
-        <div style="width:120px;border-right:1px solid var(--fg-4);padding:8px 0;">
-          <div style="padding:4px 12px;font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.05em;">Layers</div>
-          <div style="padding:5px 12px;font-size:11px;color:var(--accent);background:var(--accent-dim);border-left:2px solid var(--accent);">face</div>
-          <div style="padding:5px 12px;font-size:11px;color:var(--fg-3);">zzz</div>
-          <div style="padding:5px 12px;font-size:11px;color:var(--fg-3);">bigZ</div>
-          <div style="padding:5px 12px;font-size:11px;color:var(--fg-3);">blink</div>
-        </div>
-        <div style="flex:1;padding:8px 12px;position:relative;">
-          <div style="display:flex;align-items:center;gap:4px;margin-bottom:6px;">
-            <span style="color:var(--fg-4);font-size:9px;">|0ms</span>
-            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
-            <span style="color:var(--fg-4);font-size:9px;">|1s</span>
-            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
-            <span style="color:var(--fg-4);font-size:9px;">|2s</span>
-            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
-            <span style="color:var(--fg-4);font-size:9px;">|3s</span>
-            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
-            <span style="color:var(--fg-4);font-size:9px;">|4s</span>
+      <div style="padding-top:8px">
+        <div class="desktop-mock">
+          <div class="mock-titlebar">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f56"></div>
+              <div class="mock-dot" style="background:#ffbd2e"></div>
+              <div class="mock-dot" style="background:#27c93f"></div>
+            </div>
+            <span class="mock-filename">sleeping.aanim — Cel</span>
           </div>
-          <div style="height:16px;position:relative;margin-bottom:4px;">
-            <span style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--accent);"></span>
-            <span style="position:absolute;left:37%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-3);"></span>
-            <span style="position:absolute;left:42%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-3);"></span>
-            <span style="position:absolute;left:100%;top:50%;transform:translate(-100%,-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-3);"></span>
-            <div style="position:absolute;top:0;bottom:0;left:0;right:0;border-bottom:1px solid var(--fg-4);"></div>
+          <div class="mock-body">
+            <div class="mock-sidebar">
+              <div class="mock-sidebar-title">presets &#9662;</div>
+              <div id="mockPresets"></div>
+              <div style="margin-top:16px">
+                <div class="mock-sidebar-title">layers</div>
+                <div id="mockLayers"></div>
+              </div>
+            </div>
+            <div class="mock-stage">
+              <div>
+                <div id="mockFace">( -_- )</div>
+                <div id="mockZzz" style="color:#e8720c">   z</div>
+              </div>
+            </div>
+            <div class="mock-panel" id="mockPanel"></div>
           </div>
-          <div style="height:16px;position:relative;margin-bottom:4px;">
-            <span style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
-            <span style="position:absolute;left:50%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
-            <span style="position:absolute;left:100%;top:50%;transform:translate(-100%,-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
-            <div style="position:absolute;top:0;bottom:0;left:0;right:0;border-bottom:1px solid var(--fg-4);"></div>
+          <div class="mock-timeline">
+            <div style="display:flex;gap:16px;margin-bottom:6px">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--sub)">&#9654; play</span>
+              <span style="font-family:var(--mono);font-size:11px;color:var(--sub)">loop on</span>
+              <span id="mockTime" style="font-family:var(--mono);font-size:11px;color:var(--sub);margin-left:auto">0.00s / 4.00s</span>
+            </div>
+            <div class="timeline-track">
+              <div class="timeline-head" id="mockHead" style="width:0%"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:6px">
+              <span style="font-family:var(--mono);font-size:10px;color:var(--sub)">|0ms</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--sub)">|1s</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--sub)">|2s</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--sub)">|3s</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--sub)">|4s</span>
+            </div>
           </div>
-          <div style="height:16px;position:relative;margin-bottom:4px;">
-            <span style="position:absolute;left:10%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
-            <span style="position:absolute;left:60%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
-            <span style="position:absolute;left:100%;top:50%;transform:translate(-100%,-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
-            <div style="position:absolute;top:0;bottom:0;left:0;right:0;border-bottom:1px solid var(--fg-4);"></div>
-          </div>
-          <div style="position:absolute;top:24px;bottom:8px;left:30%;width:2px;background:var(--accent);opacity:0.6;border-radius:1px;"></div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;border-top:1px solid var(--fg-4);background:var(--bg-2);flex-wrap:wrap;">
-        <span style="color:var(--fg-3);font-size:10px;">id</span>
-        <span style="padding:2px 8px;border:1px solid var(--fg-4);border-radius:4px;color:var(--fg);font-size:10px;background:var(--bg);">face</span>
-        <span style="color:var(--fg-3);font-size:10px;">text</span>
-        <span style="padding:2px 8px;border:1px solid var(--fg-4);border-radius:4px;color:var(--fg);font-size:10px;background:var(--bg);">( -_- )</span>
-        <span style="color:var(--fg-3);font-size:10px;font-style:italic;opacity:0.6;">click a keyframe to edit</span>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:760px;margin:32px auto 0;">
-      <div style="padding:20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;">
-        <div style="font-size:14px;font-weight:600;margin-bottom:6px;">Keyboard shortcuts</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.8;font-family:var(--mono);">
-          Space = play/pause<br>
-          Ctrl+Z = undo<br>
-          Ctrl+D = duplicate<br>
-          Ctrl+C/V = copy/paste kf<br>
-          [ ] = add keyframe<br>
-          Delete = remove kf
-        </div>
-      </div>
-      <div style="padding:20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;">
-        <div style="font-size:14px;font-weight:600;margin-bottom:6px;">Keyframe properties</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.8;font-family:var(--mono);">
-          x, y &mdash; grid position<br>
-          opacity &mdash; 0 to 1<br>
-          fontSize &mdash; 6 to 64px<br>
-          rotation &mdash; degrees<br>
-          color &mdash; 7 named tokens<br>
-          easing &mdash; named or bezier
-        </div>
-      </div>
-      <div style="padding:20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;">
-        <div style="font-size:14px;font-weight:600;margin-bottom:6px;">File operations</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.8;font-family:var(--mono);">
-          Native open/save dialogs<br>
-          Atomic writes (crash-safe)<br>
-          Autosave every 400ms<br>
-          Save scenes to store<br>
-          Import/export .aanim<br>
-          31 bundled presets
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="exports">
-  <div class="exports-wrap">
-    <div class="section-label">Formats</div>
-    <h2>Export to anything</h2>
-    <p class="section-desc" style="margin: 0 auto 0;">Every exporter is a pure function. No side effects. Deterministic output.</p>
-    <div class="export-grid">
-      <div class="export-chip">.html</div>
-      <div class="export-chip">.tsx</div>
-      <div class="export-chip">.css</div>
-      <div class="export-chip">.js&thinsp;esm</div>
-      <div class="export-chip">.js&thinsp;ansi</div>
-      <div class="export-chip">.aanim</div>
-      <div class="export-chip" style="opacity:0.4">.gif&thinsp;soon</div>
-    </div>
-  </div>
-</section>
-
-<section id="engine">
-  <div class="features-wrap">
-    <div class="section-label">Engine</div>
-    <h2>3.9KB. Zero deps.<br>Runs everywhere.</h2>
-    <p class="section-desc">The core engine works in Node, Deno, Bun, and any browser. Import three functions and you're done.</p>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
-      <a href="https://www.npmjs.com/package/cel-core" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
-        <span style="color:var(--fg-3)">npm</span> cel-core <span style="color:var(--accent)">v0.1.1</span>
-      </a>
-      <a href="https://www.npmjs.com/package/cel-export" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
-        <span style="color:var(--fg-3)">npm</span> cel-export <span style="color:var(--accent)">v0.1.1</span>
-      </a>
-      <a href="https://www.npmjs.com/package/cel-player" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
-        <span style="color:var(--fg-3)">npm</span> cel-player <span style="color:var(--accent)">v0.1.1</span>
-      </a>
-    </div>
-    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
-<span style="color:var(--fg-3)">// install</span><br>
-<span class="dim">$</span> npm install <span class="hl">cel-core</span><br><br>
-<span style="color:var(--fg-3)">// sample a scene at any timestamp</span><br>
-<span style="color:var(--accent)">import</span> { sampleScene } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-core'</span>;<br>
-<span style="color:var(--fg-3)">const</span> frame = sampleScene(scene, 1500);<br><br>
-<span style="color:var(--fg-3)">// deterministic serialization</span><br>
-<span style="color:var(--accent)">import</span> { serialize } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-core'</span>;<br>
-<span style="color:var(--fg-3)">const</span> json = serialize(scene); <span style="color:var(--fg-3)">// identical input = identical bytes</span><br><br>
-<span style="color:var(--fg-3)">// validate with full error paths</span><br>
-<span style="color:var(--accent)">import</span> { validate } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-core'</span>;<br>
-<span style="color:var(--fg-3)">const</span> { valid, errors } = validate(input);
-    </div>
-  </div>
-</section>
-
-<section id="react">
-  <div class="features-wrap">
-    <div class="section-label">React</div>
-    <h2>Drop-in component.<br>One import.</h2>
-    <p class="section-desc">A ready-to-use component that plays any scene. Tree-shakeable, fully typed, 3KB.</p>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
-      <a href="https://www.npmjs.com/package/cel-react" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-2);text-decoration:none;">
-        <span style="color:var(--fg-3)">npm</span> cel-react <span style="color:var(--accent)">v0.1.1</span>
-      </a>
-      <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--fg-3);">
-        peer react ^18 || ^19
-      </span>
-    </div>
-    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
-<span style="color:var(--fg-3)">// install</span><br>
-<span class="dim">$</span> npm install <span class="hl">cel-react</span> <span class="hl">cel-core</span><br><br>
-<span style="color:var(--fg-3)">// drop into any React app</span><br>
-<span style="color:var(--accent)">import</span> { CelAnimation } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'cel-react'</span>;<br>
-<span style="color:var(--accent)">import</span> scene <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'./sleeping.aanim'</span>;<br><br>
-<span style="color:var(--accent)">export default</span> <span style="color:var(--fg-3)">function</span> App() {<br>
-&nbsp;&nbsp;<span style="color:var(--accent)">return</span> &lt;<span style="color:var(--fg)">CelAnimation</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">scene</span>={scene}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">autoplay</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">loop</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">speed</span>={<span style="color:var(--fg)">1</span>}<br>
-&nbsp;&nbsp;/&gt;;<br>
-}
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:24px auto 0;">
-      <div style="padding:16px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;">
-        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:4px;">CelAnimation</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;">High-level component with autoplay, loop, speed, width, height, and onFrame callback.</div>
+<!-- Exports + Code -->
+<section id="exports" style="padding-top:0">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Integration</div>
+        <h2 class="section-title">Three lines<br>to start.</h2>
+        <p style="color:var(--sub);font-size:15px;line-height:1.7;margin-bottom:28px">
+          Four packages on npm. Pure functions, no side effects, deterministic output. Works in Node, Deno, Bun, and every browser.
+        </p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="formatTags"></div>
       </div>
-      <div style="padding:16px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;">
-        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:4px;">useCelPlayer</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;">Low-level hook for custom render targets. Full player API: play, pause, seek, speed, destroy.</div>
+      <div class="code-wrap">
+        <div class="tabs" id="codeTabs"></div>
+        <div id="codeBlocks"></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="format">
-  <div class="features-wrap">
-    <div class="section-label">Format</div>
-    <h2>.aanim files.<br>JSON you can read.</h2>
-    <p class="section-desc">UTF-8 JSON with strict conventions. Deterministic output means every save produces an identical file. Perfect for version control.</p>
-    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:12px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
-{<br>
-&nbsp;&nbsp;<span style="color:var(--fg-3)">"$schema"</span>: <span style="color:var(--fg)">"https://cel.dev/schema/v1.json"</span>,<br>
-&nbsp;&nbsp;<span style="color:var(--fg-3)">"version"</span>: <span style="color:var(--accent)">1</span>,<br>
-&nbsp;&nbsp;<span style="color:var(--fg-3)">"duration"</span>: <span style="color:var(--accent)">4000</span>,<br>
-&nbsp;&nbsp;<span style="color:var(--fg-3)">"fps"</span>: <span style="color:var(--accent)">60</span>,<br>
-&nbsp;&nbsp;<span style="color:var(--fg-3)">"grid"</span>: { <span style="color:var(--fg-3)">"cols"</span>: <span style="color:var(--accent)">60</span>, <span style="color:var(--fg-3)">"rows"</span>: <span style="color:var(--accent)">13</span> },<br>
-&nbsp;&nbsp;<span style="color:var(--fg-3)">"sprites"</span>: [{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">"id"</span>: <span style="color:var(--fg)">"face"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">"text"</span>: <span style="color:var(--fg)">"( -_- )"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">"keyframes"</span>: [<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--fg-3)">"t"</span>: <span style="color:var(--accent)">0</span>, <span style="color:var(--fg-3)">"x"</span>: <span style="color:var(--accent)">5.5</span>, <span style="color:var(--fg-3)">"y"</span>: <span style="color:var(--accent)">5</span>, <span style="color:var(--fg-3)">"easing"</span>: <span style="color:var(--fg)">"inout"</span> },<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--fg-3)">"t"</span>: <span style="color:var(--accent)">2000</span>, <span style="color:var(--fg-3)">"y"</span>: <span style="color:var(--accent)">5.6</span>, <span style="color:var(--fg-3)">"rotation"</span>: <span style="color:var(--accent)">-1</span> },<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--fg-3)">"t"</span>: <span style="color:var(--accent)">4000</span>, <span style="color:var(--fg-3)">"y"</span>: <span style="color:var(--accent)">5</span>, <span style="color:var(--fg-3)">"rotation"</span>: <span style="color:var(--accent)">0</span> }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br>
-&nbsp;&nbsp;}]<br>
-}
+<!-- React section -->
+<section id="react" style="padding-top:0">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="section-label">React</div>
+      <h2 class="section-title">Drop-in component.<br>One import.</h2>
+      <p style="color:var(--sub);font-size:16px;max-width:500px;margin:0 auto">
+        A ready-to-use component that plays any scene. Tree-shakeable, fully typed, 3 KB.
+      </p>
     </div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px;">
-      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Alphabetical keys</span>
-      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Fixed precision</span>
-      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Trailing newline</span>
-      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">JSON Schema v1</span>
-      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Sparse keyframes</span>
-    </div>
+    <div class="react-cards" id="reactCards" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:860px;margin:0 auto"></div>
   </div>
 </section>
 
-<section id="cli">
-  <div class="features-wrap">
-    <div class="section-label">CLI</div>
-    <h2>Validate, play, render.<br>From your terminal.</h2>
-    <p class="section-desc">1.3MB static Rust binary. Batch export from YAML configs. Plays animations directly in the terminal with ANSI.</p>
-    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.8;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
-<span class="dim">$</span> cel validate scenes/*.aanim<br>
-&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> sleeping.aanim<br>
-&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> spinner.aanim<br>
-&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> heartbeat.aanim<br>
-&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> 31 files validated, 0 errors<br><br>
-<span class="dim">$</span> cel info presets/sleeping.aanim<br>
-&nbsp;&nbsp;duration: 4000ms (4.0s)<br>
-&nbsp;&nbsp;sprites:&nbsp; 4<br>
-&nbsp;&nbsp;keyframes: 17 total<br><br>
-<span class="dim">$</span> cel play presets/sleeping.aanim --loop
-    </div>
+<!-- Stats -->
+<section style="padding-top:0">
+  <div class="container">
+    <div class="section-label" style="margin-bottom:32px">By the numbers</div>
+    <div class="stats-grid" id="statsGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden"></div>
   </div>
 </section>
 
-<section id="stats-section">
-  <div class="features-wrap" style="text-align:center;">
-    <div class="section-label">By the numbers</div>
-    <h2>Built to be measured</h2>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fg-4);border:1px solid var(--fg-4);border-radius:16px;overflow:hidden;margin-top:48px;">
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">3.9<span style="font-size:16px;font-weight:500">KB</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">engine gzipped</div></div>
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">212</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">tests passing</div></div>
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">0.6<span style="font-size:16px;font-weight:500">ms</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">per frame render</div></div>
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">0</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">dependencies</div></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fg-4);border:1px solid var(--fg-4);border-top:none;border-radius:0 0 16px 16px;overflow:hidden;">
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">31</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">bundled presets</div></div>
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">7</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">export formats</div></div>
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">100<span style="font-size:16px;font-weight:500">%</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">line coverage</div></div>
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">1.3<span style="font-size:16px;font-weight:500">MB</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">CLI binary</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="install">
-  <div class="install-wrap">
+<!-- Install / packages -->
+<section id="install" style="padding-top:0">
+  <div class="container">
     <div class="section-label">Get started</div>
-    <h2>Add to any project</h2>
-    <p class="section-desc" style="margin: 0 auto;">Four packages on npm. Pick what you need.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;max-width:700px;margin:32px auto 0;text-align:left;">
-      <a href="https://www.npmjs.com/package/cel-core" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
-        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-core</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">3.9KB engine. Zero deps. Runs anywhere.</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-core</div>
-      </a>
-      <a href="https://www.npmjs.com/package/cel-react" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
-        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-react</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">Drop-in React component + useCelPlayer hook.</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-react cel-core</div>
-      </a>
-      <a href="https://www.npmjs.com/package/cel-export" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
-        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-export</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">Export to HTML, React, CSS, JS, ANSI and more.</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-export</div>
-      </a>
-      <a href="https://www.npmjs.com/package/cel-player" target="_blank" rel="noopener" style="text-decoration:none;padding:16px 20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;display:block;transition:border-color 0.15s;">
-        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:4px;">cel-player</div>
-        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;margin-bottom:8px;">Playback runtime for custom render targets.</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--fg-2);">npm install cel-player</div>
-      </a>
-    </div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
-      <a href="https://github.com/bravo1goingdark/cel/releases/latest" class="btn btn-accent btn-large">Download latest release</a>
-      <a href="https://github.com/bravo1goingdark/cel" class="btn btn-ghost btn-large">View source</a>
-    </div>
+    <h2 class="section-title" style="margin-bottom:40px">Add to any project.</h2>
+    <div class="pkg-grid" id="pkgGrid"></div>
   </div>
 </section>
 
+<!-- CTA -->
+<div class="container">
+  <div class="cta-section">
+    <h2>Start animating.</h2>
+    <p>No account, no API key, no credit card. Five commands from clone to your first scene.</p>
+    <div class="cta-btns">
+      <a href="https://github.com/bravo1goingdark/cel/releases/latest" class="btn-primary">Download free</a>
+      <a href="https://github.com/bravo1goingdark/cel" class="btn-ghost">View on GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
 <footer>
-  <span>Cel is MIT licensed.</span>
-  <div class="footer-links">
-    <a href="https://github.com/bravo1goingdark/cel">GitHub</a>
-    <a href="/cel/schema/v1.json">Schema</a>
-    <a href="https://github.com/bravo1goingdark/cel">Source</a>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span class="footer-logo-mark"></span>
+          <span class="footer-brand">cel</span>
+        </div>
+        <p class="footer-tagline">Characters in motion.<br>Open source under MIT.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#desktop">Desktop app</a>
+        <a href="#exports">Exports</a>
+        <a href="#install">Install</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://github.com/bravo1goingdark/cel#the-engine">Documentation</a>
+        <a href="https://github.com/bravo1goingdark/cel#engine">API reference</a>
+        <a href="https://github.com/bravo1goingdark/cel#cli">CLI reference</a>
+        <a href="https://github.com/bravo1goingdark/cel#file-format">.aanim format</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://github.com/bravo1goingdark/cel" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/bravo1goingdark/cel/issues" target="_blank" rel="noopener">Issues</a>
+        <a href="https://www.npmjs.com/search?q=cel-" target="_blank" rel="noopener">npm</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Cel. MIT licensed.</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--sub)">cel<span style="color:var(--accent)">*</span>.<span style="color:var(--accent)">*</span></span>
+    </div>
   </div>
 </footer>
 
 <script>
-// ── Theme toggle ─────────────────────────────────
 (function() {
-  const btn = document.getElementById('theme-btn');
-  const root = document.documentElement;
+  'use strict';
 
-  function getStored() { try { return localStorage.getItem('cel-theme'); } catch { return null; } }
-  function setStored(t) { try { localStorage.setItem('cel-theme', t); } catch {} }
-
-  function getEffective() {
-    const stored = getStored();
-    if (stored === 'light' || stored === 'dark') return stored;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  }
-
-  function apply(theme) {
-    root.setAttribute('data-theme', theme);
-    btn.textContent = theme === 'dark' ? '\u263E' : '\u2600';
-    btn.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
-    document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#0a0a09' : '#faf9f7';
-  }
-
-  apply(getEffective());
-
-  btn.addEventListener('click', () => {
-    const next = getEffective() === 'dark' ? 'light' : 'dark';
-    setStored(next);
-    apply(next);
-  });
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if (!getStored()) apply(getEffective());
-  });
-})();
-
-// ── Hero floating glyphs ─────────────────────────
-(function(){
-  const bg=document.getElementById('hero-bg');
-  if(!bg)return;
-  const chars='{ } [ ] < > / \\ | ~ * + = _ # @ . , ; : ( ) 0 1'.split(' ');
-  const particles=[];
-  for(let i=0;i<40;i++){
-    const el=document.createElement('span');
-    el.className='glyph';
-    el.textContent=chars[Math.floor(Math.random()*chars.length)];
-    const x=Math.random()*100;
-    const size=10+Math.random()*16;
-    const dur=12000+Math.random()*20000;
-    const delay=Math.random()*dur;
-    const drift=(Math.random()-0.5)*40;
-    el.style.cssText=`left:${x}%;font-size:${size}px;opacity:0;`;
-    bg.appendChild(el);
-    particles.push({el,x,size,dur,delay,drift,born:performance.now()});
-  }
-  function animParticles(now){
-    for(const p of particles){
-      const elapsed=((now-p.born+p.delay)%p.dur)/p.dur;
-      const y=(1-elapsed)*110-10;
-      const xOff=Math.sin(elapsed*Math.PI*2)*p.drift;
-      const op=elapsed<0.1?elapsed*10:elapsed>0.85?(1-elapsed)/0.15:1;
-      p.el.style.transform=`translate(${xOff.toFixed(1)}px,${y.toFixed(1)}vh)`;
-      p.el.style.opacity=(op*0.12).toFixed(3);
+  // ── Scanline C logo SVG ────────────────────────────────────────────────────
+  function scanlineC(size, fg, accent) {
+    var rows = 9, rowH = size / (rows + 1);
+    var cx = size * 0.54, cy = size * 0.5, r = size * 0.36, sw = size * 0.072;
+    var lines = '';
+    for (var i = 0; i < rows; i++) {
+      var y = rowH * (i + 1);
+      var dy = y - cy;
+      if (Math.abs(dy) > r) continue;
+      var chord = Math.sqrt(r * r - dy * dy);
+      if (chord < 2) continue;
+      var left = cx - chord, right = cx + chord;
+      var normI = i / (rows - 1);
+      var isOpen = normI > 0.28 && normI < 0.72;
+      var capL = size * 0.06;
+      var x1 = Math.max(capL, left);
+      if (isOpen) {
+        lines += '<line x1="' + x1 + '" y1="' + y + '" x2="' + (right - chord * 0.55) + '" y2="' + y + '" stroke="' + fg + '" stroke-width="' + sw + '" stroke-linecap="round"/>';
+      } else {
+        var stroke = (i === 0 || i === rows - 1) ? accent : fg;
+        lines += '<line x1="' + x1 + '" y1="' + y + '" x2="' + right + '" y2="' + y + '" stroke="' + stroke + '" stroke-width="' + sw + '" stroke-linecap="round"/>';
+      }
     }
-    requestAnimationFrame(animParticles);
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" fill="none" style="flex-shrink:0">' + lines + '</svg>';
   }
-  requestAnimationFrame(animParticles);
+
+  function updateLogos() {
+    var isDark = !document.body.classList.contains('light');
+    var fg = isDark ? '#f2f2f0' : '#0e0e0f';
+    var accent = '#e8720c';
+    var navMark = document.querySelector('.logo-mark');
+    if (navMark) navMark.innerHTML = scanlineC(24, fg, accent);
+    var footerMark = document.querySelector('.footer-logo-mark');
+    if (footerMark) footerMark.innerHTML = scanlineC(20, fg, accent);
+  }
+
+  // ── Theme toggle ───────────────────────────────────────────────────────────
+  var themeBtn = document.getElementById('themeToggle');
+  function setTheme(dark) {
+    document.body.classList.toggle('light', !dark);
+    themeBtn.textContent = dark ? '\u2600' : '\u263E';
+    updateLogos();
+  }
+  themeBtn.addEventListener('click', function() {
+    setTheme(document.body.classList.contains('light'));
+  });
+  setTheme(true);
+
+  // ── ASCII Player ───────────────────────────────────────────────────────────
+  var SCENES = {
+    sleeping: {
+      label: 'sleeping', fps: 1.4,
+      frames: [
+        '  ( -_- )\n\n\n',
+        '  ( -_- )\n           z\n\n',
+        '  ( -_- )\n         z z\n\n',
+        '  ( -_- )\n       z z Z\n\n',
+        '  ( -_- )\n     z z Z Z\n\n'
+      ]
+    },
+    rain: {
+      label: 'rain', fps: 7,
+      gen: function() {
+        var cols = 28, rows = 7;
+        var chars = ['|','|','|','\'','.','\`',' ',' ',' ',' ',' ',' '];
+        var out = [];
+        for (var r = 0; r < rows; r++) {
+          var row = '';
+          for (var c = 0; c < cols; c++) row += chars[Math.floor(Math.random() * chars.length)];
+          out.push(row);
+        }
+        return out.join('\n');
+      }
+    },
+    spinner: {
+      label: 'spinner', fps: 8,
+      frames: [
+        '  \u28BE  loading',
+        '  \u28BD  loading',
+        '  \u28BB  loading',
+        '  \u28BF  loading',
+        '  \u287F  loading',
+        '  \u28DF  loading',
+        '  \u28EF  loading',
+        '  \u28F7  loading'
+      ]
+    },
+    rocket: {
+      label: 'rocket', fps: 3,
+      frames: [
+        '           *  . \n  . *    . \n    /|\\\n   / | \\\n  (  |  )\n   \\_|_/\n     |\n  ---+---',
+        '     *        . \n .      *   . \n    /|\\\n   / | \\\n  (  |  )\n   \\_|_/\n     |\n  ---+---',
+        '        .  *    \n   .  *      . \n    /|\\\n   / | \\\n  (  |  )\n   \\_|_/\n     |\n  ---+---'
+      ]
+    }
+  };
+
+  var currentScene = 'sleeping';
+  var playerFrame = document.getElementById('playerFrame');
+  var playerTitle = document.getElementById('playerTitle');
+  var playerControls = document.getElementById('playerControls');
+  var playerId = null;
+
+  function startScene(name) {
+    currentScene = name;
+    if (playerId) clearInterval(playerId);
+    var s = SCENES[name];
+    playerTitle.textContent = name + '.aanim';
+    var idx = 0;
+    function tick() {
+      if (s.gen) { playerFrame.textContent = s.gen(); }
+      else { playerFrame.textContent = s.frames[idx % s.frames.length]; idx++; }
+    }
+    tick();
+    playerId = setInterval(tick, 1000 / s.fps);
+    // Update active tab
+    var tabs = playerControls.querySelectorAll('.scene-tab');
+    tabs.forEach(function(t) { t.classList.toggle('active', t.dataset.scene === name); });
+  }
+
+  // Build scene tabs
+  Object.keys(SCENES).forEach(function(key) {
+    var btn = document.createElement('button');
+    btn.className = 'scene-tab' + (key === currentScene ? ' active' : '');
+    btn.textContent = SCENES[key].label;
+    btn.dataset.scene = key;
+    btn.addEventListener('click', function() { startScene(key); });
+    playerControls.appendChild(btn);
+  });
+  startScene('sleeping');
+
+  // ── Features grid ──────────────────────────────────────────────────────────
+  var FEATURES = [
+    ['\u25B6','Visual timeline','Drag keyframes, scrub the playhead, preview at any speed. Feels like editing video.'],
+    ['{ }','Git-friendly format','Deterministic JSON. Alphabetical keys, fixed precision. Every save produces a clean diff.'],
+    ['\u2192','One-click export','HTML, React, CSS keyframes, ANSI terminal, ES module. Pick a format, get working code.'],
+    ['3.9K','Tiny runtime','The engine is 3.9 KB gzipped. Zero dependencies. Runs in Node, Deno, Bun, or any browser.'],
+    ['\u25A0','Native desktop','Built with Tauri + Rust. Sub-second launch, native menus, atomic file saves. Under 10 MB.'],
+    ['>_','CLI included','Validate, render, and play scenes from the command line. 1.3 MB static Rust binary.'],
+    ['\u21B6','Undo / redo','30-step undo stack. Every edit is reversible. Structural cloning keeps memory lean.'],
+    ['\u29D6','Bezier easing','Visual cubic bezier curve editor with SVG drag handles. 4 presets, full numeric control.'],
+    ['\u2699','31 presets','Sleeping, spinner, heartbeat, matrix, fire, rain, orbit, typewriter, and 23 more.']
+  ];
+
+  var featGrid = document.getElementById('featuresGrid');
+  FEATURES.forEach(function(f) {
+    var div = document.createElement('div');
+    div.className = 'feat';
+    div.innerHTML = '<span class="feat-icon mono">' + f[0] + '</span><h3>' + f[1] + '</h3><p>' + f[2] + '</p>';
+    featGrid.appendChild(div);
+  });
+
+  // ── Desktop checklist ──────────────────────────────────────────────────────
+  var checklist = document.getElementById('desktopChecklist');
+  ['Native open/save dialogs','Atomic writes (crash-safe)','Autosave every 400ms','31 bundled presets'].forEach(function(f) {
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;gap:10px;align-items:center;font-size:14px;color:var(--sub)';
+    div.innerHTML = '<span style="color:#e8720c;font-family:var(--mono)">\u2713</span>' + f;
+    checklist.appendChild(div);
+  });
+
+  // ── Desktop mock sidebar ───────────────────────────────────────────────────
+  var mockPresets = document.getElementById('mockPresets');
+  ['sleeping','spinner','heartbeat','rain','fire'].forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'mock-sprite-item' + (i === 0 ? ' active' : '');
+    div.textContent = p;
+    mockPresets.appendChild(div);
+  });
+
+  var mockLayers = document.getElementById('mockLayers');
+  ['face','zzz','bigZ','blink'].forEach(function(s, i) {
+    var div = document.createElement('div');
+    div.className = 'mock-sprite-item' + (i === 0 ? ' active' : '');
+    div.textContent = s;
+    mockLayers.appendChild(div);
+  });
+
+  // ── Desktop mock panel ─────────────────────────────────────────────────────
+  var mockPanel = document.getElementById('mockPanel');
+  [['id','face'],['text','( -_- )'],['x','5.5'],['y','5'],['opacity','1'],['easing','inout']].forEach(function(kv) {
+    var div = document.createElement('div');
+    div.className = 'mock-panel-row';
+    div.innerHTML = '<div class="mock-panel-label">' + kv[0] + '</div><div class="mock-panel-val mono">' + kv[1] + '</div>';
+    mockPanel.appendChild(div);
+  });
+
+  // ── Desktop mock animation ─────────────────────────────────────────────────
+  var mockFace = document.getElementById('mockFace');
+  var mockZzz = document.getElementById('mockZzz');
+  var mockTime = document.getElementById('mockTime');
+  var mockHead = document.getElementById('mockHead');
+  var faces = ['( -_- )','(-_-)  ','( -_-)'];
+  var zstates = ['   z','  z z','  z Z','z z Z'];
+  var mockTick = 0;
+  setInterval(function() {
+    mockTick++;
+    mockFace.textContent = faces[mockTick % faces.length];
+    mockZzz.textContent = zstates[mockTick % zstates.length];
+    mockTime.textContent = ((mockTick * 0.8) % 4).toFixed(2) + 's / 4.00s';
+    mockHead.style.width = ((mockTick * 20) % 100) + '%';
+  }, 800);
+
+  // ── Format tags ────────────────────────────────────────────────────────────
+  var formatTags = document.getElementById('formatTags');
+  ['.html','.tsx','.css','.js esm','.ansi','.aanim'].forEach(function(f) {
+    var span = document.createElement('span');
+    span.style.cssText = 'font-family:var(--mono);font-size:12px;padding:5px 10px;background:var(--card);border:1px solid var(--border);border-radius:5px;color:var(--sub)';
+    span.textContent = f;
+    formatTags.appendChild(span);
+  });
+
+  // ── Code tabs ──────────────────────────────────────────────────────────────
+  var CODE_TABS = {
+    core: {
+      label: 'cel-core',
+      html: '<span class="cmt">// install</span>\n<span class="cm">$</span> npm install cel-core\n\n<span class="cmt">// sample a scene at any timestamp</span>\n<span class="kw">import</span> { <span class="fn">sampleScene</span> } <span class="kw">from</span> <span class="str">\'cel-core\'</span>;\n<span class="kw">const</span> frame = <span class="fn">sampleScene</span>(scene, <span class="acc">1500</span>);\n\n<span class="cmt">// deterministic serialization</span>\n<span class="kw">import</span> { <span class="fn">serialize</span> } <span class="kw">from</span> <span class="str">\'cel-core\'</span>;\n<span class="kw">const</span> json = <span class="fn">serialize</span>(scene);\n\n<span class="cmt">// validate with full error paths</span>\n<span class="kw">import</span> { <span class="fn">validate</span> } <span class="kw">from</span> <span class="str">\'cel-core\'</span>;\n<span class="kw">const</span> { valid, errors } = <span class="fn">validate</span>(input);'
+    },
+    react: {
+      label: 'cel-react',
+      html: '<span class="cmt">// install</span>\n<span class="cm">$</span> npm install cel-react cel-core\n\n<span class="kw">import</span> { <span class="fn">CelAnimation</span> } <span class="kw">from</span> <span class="str">\'cel-react\'</span>;\n<span class="kw">import</span> scene <span class="kw">from</span> <span class="str">\'./sleeping.aanim\'</span>;\n\n<span class="kw">export default function</span> <span class="fn">App</span>() {\n  <span class="kw">return</span> &lt;<span class="acc">CelAnimation</span>\n    scene={scene}\n    autoplay\n    loop\n    speed={<span class="acc">1</span>}\n  /&gt;\n}'
+    },
+    cli: {
+      label: 'cel-cli',
+      html: '<span class="cmt">// validate</span>\n<span class="cm">$</span> cel validate scenes/*.aanim\n  <span class="str">\u2713 sleeping.aanim</span>\n  <span class="str">\u2713 spinner.aanim</span>\n  <span class="str">\u2713 heartbeat.aanim</span>\n  <span class="str">\u2713 31 files validated, 0 errors</span>\n\n<span class="cmt">// play in terminal</span>\n<span class="cm">$</span> cel play presets/sleeping.aanim --loop\n\n<span class="cmt">// render info</span>\n<span class="cm">$</span> cel info presets/sleeping.aanim\n  duration: <span class="acc">4000ms</span> (4.0s)\n  sprites:  <span class="acc">4</span>\n  keyframes: <span class="acc">17</span> total'
+    }
+  };
+
+  var codeTabs = document.getElementById('codeTabs');
+  var codeBlocks = document.getElementById('codeBlocks');
+  var activeCodeTab = 'core';
+
+  Object.keys(CODE_TABS).forEach(function(key) {
+    var tab = CODE_TABS[key];
+    var btn = document.createElement('button');
+    btn.className = 'tab' + (key === activeCodeTab ? ' active' : '');
+    btn.textContent = tab.label;
+    btn.dataset.tab = key;
+    btn.addEventListener('click', function() { switchCodeTab(key); });
+    codeTabs.appendChild(btn);
+
+    var pre = document.createElement('pre');
+    pre.className = 'code-block' + (key === activeCodeTab ? ' active' : '');
+    pre.dataset.tab = key;
+    pre.innerHTML = tab.html;
+    codeBlocks.appendChild(pre);
+  });
+
+  function switchCodeTab(name) {
+    activeCodeTab = name;
+    codeTabs.querySelectorAll('.tab').forEach(function(t) {
+      t.classList.toggle('active', t.dataset.tab === name);
+    });
+    codeBlocks.querySelectorAll('.code-block').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.tab === name);
+    });
+  }
+
+  // ── React cards ────────────────────────────────────────────────────────────
+  var reactCards = document.getElementById('reactCards');
+  [
+    ['CelAnimation','High-level component with autoplay, loop, speed, width, height, and onFrame callback.'],
+    ['useCelPlayer','Low-level hook for custom render targets. Full player API: play, pause, seek, speed, destroy.']
+  ].forEach(function(card) {
+    var div = document.createElement('div');
+    div.style.cssText = 'border:1px solid var(--border);border-radius:10px;padding:24px 28px;background:var(--card)';
+    div.innerHTML = '<div style="font-family:var(--mono);font-size:15px;color:#e8720c;margin-bottom:8px">' + card[0] + '</div><div style="font-size:13.5px;color:var(--sub);line-height:1.6">' + card[1] + '</div>';
+    reactCards.appendChild(div);
+  });
+
+  // ── Stats grid ─────────────────────────────────────────────────────────────
+  var statsGrid = document.getElementById('statsGrid');
+  [
+    ['3.9KB','engine gzipped'],
+    ['212','tests passing'],
+    ['0.6ms','per frame render'],
+    ['0','dependencies'],
+    ['31','bundled presets'],
+    ['7','export formats'],
+    ['100%','line coverage'],
+    ['1.3MB','CLI binary']
+  ].forEach(function(s) {
+    var div = document.createElement('div');
+    div.style.cssText = 'background:var(--bg);padding:28px 24px';
+    div.innerHTML = '<div style="font-family:var(--mono);font-size:32px;font-weight:500;letter-spacing:-0.04em;line-height:1">' + s[0] + '</div><div style="font-family:var(--mono);font-size:10px;color:var(--sub);margin-top:8px;letter-spacing:0.06em">' + s[1] + '</div>';
+    statsGrid.appendChild(div);
+  });
+
+  // ── Packages grid ──────────────────────────────────────────────────────────
+  var pkgGrid = document.getElementById('pkgGrid');
+  [
+    ['cel-core','3.9KB engine. Zero deps. Runs anywhere.','npm install cel-core'],
+    ['cel-react','Drop-in React component + useCelPlayer hook.','npm install cel-react cel-core'],
+    ['cel-export','Export to HTML, React, CSS, JS, ANSI and more.','npm install cel-export'],
+    ['cel-player','Playback runtime for custom render targets.','npm install cel-player']
+  ].forEach(function(pkg) {
+    var div = document.createElement('div');
+    div.className = 'pkg-card';
+    div.innerHTML = '<div class="pkg-name">' + pkg[0] + '</div><div class="pkg-desc">' + pkg[1] + '</div><div class="pkg-install">$ ' + pkg[2] + '</div>';
+    pkgGrid.appendChild(div);
+  });
+
+  // ── Init logos ─────────────────────────────────────────────────────────────
+  updateLogos();
+
 })();
-
-// ── Presets ───────────────────────────────────────
-const P={
-  sleeping:{duration:4000,sprites:[
-    {id:"face",text:"( -_- )",kf:[
-      {t:0,x:13,y:5,op:1,fs:24,rot:0,e:"inout"},
-      {t:1500,x:13,y:5.6,op:1,fs:24,rot:-1,tx:"( -_- )",e:"inout"},
-      {t:1600,x:13,y:5.6,op:1,fs:24,rot:-1,tx:"( ._. )",e:"inout"},
-      {t:1700,x:13,y:5.6,op:1,fs:24,rot:0,tx:"( -_- )",e:"inout"},
-      {t:4000,x:13,y:5,op:1,fs:24,rot:0,e:"inout"}]},
-    {id:"z1",text:"z",kf:[{t:0,x:21,y:5,op:0,fs:12,e:"linear"},{t:120,x:21,y:5,op:.7,fs:14,e:"out"},{t:800,x:23,y:1.5,op:0,fs:24,e:"in"},{t:4000,x:21,y:5,op:0,fs:12,e:"linear"}]},
-    {id:"z2",text:"z",kf:[{t:700,x:21,y:5,op:0,fs:12,e:"linear"},{t:820,x:21,y:5,op:.7,fs:16,e:"out"},{t:1600,x:24,y:1,op:0,fs:28,e:"in"},{t:4000,x:21,y:5,op:0,fs:12,e:"linear"}]},
-    {id:"Z3",text:"Z",kf:[{t:1400,x:21,y:5,op:0,fs:12,e:"linear"},{t:1520,x:21,y:5,op:.7,fs:20,e:"out"},{t:2400,x:26,y:.5,op:0,fs:34,e:"in"},{t:4000,x:21,y:5,op:0,fs:12,e:"linear"}]}
-  ]},
-  rocket:{duration:5000,sprites:[
-    {id:"rocket",text:"\u25B2",kf:[
-      {t:0,x:17,y:9,op:1,fs:32,rot:0,e:"in"},
-      {t:400,x:17,y:9,op:1,fs:32,rot:0,e:"in"},
-      {t:2500,x:17,y:1,op:1,fs:32,rot:0,e:"out"},
-      {t:3500,x:17,y:-2,op:0,fs:32,rot:0,e:"in"},
-      {t:4200,x:17,y:9,op:0,fs:32,rot:0,e:"linear"},
-      {t:4800,x:17,y:9,op:1,fs:32,rot:0,e:"out"},
-      {t:5000,x:17,y:9,op:1,fs:32,rot:0,e:"linear"}]},
-    {id:"flame1",text:"\u2592",kf:[
-      {t:0,x:17,y:10.2,op:0,fs:20,rot:0,e:"linear"},
-      {t:400,x:17,y:10.2,op:.8,fs:20,rot:0,e:"out"},
-      {t:800,x:17,y:10.2,op:.9,fs:28,rot:0,e:"inout"},
-      {t:2500,x:17,y:10.2,op:1,fs:36,rot:0,e:"inout"},
-      {t:3500,x:17,y:10.2,op:0,fs:20,rot:0,e:"in"},
-      {t:5000,x:17,y:10.2,op:0,fs:20,rot:0,e:"linear"}]},
-    {id:"flame2",text:"\u2591",kf:[
-      {t:0,x:17,y:11,op:0,fs:18,rot:0,e:"linear"},
-      {t:400,x:17,y:11.4,op:.5,fs:16,rot:0,e:"out"},
-      {t:1200,x:17,y:11.4,op:.7,fs:24,rot:0,e:"inout"},
-      {t:2500,x:17,y:11.4,op:.8,fs:32,rot:0,e:"inout"},
-      {t:3500,x:17,y:11.4,op:0,fs:14,rot:0,e:"in"},
-      {t:5000,x:17,y:11.4,op:0,fs:14,rot:0,e:"linear"}]},
-    {id:"s1",text:"\u2727",kf:[{t:0,x:10,y:2,op:.3,fs:10,e:"inout"},{t:2500,x:10,y:2,op:.8,fs:14,e:"inout"},{t:5000,x:10,y:2,op:.3,fs:10,e:"inout"}]},
-    {id:"s2",text:"\u00B7",kf:[{t:0,x:24,y:4,op:.4,fs:12,e:"inout"},{t:1500,x:24,y:4,op:1,fs:12,e:"inout"},{t:3000,x:24,y:4,op:.4,fs:12,e:"inout"},{t:5000,x:24,y:4,op:.8,fs:12,e:"inout"}]},
-    {id:"s3",text:"\u2022",kf:[{t:0,x:8,y:7,op:.2,fs:8,e:"inout"},{t:2000,x:8,y:7,op:.6,fs:10,e:"inout"},{t:4000,x:8,y:7,op:.2,fs:8,e:"inout"},{t:5000,x:8,y:7,op:.4,fs:9,e:"inout"}]},
-    {id:"s4",text:"*",kf:[{t:0,x:28,y:1,op:.5,fs:11,e:"inout"},{t:1200,x:28,y:1,op:.2,fs:9,e:"inout"},{t:3500,x:28,y:1,op:.7,fs:13,e:"inout"},{t:5000,x:28,y:1,op:.5,fs:11,e:"inout"}]},
-    {id:"ground",text:"\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",kf:[{t:0,x:8,y:10.5,op:.2,fs:12,e:"linear"},{t:5000,x:8,y:10.5,op:.2,fs:12,e:"linear"}]}
-  ]},
-  ocean:{duration:6000,sprites:[
-    {id:"w1",text:"~~~~~~~~~~~~~~~~~~~~~",kf:[
-      {t:0,x:5,y:5.5,op:.6,fs:18,e:"inout"},
-      {t:1500,x:6,y:5.2,op:.7,fs:18,e:"inout"},
-      {t:3000,x:5,y:5.5,op:.6,fs:18,e:"inout"},
-      {t:4500,x:4,y:5.8,op:.5,fs:18,e:"inout"},
-      {t:6000,x:5,y:5.5,op:.6,fs:18,e:"inout"}]},
-    {id:"w2",text:"\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248",kf:[
-      {t:0,x:4,y:6.5,op:.45,fs:16,e:"inout"},
-      {t:2000,x:5.5,y:6.2,op:.55,fs:16,e:"inout"},
-      {t:4000,x:4,y:6.5,op:.45,fs:16,e:"inout"},
-      {t:6000,x:4,y:6.5,op:.45,fs:16,e:"inout"}]},
-    {id:"w3",text:"~~~\u2248~~~\u2248~~~\u2248~~~\u2248~~",kf:[
-      {t:0,x:6,y:7.5,op:.3,fs:14,e:"inout"},
-      {t:1000,x:4.5,y:7.3,op:.35,fs:14,e:"inout"},
-      {t:3000,x:6,y:7.6,op:.3,fs:14,e:"inout"},
-      {t:5000,x:4.5,y:7.3,op:.35,fs:14,e:"inout"},
-      {t:6000,x:6,y:7.5,op:.3,fs:14,e:"inout"}]},
-    {id:"w4",text:"\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~",kf:[
-      {t:0,x:5,y:8.5,op:.2,fs:12,e:"inout"},
-      {t:2500,x:6.5,y:8.3,op:.25,fs:12,e:"inout"},
-      {t:5000,x:5,y:8.5,op:.2,fs:12,e:"inout"},
-      {t:6000,x:5,y:8.5,op:.2,fs:12,e:"inout"}]},
-    {id:"sun",text:"\u25CB",kf:[
-      {t:0,x:24,y:1.5,op:.8,fs:28,e:"inout"},
-      {t:3000,x:24,y:1.2,op:.9,fs:30,e:"inout"},
-      {t:6000,x:24,y:1.5,op:.8,fs:28,e:"inout"}]},
-    {id:"ray1",text:"\u2500",kf:[{t:0,x:22,y:1.8,op:.3,fs:10,e:"inout"},{t:1500,x:21.5,y:1.8,op:.5,fs:12,e:"inout"},{t:3000,x:22,y:1.8,op:.3,fs:10,e:"inout"},{t:6000,x:22,y:1.8,op:.3,fs:10,e:"inout"}]},
-    {id:"ray2",text:"\u2500",kf:[{t:0,x:27,y:1.8,op:.3,fs:10,e:"inout"},{t:2000,x:27.5,y:1.8,op:.5,fs:12,e:"inout"},{t:4000,x:27,y:1.8,op:.3,fs:10,e:"inout"},{t:6000,x:27,y:1.8,op:.3,fs:10,e:"inout"}]},
-    {id:"bird1",text:"~",kf:[{t:0,x:6,y:2,op:.4,fs:11,rot:-5,e:"linear"},{t:6000,x:30,y:1.5,op:.4,fs:11,rot:5,e:"linear"}]},
-    {id:"bird2",text:"~",kf:[{t:0,x:8,y:2.8,op:.3,fs:9,rot:3,e:"linear"},{t:6000,x:28,y:2.2,op:.3,fs:9,rot:-3,e:"linear"}]}
-  ]},
-  neon:{duration:4000,sprites:[
-    {id:"open",text:"O P E N",kf:[
-      {t:0,x:11,y:3.5,op:0,fs:28,e:"out"},
-      {t:200,x:11,y:3.5,op:1,fs:28,e:"in"},
-      {t:1800,x:11,y:3.5,op:1,fs:28,e:"in"},
-      {t:1900,x:11,y:3.5,op:.1,fs:28,e:"out"},
-      {t:2000,x:11,y:3.5,op:1,fs:28,e:"in"},
-      {t:2100,x:11,y:3.5,op:.15,fs:28,e:"out"},
-      {t:2200,x:11,y:3.5,op:1,fs:28,e:"linear"},
-      {t:3600,x:11,y:3.5,op:1,fs:28,e:"in"},
-      {t:3700,x:11,y:3.5,op:0,fs:28,e:"out"},
-      {t:3900,x:11,y:3.5,op:.8,fs:28,e:"out"},
-      {t:4000,x:11,y:3.5,op:0,fs:28,e:"linear"}]},
-    {id:"hr",text:"\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",kf:[
-      {t:0,x:10.5,y:5.2,op:0,fs:12,e:"out"},
-      {t:300,x:10.5,y:5.2,op:.4,fs:12,e:"linear"},
-      {t:3600,x:10.5,y:5.2,op:.4,fs:12,e:"in"},
-      {t:3800,x:10.5,y:5.2,op:0,fs:12,e:"linear"},
-      {t:4000,x:10.5,y:5.2,op:0,fs:12,e:"linear"}]},
-    {id:"sub",text:"2 4 / 7",kf:[
-      {t:0,x:14,y:6.5,op:0,fs:18,e:"out"},
-      {t:500,x:14,y:6.5,op:.7,fs:18,e:"linear"},
-      {t:3400,x:14,y:6.5,op:.7,fs:18,e:"in"},
-      {t:3800,x:14,y:6.5,op:0,fs:18,e:"linear"},
-      {t:4000,x:14,y:6.5,op:0,fs:18,e:"linear"}]},
-    {id:"glow",text:"\u2022",kf:[
-      {t:0,x:10,y:3.6,op:0,fs:40,e:"out"},
-      {t:200,x:10,y:3.6,op:.05,fs:80,e:"inout"},
-      {t:2000,x:10,y:3.6,op:.08,fs:90,e:"inout"},
-      {t:3700,x:10,y:3.6,op:0,fs:40,e:"in"},
-      {t:4000,x:10,y:3.6,op:0,fs:40,e:"linear"}]}
-  ]},
-  heartbeat:{duration:1200,sprites:[
-    {id:"h",text:"\u2665",kf:[
-      {t:0,x:16,y:4,op:1,fs:32,e:"out"},
-      {t:100,x:16,y:3.6,op:1,fs:52,e:"in"},
-      {t:250,x:16,y:4,op:1,fs:30,e:"out"},
-      {t:400,x:16,y:3.6,op:1,fs:46,e:"in"},
-      {t:550,x:16,y:4,op:1,fs:32,e:"inout"},
-      {t:1200,x:16,y:4,op:1,fs:32,e:"inout"}]},
-    {id:"ring1",text:"\u25CB",kf:[
-      {t:0,x:16,y:4,op:0,fs:32,e:"linear"},
-      {t:100,x:16,y:4,op:.3,fs:40,e:"out"},
-      {t:350,x:16,y:4,op:0,fs:70,e:"in"},
-      {t:1200,x:16,y:4,op:0,fs:32,e:"linear"}]},
-    {id:"ring2",text:"\u25CB",kf:[
-      {t:0,x:16,y:4,op:0,fs:32,e:"linear"},
-      {t:400,x:16,y:4,op:.25,fs:38,e:"out"},
-      {t:650,x:16,y:4,op:0,fs:65,e:"in"},
-      {t:1200,x:16,y:4,op:0,fs:32,e:"linear"}]}
-  ]},
-  cityscape:{duration:6000,sprites:[
-    {id:"bld1",text:"\u2588\u2588\u2588",kf:[{t:0,x:4,y:6,op:.5,fs:16,e:"linear"},{t:6000,x:4,y:6,op:.5,fs:16,e:"linear"}]},
-    {id:"bld2",text:"\u2588\u2588\u2588\u2588\u2588",kf:[{t:0,x:8,y:5,op:.45,fs:16,e:"linear"},{t:6000,x:8,y:5,op:.45,fs:16,e:"linear"}]},
-    {id:"bld3",text:"\u2588\u2588",kf:[{t:0,x:14,y:3,op:.55,fs:16,e:"linear"},{t:6000,x:14,y:3,op:.55,fs:16,e:"linear"}]},
-    {id:"bld4",text:"\u2588\u2588\u2588\u2588",kf:[{t:0,x:17,y:4.5,op:.4,fs:16,e:"linear"},{t:6000,x:17,y:4.5,op:.4,fs:16,e:"linear"}]},
-    {id:"bld5",text:"\u2588\u2588\u2588",kf:[{t:0,x:22,y:5.5,op:.5,fs:16,e:"linear"},{t:6000,x:22,y:5.5,op:.5,fs:16,e:"linear"}]},
-    {id:"bld6",text:"\u2588\u2588\u2588\u2588\u2588\u2588",kf:[{t:0,x:26,y:4,op:.35,fs:16,e:"linear"},{t:6000,x:26,y:4,op:.35,fs:16,e:"linear"}]},
-    {id:"ground",text:"\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",kf:[{t:0,x:3,y:8,op:.2,fs:12,e:"linear"},{t:6000,x:3,y:8,op:.2,fs:12,e:"linear"}]},
-    {id:"w1",text:"\u25A0",kf:[{t:0,x:5,y:6.5,op:0,fs:6,e:"inout"},{t:500,x:5,y:6.5,op:.8,fs:6,e:"inout"},{t:2000,x:5,y:6.5,op:.8,fs:6,e:"inout"},{t:2200,x:5,y:6.5,op:0,fs:6,e:"inout"},{t:6000,x:5,y:6.5,op:0,fs:6,e:"linear"}]},
-    {id:"w2",text:"\u25A0",kf:[{t:0,x:15,y:3.8,op:.7,fs:6,e:"inout"},{t:1500,x:15,y:3.8,op:.7,fs:6,e:"inout"},{t:1700,x:15,y:3.8,op:0,fs:6,e:"inout"},{t:3500,x:15,y:3.8,op:0,fs:6,e:"inout"},{t:3700,x:15,y:3.8,op:.8,fs:6,e:"inout"},{t:6000,x:15,y:3.8,op:.8,fs:6,e:"linear"}]},
-    {id:"w3",text:"\u25A0",kf:[{t:0,x:23,y:6,op:0,fs:6,e:"inout"},{t:800,x:23,y:6,op:.6,fs:6,e:"inout"},{t:3000,x:23,y:6,op:.6,fs:6,e:"inout"},{t:3300,x:23,y:6,op:0,fs:6,e:"inout"},{t:6000,x:23,y:6,op:0,fs:6,e:"linear"}]},
-    {id:"w4",text:"\u25A0",kf:[{t:0,x:28,y:4.8,op:.5,fs:6,e:"inout"},{t:1000,x:28,y:4.8,op:0,fs:6,e:"inout"},{t:4000,x:28,y:4.8,op:0,fs:6,e:"inout"},{t:4300,x:28,y:4.8,op:.7,fs:6,e:"inout"},{t:6000,x:28,y:4.8,op:.7,fs:6,e:"linear"}]},
-    {id:"moon",text:"\u25D1",kf:[{t:0,x:30,y:1,op:.6,fs:18,e:"inout"},{t:3000,x:30,y:.8,op:.7,fs:19,e:"inout"},{t:6000,x:30,y:1,op:.6,fs:18,e:"inout"}]},
-    {id:"s1",text:"\u00B7",kf:[{t:0,x:10,y:1.5,op:.2,fs:8,e:"inout"},{t:2000,x:10,y:1.5,op:.6,fs:8,e:"inout"},{t:4000,x:10,y:1.5,op:.2,fs:8,e:"inout"},{t:6000,x:10,y:1.5,op:.5,fs:8,e:"inout"}]},
-    {id:"s2",text:"*",kf:[{t:0,x:20,y:.5,op:.4,fs:8,e:"inout"},{t:1500,x:20,y:.5,op:.1,fs:8,e:"inout"},{t:3500,x:20,y:.5,op:.5,fs:8,e:"inout"},{t:6000,x:20,y:.5,op:.3,fs:8,e:"inout"}]},
-    {id:"s3",text:"\u00B7",kf:[{t:0,x:7,y:2.5,op:.3,fs:8,e:"inout"},{t:3000,x:7,y:2.5,op:.6,fs:8,e:"inout"},{t:6000,x:7,y:2.5,op:.3,fs:8,e:"inout"}]}
-  ]},
-  fireworks:{duration:4000,sprites:[
-    {id:"c",text:"\u2022",kf:[{t:0,x:17,y:10,op:.8,fs:10,e:"out"},{t:800,x:17,y:3,op:1,fs:10,e:"in"},{t:801,x:17,y:3,op:0,fs:10,e:"linear"},{t:4000,x:17,y:10,op:0,fs:10,e:"linear"}]},
-    {id:"e1",text:"\u2727",kf:[{t:0,x:17,y:3,op:0,fs:14,e:"linear"},{t:800,x:17,y:3,op:0,fs:14,e:"linear"},{t:801,x:17,y:3,op:1,fs:18,e:"out"},{t:1800,x:12,y:0,op:0,fs:10,e:"in"},{t:4000,x:12,y:0,op:0,fs:10,e:"linear"}]},
-    {id:"e2",text:"*",kf:[{t:0,x:17,y:3,op:0,fs:14,e:"linear"},{t:800,x:17,y:3,op:0,fs:14,e:"linear"},{t:801,x:17,y:3,op:1,fs:16,e:"out"},{t:1800,x:22,y:0,op:0,fs:8,e:"in"},{t:4000,x:22,y:0,op:0,fs:8,e:"linear"}]},
-    {id:"e3",text:"\u2022",kf:[{t:0,x:17,y:3,op:0,fs:12,e:"linear"},{t:800,x:17,y:3,op:0,fs:12,e:"linear"},{t:801,x:17,y:3,op:1,fs:14,e:"out"},{t:1800,x:14,y:6,op:0,fs:8,e:"in"},{t:4000,x:14,y:6,op:0,fs:8,e:"linear"}]},
-    {id:"e4",text:"\u2727",kf:[{t:0,x:17,y:3,op:0,fs:14,e:"linear"},{t:800,x:17,y:3,op:0,fs:14,e:"linear"},{t:801,x:17,y:3,op:1,fs:16,e:"out"},{t:1800,x:20,y:7,op:0,fs:8,e:"in"},{t:4000,x:20,y:7,op:0,fs:8,e:"linear"}]},
-    {id:"e5",text:"*",kf:[{t:0,x:17,y:3,op:0,fs:12,e:"linear"},{t:800,x:17,y:3,op:0,fs:12,e:"linear"},{t:801,x:17,y:3,op:.8,fs:14,e:"out"},{t:1800,x:10,y:4,op:0,fs:8,e:"in"},{t:4000,x:10,y:4,op:0,fs:8,e:"linear"}]},
-    {id:"e6",text:"\u2022",kf:[{t:0,x:17,y:3,op:0,fs:10,e:"linear"},{t:800,x:17,y:3,op:0,fs:10,e:"linear"},{t:801,x:17,y:3,op:.9,fs:12,e:"out"},{t:1800,x:24,y:4,op:0,fs:6,e:"in"},{t:4000,x:24,y:4,op:0,fs:6,e:"linear"}]},
-    {id:"e7",text:"\u2727",kf:[{t:0,x:17,y:3,op:0,fs:12,e:"linear"},{t:800,x:17,y:3,op:0,fs:12,e:"linear"},{t:801,x:17,y:3,op:.7,fs:14,e:"out"},{t:1800,x:17,y:8,op:0,fs:6,e:"in"},{t:4000,x:17,y:8,op:0,fs:6,e:"linear"}]},
-    {id:"e8",text:"*",kf:[{t:0,x:17,y:3,op:0,fs:10,e:"linear"},{t:800,x:17,y:3,op:0,fs:10,e:"linear"},{t:801,x:17,y:3,op:.6,fs:12,e:"out"},{t:1800,x:17,y:-1,op:0,fs:6,e:"in"},{t:4000,x:17,y:-1,op:0,fs:6,e:"linear"}]},
-    {id:"f1",text:"\u00B7",kf:[{t:1200,x:13,y:1,op:0,fs:8,e:"linear"},{t:1300,x:13,y:1,op:.5,fs:8,e:"out"},{t:2200,x:13,y:1,op:0,fs:4,e:"in"},{t:4000,x:13,y:1,op:0,fs:4,e:"linear"}]},
-    {id:"f2",text:"\u00B7",kf:[{t:1200,x:21,y:2,op:0,fs:8,e:"linear"},{t:1400,x:21,y:2,op:.4,fs:8,e:"out"},{t:2400,x:21,y:2,op:0,fs:4,e:"in"},{t:4000,x:21,y:2,op:0,fs:4,e:"linear"}]},
-    {id:"c2",text:"\u2022",kf:[{t:2000,x:10,y:10,op:0,fs:10,e:"linear"},{t:2100,x:10,y:10,op:.7,fs:10,e:"out"},{t:2700,x:10,y:4,op:1,fs:10,e:"in"},{t:2701,x:10,y:4,op:0,fs:10,e:"linear"},{t:4000,x:10,y:4,op:0,fs:10,e:"linear"}]},
-    {id:"x1",text:"\u2727",kf:[{t:2700,x:10,y:4,op:0,fs:12,e:"linear"},{t:2701,x:10,y:4,op:1,fs:14,e:"out"},{t:3500,x:7,y:2,op:0,fs:8,e:"in"},{t:4000,x:7,y:2,op:0,fs:8,e:"linear"}]},
-    {id:"x2",text:"*",kf:[{t:2700,x:10,y:4,op:0,fs:12,e:"linear"},{t:2701,x:10,y:4,op:.8,fs:14,e:"out"},{t:3500,x:13,y:2,op:0,fs:8,e:"in"},{t:4000,x:13,y:2,op:0,fs:8,e:"linear"}]},
-    {id:"x3",text:"\u2022",kf:[{t:2700,x:10,y:4,op:0,fs:10,e:"linear"},{t:2701,x:10,y:4,op:.9,fs:12,e:"out"},{t:3500,x:8,y:7,op:0,fs:6,e:"in"},{t:4000,x:8,y:7,op:0,fs:6,e:"linear"}]},
-    {id:"x4",text:"\u2727",kf:[{t:2700,x:10,y:4,op:0,fs:10,e:"linear"},{t:2701,x:10,y:4,op:.7,fs:12,e:"out"},{t:3500,x:12,y:7,op:0,fs:6,e:"in"},{t:4000,x:12,y:7,op:0,fs:6,e:"linear"}]}
-  ]},
-  typewriter:{duration:5000,sprites:[
-    {id:"t1",text:"H",kf:[{t:0,x:10,y:4.5,op:0,fs:22,e:"linear"},{t:200,x:10,y:4.5,op:0,fs:22,e:"linear"},{t:250,x:10,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:10,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t2",text:"e",kf:[{t:0,x:11.3,y:4.5,op:0,fs:22,e:"linear"},{t:400,x:11.3,y:4.5,op:0,fs:22,e:"linear"},{t:450,x:11.3,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:11.3,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t3",text:"l",kf:[{t:0,x:12.6,y:4.5,op:0,fs:22,e:"linear"},{t:600,x:12.6,y:4.5,op:0,fs:22,e:"linear"},{t:650,x:12.6,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:12.6,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t4",text:"l",kf:[{t:0,x:13.9,y:4.5,op:0,fs:22,e:"linear"},{t:800,x:13.9,y:4.5,op:0,fs:22,e:"linear"},{t:850,x:13.9,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:13.9,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t5",text:"o",kf:[{t:0,x:15.2,y:4.5,op:0,fs:22,e:"linear"},{t:1000,x:15.2,y:4.5,op:0,fs:22,e:"linear"},{t:1050,x:15.2,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:15.2,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t6",text:",",kf:[{t:0,x:16.5,y:4.5,op:0,fs:22,e:"linear"},{t:1400,x:16.5,y:4.5,op:0,fs:22,e:"linear"},{t:1450,x:16.5,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:16.5,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t7",text:"W",kf:[{t:0,x:18.5,y:4.5,op:0,fs:22,e:"linear"},{t:1800,x:18.5,y:4.5,op:0,fs:22,e:"linear"},{t:1850,x:18.5,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:18.5,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t8",text:"o",kf:[{t:0,x:19.8,y:4.5,op:0,fs:22,e:"linear"},{t:2000,x:19.8,y:4.5,op:0,fs:22,e:"linear"},{t:2050,x:19.8,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:19.8,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t9",text:"r",kf:[{t:0,x:21.1,y:4.5,op:0,fs:22,e:"linear"},{t:2200,x:21.1,y:4.5,op:0,fs:22,e:"linear"},{t:2250,x:21.1,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:21.1,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t10",text:"l",kf:[{t:0,x:22.4,y:4.5,op:0,fs:22,e:"linear"},{t:2400,x:22.4,y:4.5,op:0,fs:22,e:"linear"},{t:2450,x:22.4,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:22.4,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t11",text:"d",kf:[{t:0,x:23.7,y:4.5,op:0,fs:22,e:"linear"},{t:2600,x:23.7,y:4.5,op:0,fs:22,e:"linear"},{t:2650,x:23.7,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:23.7,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"t12",text:".",kf:[{t:0,x:25,y:4.5,op:0,fs:22,e:"linear"},{t:2900,x:25,y:4.5,op:0,fs:22,e:"linear"},{t:2950,x:25,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:25,y:4.5,op:1,fs:22,e:"linear"}]},
-    {id:"cursor",text:"\u2588",kf:[{t:0,x:10,y:4.5,op:.8,fs:22,e:"linear"},{t:200,x:10,y:4.5,op:.8,fs:22,e:"linear"},{t:250,x:11.3,y:4.5,op:.8,fs:22,e:"linear"},{t:450,x:12.6,y:4.5,op:.8,fs:22,e:"linear"},{t:650,x:13.9,y:4.5,op:.8,fs:22,e:"linear"},{t:850,x:15.2,y:4.5,op:.8,fs:22,e:"linear"},{t:1050,x:16.5,y:4.5,op:.8,fs:22,e:"linear"},{t:1450,x:18.5,y:4.5,op:.8,fs:22,e:"linear"},{t:1850,x:19.8,y:4.5,op:.8,fs:22,e:"linear"},{t:2050,x:21.1,y:4.5,op:.8,fs:22,e:"linear"},{t:2250,x:22.4,y:4.5,op:.8,fs:22,e:"linear"},{t:2450,x:23.7,y:4.5,op:.8,fs:22,e:"linear"},{t:2650,x:25,y:4.5,op:.8,fs:22,e:"linear"},{t:2950,x:26.3,y:4.5,op:.8,fs:22,e:"linear"},{t:3200,x:26.3,y:4.5,op:0,fs:22,e:"inout"},{t:3600,x:26.3,y:4.5,op:.8,fs:22,e:"inout"},{t:4000,x:26.3,y:4.5,op:0,fs:22,e:"inout"},{t:4400,x:26.3,y:4.5,op:.8,fs:22,e:"inout"},{t:4800,x:26.3,y:4.5,op:0,fs:22,e:"inout"},{t:5000,x:26.3,y:4.5,op:.8,fs:22,e:"inout"}]}
-  ]},
-  rain:{duration:4000,sprites:[
-    {id:"r1",text:"|",kf:[{t:0,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:801,x:8,y:-1,op:0,fs:14,e:"linear"},{t:1000,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:1800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:1801,x:8,y:-1,op:0,fs:14,e:"linear"},{t:2000,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:2800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:4000,x:8,y:-1,op:0,fs:14,e:"linear"}]},
-    {id:"r2",text:"|",kf:[{t:0,x:13,y:3,op:.4,fs:14,e:"linear"},{t:600,x:13,y:11,op:.1,fs:14,e:"linear"},{t:601,x:13,y:-1,op:0,fs:14,e:"linear"},{t:900,x:13,y:-1,op:.4,fs:14,e:"linear"},{t:1700,x:13,y:11,op:.1,fs:14,e:"linear"},{t:1701,x:13,y:-1,op:0,fs:14,e:"linear"},{t:2100,x:13,y:-1,op:.4,fs:14,e:"linear"},{t:2900,x:13,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:13,y:-1,op:0,fs:14,e:"linear"}]},
-    {id:"r3",text:"|",kf:[{t:0,x:18,y:-1,op:0,fs:14,e:"linear"},{t:300,x:18,y:-1,op:.45,fs:14,e:"linear"},{t:1100,x:18,y:11,op:.1,fs:14,e:"linear"},{t:1101,x:18,y:-1,op:0,fs:14,e:"linear"},{t:1500,x:18,y:-1,op:.45,fs:14,e:"linear"},{t:2300,x:18,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:18,y:-1,op:0,fs:14,e:"linear"}]},
-    {id:"r4",text:"|",kf:[{t:0,x:23,y:1,op:.35,fs:14,e:"linear"},{t:700,x:23,y:11,op:.1,fs:14,e:"linear"},{t:701,x:23,y:-1,op:0,fs:14,e:"linear"},{t:1100,x:23,y:-1,op:.35,fs:14,e:"linear"},{t:1900,x:23,y:11,op:.1,fs:14,e:"linear"},{t:1901,x:23,y:-1,op:0,fs:14,e:"linear"},{t:2400,x:23,y:-1,op:.35,fs:14,e:"linear"},{t:3200,x:23,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:23,y:-1,op:0,fs:14,e:"linear"}]},
-    {id:"r5",text:"|",kf:[{t:0,x:28,y:-1,op:0,fs:14,e:"linear"},{t:500,x:28,y:-1,op:.4,fs:14,e:"linear"},{t:1300,x:28,y:11,op:.1,fs:14,e:"linear"},{t:1301,x:28,y:-1,op:0,fs:14,e:"linear"},{t:1800,x:28,y:-1,op:.4,fs:14,e:"linear"},{t:2600,x:28,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:28,y:-1,op:0,fs:14,e:"linear"}]},
-    {id:"r6",text:"|",kf:[{t:0,x:11,y:5,op:.3,fs:14,e:"linear"},{t:500,x:11,y:11,op:.08,fs:14,e:"linear"},{t:501,x:11,y:-1,op:0,fs:14,e:"linear"},{t:800,x:11,y:-1,op:.3,fs:14,e:"linear"},{t:1600,x:11,y:11,op:.08,fs:14,e:"linear"},{t:1601,x:11,y:-1,op:0,fs:14,e:"linear"},{t:2200,x:11,y:-1,op:.3,fs:14,e:"linear"},{t:3000,x:11,y:11,op:.08,fs:14,e:"linear"},{t:4000,x:11,y:-1,op:0,fs:14,e:"linear"}]},
-    {id:"r7",text:"|",kf:[{t:0,x:26,y:-1,op:0,fs:14,e:"linear"},{t:200,x:26,y:-1,op:.38,fs:14,e:"linear"},{t:1000,x:26,y:11,op:.1,fs:14,e:"linear"},{t:1001,x:26,y:-1,op:0,fs:14,e:"linear"},{t:1400,x:26,y:-1,op:.38,fs:14,e:"linear"},{t:2200,x:26,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:26,y:-1,op:0,fs:14,e:"linear"}]},
-    {id:"puddle",text:"\u00B7 \u00B7   \u00B7  \u00B7 \u00B7  \u00B7",kf:[
-      {t:0,x:7,y:10,op:.15,fs:10,e:"inout"},
-      {t:2000,x:7,y:10,op:.25,fs:10,e:"inout"},
-      {t:4000,x:7,y:10,op:.15,fs:10,e:"inout"}]}
-  ]}
-};
-
-const D={x:5,y:5,op:1,fs:18,rot:0},CW=10.2,LH=22;
-function ease(t,e){if(!e||e==="linear")return t;if(e==="in")return t*t;if(e==="out")return 1-(1-t)**2;if(e==="inout")return t<.5?2*t*t:1-2*(1-t)**2;return t}
-function lerp(a,b,t){return a+(b-a)*t}
-function sam(kf,t){
-  if(!kf.length)return{x:D.x,y:D.y,op:D.op,fs:D.fs,rot:D.rot};
-  if(t<=kf[0].t){const k=kf[0];return{x:k.x??D.x,y:k.y??D.y,op:k.op??D.op,fs:k.fs??D.fs,rot:k.rot??D.rot}}
-  const l=kf[kf.length-1];if(t>=l.t)return{x:l.x??D.x,y:l.y??D.y,op:l.op??D.op,fs:l.fs??D.fs,rot:l.rot??D.rot};
-  let lo=0,hi=kf.length-2;while(lo<hi){const m=(lo+hi+1)>>>1;if(kf[m].t<=t)lo=m;else hi=m-1}
-  const a=kf[lo],b=kf[lo+1],p=ease((t-a.t)/(b.t-a.t),b.e);
-  return{x:lerp(a.x??D.x,b.x??D.x,p),y:lerp(a.y??D.y,b.y??D.y,p),op:lerp(a.op??D.op,b.op??D.op,p),fs:lerp(a.fs??D.fs,b.fs??D.fs,p),rot:lerp(a.rot??D.rot,b.rot??D.rot,p)}
-}
-function txt(sp,t){let r=sp.text;for(const k of sp.kf){if(k.t>t)break;if(k.tx!=null)r=k.tx}return r}
-
-const cv=document.getElementById("canvas");
-const ppBtn=document.getElementById("demo-pp");
-const progBar=document.getElementById("demo-bar-fill");
-const progWrap=document.getElementById("demo-prog");
-const timeDisp=document.getElementById("demo-time");
-const spdSel=document.getElementById("demo-speed");
-let scene,els=[],time=0,last=null,raf=0,playing=true,speed=1;
-
-function load(name){
-  cancelAnimationFrame(raf);
-  scene=P[name]; cv.innerHTML=""; els=[];
-  for(const sp of scene.sprites){
-    const el=document.createElement("span");
-    el.className="sp"; cv.appendChild(el);
-    els.push({sp,el});
-  }
-  time=0;last=null;playing=true;
-  ppBtn.innerHTML="&#10074;&#10074;";
-  document.querySelectorAll(".demo-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.p===name));
-  raf=requestAnimationFrame(tick);
-}
-
-function renderFrame(){
-  for(const{sp,el}of els){
-    const p=sam(sp.kf,time);
-    el.textContent=txt(sp,time);
-    el.style.transform=`translate(${(p.x*CW).toFixed(1)}px,${(p.y*LH).toFixed(1)}px) rotate(${(p.rot||0).toFixed(1)}deg)`;
-    el.style.opacity=p.op.toFixed(2);
-    el.style.fontSize=Math.round(p.fs)+"px";
-  }
-  progBar.style.width=(time/scene.duration*100)+"%";
-  timeDisp.textContent=(time/1000).toFixed(1)+"s";
-}
-
-function tick(now){
-  if(!playing){last=null;return}
-  if(last===null)last=now;
-  time+=Math.min(now-last,100)*speed;last=now;
-  if(time>=scene.duration)time%=scene.duration;
-  renderFrame();
-  raf=requestAnimationFrame(tick);
-}
-
-ppBtn.addEventListener("click",()=>{
-  playing=!playing;
-  ppBtn.innerHTML=playing?"&#10074;&#10074;":"&#9654;";
-  if(playing){last=null;raf=requestAnimationFrame(tick)}
-});
-progWrap.addEventListener("click",e=>{
-  const r=progWrap.getBoundingClientRect();
-  time=(e.clientX-r.left)/r.width*scene.duration;
-  renderFrame();
-});
-spdSel.addEventListener("change",e=>{speed=parseFloat(e.target.value)});
-document.querySelectorAll(".demo-tabs button").forEach(b=>b.addEventListener("click",()=>load(b.dataset.p)));
-load("sleeping");
 </script>
 </body>
 </html>

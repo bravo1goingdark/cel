@@ -1,17 +1,13 @@
 <div align="center">
 
-```
-                ___     ___     ___
-               / __|   / _ \   | |
-              | (__   |  __/   | |
-               \___|   \___|   |_|
+<a href="https://bravo1goingdark.github.io/cel/">
+  <img src="docs/banner.svg" alt="Cel — ASCII Animation Studio" width="680">
+</a>
 
-        a s c i i   a n i m a t i o n
-              s  t  u  d  i  o
-```
+<br>
 
 [![CI](https://github.com/bravo1goingdark/cel/actions/workflows/ci.yml/badge.svg)](https://github.com/bravo1goingdark/cel/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/bravo1goingdark/cel?label=download&color=c8ff3e)](https://github.com/bravo1goingdark/cel/releases/latest)
+[![Release](https://img.shields.io/github/v/release/bravo1goingdark/cel?label=download&color=e8720c)](https://github.com/bravo1goingdark/cel/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **Design ASCII animations visually. Export to any format. Ship in seconds.**

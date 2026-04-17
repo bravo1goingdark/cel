@@ -604,8 +604,12 @@ footer a:hover { color: var(--fg); }
   .fc h3 { font-size: 14px; }
   .fc p { font-size: 12px; }
 
+  .app-ui { font-size: 10px !important; }
+  #desktop-app div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+  #react div[style*="grid-template-columns:repeat(2"] { grid-template-columns: 1fr !important; }
+
   .export-grid { gap: 6px; margin-top: 28px; }
-  #stats div[style*="grid-template-columns: repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+  #stats-section div[style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
   .export-chip { padding: 8px 14px; font-size: 12px; border-radius: 8px; }
 
   .code-block { font-size: 12px; padding: 14px 18px; border-radius: 10px; margin: 24px 0 20px; }
@@ -652,7 +656,9 @@ footer a:hover { color: var(--fg); }
   <a href="/" class="logo">cel<em>.</em></a>
   <div class="nav-links">
     <a href="#features">Features</a>
+    <a href="#desktop-app">Desktop</a>
     <a href="#exports">Exports</a>
+    <a href="#react">React</a>
     <a href="#install">Install</a>
   </div>
   <div class="nav-right">
@@ -739,7 +745,158 @@ footer a:hover { color: var(--fg); }
       <div class="fc">
         <span class="fc-icon">&gt;_</span>
         <h3>CLI included</h3>
-        <p>Validate, render, and play scenes from the command line. Batch export from YAML configs.</p>
+        <p>Validate, render, and play scenes from the command line. 1.3MB static Rust binary.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#8630;</span>
+        <h3>Undo / redo</h3>
+        <p>30-step undo stack. Every edit is reversible. Structural cloning keeps memory lean.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#10710;</span>
+        <h3>Bezier easing</h3>
+        <p>Visual cubic bezier curve editor with SVG drag handles. 4 presets, full numeric control.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#8693;</span>
+        <h3>Drag reorder</h3>
+        <p>Drag sprites to reorder z-index layering. Drop to reposition, undo to revert.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#9883;</span>
+        <h3>Light &amp; dark</h3>
+        <p>System-aware theme with manual toggle. CSS custom properties for consistent design tokens.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#128190;</span>
+        <h3>Autosave</h3>
+        <p>Debounced 400ms autosave to native Tauri store. Atomic writes prevent corruption on crash.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#9881;</span>
+        <h3>31 presets</h3>
+        <p>Sleeping, spinner, heartbeat, matrix, fire, rain, orbit, typewriter, and 23 more built in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="desktop-app">
+  <div class="features-wrap">
+    <div class="section-label">Desktop</div>
+    <h2>A real editor.<br>Not a toy.</h2>
+    <p class="section-desc">Full desktop app built with Tauri 2 and Rust. Native menus, file dialogs, keyboard shortcuts. Under 10MB installed.</p>
+    <div class="app-ui" style="max-width:760px;margin:48px auto 0;border:1px solid var(--fg-4);border-radius:16px;overflow:hidden;background:var(--bg-3);font-family:var(--mono);font-size:12px;line-height:1.5;">
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--fg-4);background:var(--bg-2);">
+        <div class="dot dot-r" style="width:10px;height:10px;"></div>
+        <div class="dot dot-y" style="width:10px;height:10px;"></div>
+        <div class="dot dot-g" style="width:10px;height:10px;"></div>
+        <span style="flex:1;text-align:center;color:var(--fg-3);font-size:11px;">sleeping.aanim — Cel</span>
+      </div>
+      <div style="display:flex;padding:8px 12px;gap:8px;border-bottom:1px solid var(--fg-4);background:var(--bg-2);flex-wrap:wrap;">
+        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">presets ▾</span>
+        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">+ sprite</span>
+        <span style="flex:1;"></span>
+        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">export</span>
+        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">.aanim</span>
+        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">open</span>
+      </div>
+      <div style="display:flex;">
+        <div style="flex:1;padding:32px;text-align:center;min-height:160px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:28px;color:var(--accent);opacity:0.8;">( -_- ) z z Z</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;border-top:1px solid var(--fg-4);border-bottom:1px solid var(--fg-4);background:var(--bg-2);">
+        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">&#9654; play</span>
+        <span style="padding:3px 10px;border:1px solid var(--fg-4);border-radius:6px;color:var(--fg-3);font-size:10px;">loop on</span>
+        <span style="color:var(--fg-3);font-size:10px;">1.20s / 4.00s</span>
+        <span style="flex:1;"></span>
+        <span style="color:var(--fg-3);font-size:10px;">speed 1x</span>
+        <span style="color:var(--fg-3);font-size:10px;">duration 4.0s</span>
+      </div>
+      <div style="display:flex;min-height:100px;">
+        <div style="width:120px;border-right:1px solid var(--fg-4);padding:8px 0;">
+          <div style="padding:4px 12px;font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.05em;">Layers</div>
+          <div style="padding:5px 12px;font-size:11px;color:var(--accent);background:var(--accent-dim);border-left:2px solid var(--accent);">face</div>
+          <div style="padding:5px 12px;font-size:11px;color:var(--fg-3);">zzz</div>
+          <div style="padding:5px 12px;font-size:11px;color:var(--fg-3);">bigZ</div>
+          <div style="padding:5px 12px;font-size:11px;color:var(--fg-3);">blink</div>
+        </div>
+        <div style="flex:1;padding:8px 12px;position:relative;">
+          <div style="display:flex;align-items:center;gap:4px;margin-bottom:6px;">
+            <span style="color:var(--fg-4);font-size:9px;">|0ms</span>
+            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
+            <span style="color:var(--fg-4);font-size:9px;">|1s</span>
+            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
+            <span style="color:var(--fg-4);font-size:9px;">|2s</span>
+            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
+            <span style="color:var(--fg-4);font-size:9px;">|3s</span>
+            <span style="flex:1;height:1px;background:var(--fg-4);"></span>
+            <span style="color:var(--fg-4);font-size:9px;">|4s</span>
+          </div>
+          <div style="height:16px;position:relative;margin-bottom:4px;">
+            <span style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--accent);"></span>
+            <span style="position:absolute;left:37%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-3);"></span>
+            <span style="position:absolute;left:42%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-3);"></span>
+            <span style="position:absolute;left:100%;top:50%;transform:translate(-100%,-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-3);"></span>
+            <div style="position:absolute;top:0;bottom:0;left:0;right:0;border-bottom:1px solid var(--fg-4);"></div>
+          </div>
+          <div style="height:16px;position:relative;margin-bottom:4px;">
+            <span style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
+            <span style="position:absolute;left:50%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
+            <span style="position:absolute;left:100%;top:50%;transform:translate(-100%,-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
+            <div style="position:absolute;top:0;bottom:0;left:0;right:0;border-bottom:1px solid var(--fg-4);"></div>
+          </div>
+          <div style="height:16px;position:relative;margin-bottom:4px;">
+            <span style="position:absolute;left:10%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
+            <span style="position:absolute;left:60%;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
+            <span style="position:absolute;left:100%;top:50%;transform:translate(-100%,-50%);width:6px;height:6px;border-radius:50%;background:var(--fg-4);"></span>
+            <div style="position:absolute;top:0;bottom:0;left:0;right:0;border-bottom:1px solid var(--fg-4);"></div>
+          </div>
+          <div style="position:absolute;top:24px;bottom:8px;left:30%;width:2px;background:var(--accent);opacity:0.6;border-radius:1px;"></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;border-top:1px solid var(--fg-4);background:var(--bg-2);flex-wrap:wrap;">
+        <span style="color:var(--fg-3);font-size:10px;">id</span>
+        <span style="padding:2px 8px;border:1px solid var(--fg-4);border-radius:4px;color:var(--fg);font-size:10px;background:var(--bg);">face</span>
+        <span style="color:var(--fg-3);font-size:10px;">text</span>
+        <span style="padding:2px 8px;border:1px solid var(--fg-4);border-radius:4px;color:var(--fg);font-size:10px;background:var(--bg);">( -_- )</span>
+        <span style="color:var(--fg-3);font-size:10px;font-style:italic;opacity:0.6;">click a keyframe to edit</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:760px;margin:32px auto 0;">
+      <div style="padding:20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;">
+        <div style="font-size:14px;font-weight:600;margin-bottom:6px;">Keyboard shortcuts</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.8;font-family:var(--mono);">
+          Space = play/pause<br>
+          Ctrl+Z = undo<br>
+          Ctrl+D = duplicate<br>
+          Ctrl+C/V = copy/paste kf<br>
+          [ ] = add keyframe<br>
+          Delete = remove kf
+        </div>
+      </div>
+      <div style="padding:20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;">
+        <div style="font-size:14px;font-weight:600;margin-bottom:6px;">Keyframe properties</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.8;font-family:var(--mono);">
+          x, y &mdash; grid position<br>
+          opacity &mdash; 0 to 1<br>
+          fontSize &mdash; 6 to 64px<br>
+          rotation &mdash; degrees<br>
+          color &mdash; 7 named tokens<br>
+          easing &mdash; named or bezier
+        </div>
+      </div>
+      <div style="padding:20px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;">
+        <div style="font-size:14px;font-weight:600;margin-bottom:6px;">File operations</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.8;font-family:var(--mono);">
+          Native open/save dialogs<br>
+          Atomic writes (crash-safe)<br>
+          Autosave every 400ms<br>
+          Save scenes to store<br>
+          Import/export .aanim<br>
+          31 bundled presets
+        </div>
       </div>
     </div>
   </div>
@@ -783,6 +940,72 @@ footer a:hover { color: var(--fg); }
   </div>
 </section>
 
+<section id="react">
+  <div class="features-wrap">
+    <div class="section-label">React</div>
+    <h2>Drop-in component.<br>One import.</h2>
+    <p class="section-desc">@cel/react ships a ready-to-use component. Pass a scene, get a playing animation. Tree-shakeable, typed, 3KB.</p>
+    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
+<span style="color:var(--fg-3)">// install</span><br>
+<span class="dim">$</span> npm install <span class="hl">@cel/react</span> <span class="hl">@cel/core</span><br><br>
+<span style="color:var(--fg-3)">// drop into any React app</span><br>
+<span style="color:var(--accent)">import</span> { CelAnimation } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/react'</span>;<br>
+<span style="color:var(--accent)">import</span> scene <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'./sleeping.aanim'</span>;<br><br>
+<span style="color:var(--accent)">export default</span> <span style="color:var(--fg-3)">function</span> App() {<br>
+&nbsp;&nbsp;<span style="color:var(--accent)">return</span> &lt;<span style="color:var(--fg)">CelAnimation</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">scene</span>={scene}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">autoplay</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">loop</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">speed</span>={<span style="color:var(--fg)">1</span>}<br>
+&nbsp;&nbsp;/&gt;;<br>
+}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:24px auto 0;">
+      <div style="padding:16px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:4px;">CelAnimation</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;">High-level component with autoplay, loop, speed, width, height, and onFrame callback.</div>
+      </div>
+      <div style="padding:16px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:10px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:4px;">useCelPlayer</div>
+        <div style="font-size:11px;color:var(--fg-3);line-height:1.6;">Low-level hook for custom render targets. Full player API: play, pause, seek, speed, destroy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="format">
+  <div class="features-wrap">
+    <div class="section-label">Format</div>
+    <h2>.aanim files.<br>JSON you can read.</h2>
+    <p class="section-desc">UTF-8 JSON with strict conventions. Deterministic output means every save produces an identical file. Perfect for version control.</p>
+    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:12px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
+{<br>
+&nbsp;&nbsp;<span style="color:var(--fg-3)">"$schema"</span>: <span style="color:var(--fg)">"https://cel.dev/schema/v1.json"</span>,<br>
+&nbsp;&nbsp;<span style="color:var(--fg-3)">"version"</span>: <span style="color:var(--accent)">1</span>,<br>
+&nbsp;&nbsp;<span style="color:var(--fg-3)">"duration"</span>: <span style="color:var(--accent)">4000</span>,<br>
+&nbsp;&nbsp;<span style="color:var(--fg-3)">"fps"</span>: <span style="color:var(--accent)">60</span>,<br>
+&nbsp;&nbsp;<span style="color:var(--fg-3)">"grid"</span>: { <span style="color:var(--fg-3)">"cols"</span>: <span style="color:var(--accent)">60</span>, <span style="color:var(--fg-3)">"rows"</span>: <span style="color:var(--accent)">13</span> },<br>
+&nbsp;&nbsp;<span style="color:var(--fg-3)">"sprites"</span>: [{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">"id"</span>: <span style="color:var(--fg)">"face"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">"text"</span>: <span style="color:var(--fg)">"( -_- )"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--fg-3)">"keyframes"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--fg-3)">"t"</span>: <span style="color:var(--accent)">0</span>, <span style="color:var(--fg-3)">"x"</span>: <span style="color:var(--accent)">5.5</span>, <span style="color:var(--fg-3)">"y"</span>: <span style="color:var(--accent)">5</span>, <span style="color:var(--fg-3)">"easing"</span>: <span style="color:var(--fg)">"inout"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--fg-3)">"t"</span>: <span style="color:var(--accent)">2000</span>, <span style="color:var(--fg-3)">"y"</span>: <span style="color:var(--accent)">5.6</span>, <span style="color:var(--fg-3)">"rotation"</span>: <span style="color:var(--accent)">-1</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--fg-3)">"t"</span>: <span style="color:var(--accent)">4000</span>, <span style="color:var(--fg-3)">"y"</span>: <span style="color:var(--accent)">5</span>, <span style="color:var(--fg-3)">"rotation"</span>: <span style="color:var(--accent)">0</span> }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;}]<br>
+}
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px;">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Alphabetical keys</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Fixed precision</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Trailing newline</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">JSON Schema v1</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:6px 14px;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:8px;">Sparse keyframes</span>
+    </div>
+  </div>
+</section>
+
 <section id="cli">
   <div class="features-wrap">
     <div class="section-label">CLI</div>
@@ -809,7 +1032,7 @@ footer a:hover { color: var(--fg); }
     <h2>Built to be measured</h2>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fg-4);border:1px solid var(--fg-4);border-radius:16px;overflow:hidden;margin-top:48px;">
       <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">3.9<span style="font-size:16px;font-weight:500">KB</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">engine gzipped</div></div>
-      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">210</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">tests passing</div></div>
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">212</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">tests passing</div></div>
       <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">0.6<span style="font-size:16px;font-weight:500">ms</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">per frame render</div></div>
       <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">0</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">dependencies</div></div>
     </div>

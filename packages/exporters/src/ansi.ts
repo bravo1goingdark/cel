@@ -1,6 +1,13 @@
-import type { Scene } from '@ascii-anim/core';
-import { DEFAULT_TRANSFORM } from '@ascii-anim/core';
+import type { Scene } from '@cel/core';
+import { DEFAULT_TRANSFORM } from '@cel/core';
 import type { Exporter } from './types';
+import {
+  RUNTIME_DEFAULTS,
+  RUNTIME_EASE,
+  RUNTIME_LERP,
+  RUNTIME_SAMPLE_TERMINAL,
+  RUNTIME_TEXT_AT,
+} from './runtime';
 
 export interface AnsiOpts {
   clearScreen?: boolean;
@@ -15,41 +22,19 @@ export const ansiExporter: Exporter<AnsiOpts> = {
   defaultOpts: { clearScreen: true },
 
   async run(scene, opts) {
-    const D = DEFAULT_TRANSFORM;
     const clear = opts.clearScreen !== false;
 
     const content = `#!/usr/bin/env node
-// ASCII Anim — Terminal playback script
+// Cel — Terminal playback script
 // Usage: node ${scene.meta?.title ?? 'animation'}.js
 
 const SCENE = ${JSON.stringify(scene, null, 2)};
-const D = { x: ${D.x}, y: ${D.y}, op: ${D.opacity}, fs: ${D.fontSize}, rot: ${D.rotation} };
+${RUNTIME_DEFAULTS}
 
-function ease(t, e) {
-  if (!e || e === 'linear') return t;
-  if (e === 'in') return t * t;
-  if (e === 'out') return 1 - (1 - t) ** 2;
-  if (e === 'inout') return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) ** 2;
-  return t;
-}
-
-function lerp(a, b, t) { return a + (b - a) * t; }
-
-function sample(kfs, t) {
-  if (!kfs.length) return { x: D.x, y: D.y, op: D.op };
-  if (t <= kfs[0].t) { const k = kfs[0]; return { x: k.x ?? D.x, y: k.y ?? D.y, op: k.opacity ?? D.op }; }
-  const l = kfs[kfs.length - 1];
-  if (t >= l.t) return { x: l.x ?? D.x, y: l.y ?? D.y, op: l.opacity ?? D.op };
-  let i = 0; while (i < kfs.length - 1 && kfs[i + 1].t <= t) i++;
-  const a = kfs[i], b = kfs[i + 1], p = ease((t - a.t) / (b.t - a.t), b.easing);
-  return { x: lerp(a.x ?? D.x, b.x ?? D.x, p), y: lerp(a.y ?? D.y, b.y ?? D.y, p), op: lerp(a.opacity ?? D.op, b.opacity ?? D.op, p) };
-}
-
-function textAt(sp, t) {
-  let r = sp.text;
-  for (const k of sp.keyframes) { if (k.t > t) break; if (k.text != null) r = k.text; }
-  return r;
-}
+${RUNTIME_EASE}
+${RUNTIME_LERP}
+${RUNTIME_SAMPLE_TERMINAL}
+${RUNTIME_TEXT_AT}
 
 const cols = SCENE.grid?.cols ?? 60;
 const rows = SCENE.grid?.rows ?? 13;

@@ -1,25 +1,38 @@
-import type { Scene } from '@ascii-anim/core';
-import { DEFAULT_TRANSFORM } from '@ascii-anim/core';
+import type { Scene, Easing, BezierEasing } from '@cel/core';
+import { DEFAULT_TRANSFORM, DEFAULT_CHAR_WIDTH, DEFAULT_LINE_HEIGHT } from '@cel/core';
 import type { Exporter } from './types';
 
 export interface CssOpts {
   prefix?: string;
 }
 
+/** Map a named easing or cubic bezier to a CSS timing function. */
+function easingToCss(easing?: Easing): string {
+  if (!easing || easing === 'linear') return 'linear';
+  if (easing === 'in') return 'cubic-bezier(0.42, 0, 1, 1)';
+  if (easing === 'out') return 'cubic-bezier(0, 0, 0.58, 1)';
+  if (easing === 'inout') return 'cubic-bezier(0.42, 0, 0.58, 1)';
+  if (typeof easing === 'object' && 'cubic' in easing) {
+    const [x1, y1, x2, y2] = (easing as BezierEasing).cubic;
+    return `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
+  }
+  return 'linear';
+}
+
 export const cssExporter: Exporter<CssOpts> = {
   id: 'css',
   name: 'CSS Keyframes',
-  description: 'Pure CSS animation using @keyframes. Limited easing support.',
+  description: 'Pure CSS animation using @keyframes with easing support.',
   extension: '.css',
   mimeType: 'text/css',
-  defaultOpts: { prefix: 'ascii-anim' },
+  defaultOpts: { prefix: 'cel' },
 
   async run(scene, opts) {
-    const prefix = opts.prefix ?? 'ascii-anim';
+    const prefix = opts.prefix ?? 'cel';
     const warnings: string[] = [];
     const D = DEFAULT_TRANSFORM;
-    const CW = 10.2;
-    const LH = 22;
+    const CW = DEFAULT_CHAR_WIDTH;
+    const LH = DEFAULT_LINE_HEIGHT;
     const lines: string[] = [];
 
     for (const sprite of scene.sprites) {
@@ -42,11 +55,15 @@ export const cssExporter: Exporter<CssOpts> = {
         const rot = (kf.rotation ?? D.rotation).toFixed(1);
         const op = (kf.opacity ?? D.opacity).toFixed(2);
         const fs = Math.round(kf.fontSize ?? D.fontSize);
+        const timing = easingToCss(kf.easing);
 
         lines.push(`  ${pct}% {`);
         lines.push(`    transform: translate(${x}px, ${y}px) rotate(${rot}deg);`);
         lines.push(`    opacity: ${op};`);
         lines.push(`    font-size: ${fs}px;`);
+        if (timing !== 'linear') {
+          lines.push(`    animation-timing-function: ${timing};`);
+        }
         lines.push('  }');
       }
 

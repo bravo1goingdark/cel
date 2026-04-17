@@ -1,5 +1,5 @@
 /**
- * @ascii-anim/export — All exporters as pure functions.
+ * @cel/export — All exporters as pure functions.
  *
  * @packageDocumentation
  */

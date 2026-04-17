@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { exporters } from '../src/index';
-import type { Scene } from '@ascii-anim/core';
+import type { Scene } from '@cel/core';
 
 const referenceScene: Scene = {
   version: 1,

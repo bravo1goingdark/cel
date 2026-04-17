@@ -1,7 +1,7 @@
 {
-  "name": "@ascii-anim/player",
+  "name": "@cel/player",
   "version": "0.1.0-alpha.0",
-  "description": "Tiny runtime that plays ASCII Anim scene files (~1KB)",
+  "description": "Tiny runtime that plays Cel scene files (~1KB)",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -19,7 +19,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ascii-anim/core": "workspace:*"
+    "@cel/core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8",

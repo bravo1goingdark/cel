@@ -1,9 +1,9 @@
 /**
- * @ascii-anim/player — Tiny runtime for playing ASCII Anim scenes.
+ * @cel/player — Tiny runtime for playing Cel scenes.
  * Implementation deferred to Phase 4.
  *
  * @packageDocumentation
  */
 
-export { createPlayer } from '@ascii-anim/core';
-export type { Player, RenderTarget } from '@ascii-anim/core';
+export { createPlayer } from '@cel/core';
+export type { Player, RenderTarget } from '@cel/core';

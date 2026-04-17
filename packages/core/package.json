@@ -1,0 +1,37 @@
+{
+  "name": "@ascii-anim/core",
+  "version": "0.1.0-alpha.0",
+  "description": "Zero-dependency TypeScript engine for ASCII character-grid animations",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:perf": "vitest run tests/perf.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8",
+    "typescript": "^5",
+    "vitest": "^3",
+    "@vitest/coverage-v8": "^3",
+    "fast-check": "^3"
+  },
+  "sideEffects": false,
+  "license": "MIT"
+}

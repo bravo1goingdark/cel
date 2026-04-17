@@ -1,0 +1,196 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 4000,
+  "grid": {
+    "cols": 60,
+    "rows": 13
+  },
+  "sprites": [
+    {
+      "id": "face",
+      "keyframes": [
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1,
+          "rotation": 0,
+          "t": 0,
+          "x": 5.5,
+          "y": 5
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1,
+          "rotation": -1,
+          "t": 1500,
+          "text": "( -_- )",
+          "x": 5.5,
+          "y": 5.6
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1,
+          "rotation": -1,
+          "t": 1600,
+          "text": "( ._. )",
+          "x": 5.5,
+          "y": 5.6
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1,
+          "rotation": 0,
+          "t": 1700,
+          "text": "( -_- )",
+          "x": 5.5,
+          "y": 5.6
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1,
+          "rotation": 0,
+          "t": 4000,
+          "x": 5.5,
+          "y": 5
+        }
+      ],
+      "text": "( -_- )"
+    },
+    {
+      "id": "z1",
+      "keyframes": [
+        {
+          "color": "tertiary",
+          "easing": "linear",
+          "fontSize": 11,
+          "opacity": 0,
+          "t": 0,
+          "x": 16.5,
+          "y": 5
+        },
+        {
+          "color": "tertiary",
+          "easing": "out",
+          "fontSize": 13,
+          "opacity": 0.7,
+          "t": 120,
+          "x": 16.5,
+          "y": 5
+        },
+        {
+          "color": "tertiary",
+          "easing": "in",
+          "fontSize": 22,
+          "opacity": 0,
+          "t": 800,
+          "x": 18.5,
+          "y": 1.5
+        },
+        {
+          "color": "tertiary",
+          "easing": "linear",
+          "fontSize": 11,
+          "opacity": 0,
+          "t": 4000,
+          "x": 16.5,
+          "y": 5
+        }
+      ],
+      "text": "z"
+    },
+    {
+      "id": "z2",
+      "keyframes": [
+        {
+          "color": "tertiary",
+          "easing": "linear",
+          "fontSize": 11,
+          "opacity": 0,
+          "t": 700,
+          "x": 16.5,
+          "y": 5
+        },
+        {
+          "color": "tertiary",
+          "easing": "out",
+          "fontSize": 15,
+          "opacity": 0.7,
+          "t": 820,
+          "x": 16.5,
+          "y": 5
+        },
+        {
+          "color": "tertiary",
+          "easing": "in",
+          "fontSize": 26,
+          "opacity": 0,
+          "t": 1600,
+          "x": 19.5,
+          "y": 1
+        },
+        {
+          "color": "tertiary",
+          "easing": "linear",
+          "fontSize": 11,
+          "opacity": 0,
+          "t": 4000,
+          "x": 16.5,
+          "y": 5
+        }
+      ],
+      "text": "z"
+    },
+    {
+      "id": "Z3",
+      "keyframes": [
+        {
+          "color": "tertiary",
+          "easing": "linear",
+          "fontSize": 11,
+          "opacity": 0,
+          "t": 1400,
+          "x": 16.5,
+          "y": 5
+        },
+        {
+          "color": "tertiary",
+          "easing": "out",
+          "fontSize": 18,
+          "opacity": 0.7,
+          "t": 1520,
+          "x": 16.5,
+          "y": 5
+        },
+        {
+          "color": "tertiary",
+          "easing": "in",
+          "fontSize": 32,
+          "opacity": 0,
+          "t": 2400,
+          "x": 22,
+          "y": 0.5
+        },
+        {
+          "color": "tertiary",
+          "easing": "linear",
+          "fontSize": 11,
+          "opacity": 0,
+          "t": 4000,
+          "x": 16.5,
+          "y": 5
+        }
+      ],
+      "text": "Z"
+    }
+  ],
+  "version": 1
+}

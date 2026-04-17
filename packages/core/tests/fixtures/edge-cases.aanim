@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 5000,
+  "fps": 30,
+  "grid": {
+    "cols": 80,
+    "rows": 24
+  },
+  "sprites": [
+    {
+      "id": "mover",
+      "keyframes": [
+        { "t": 0, "x": 0, "y": 0, "opacity": 0, "fontSize": 10, "rotation": 0, "color": "#ff0000", "easing": "linear" },
+        { "t": 100, "x": 5, "y": 2, "opacity": 0.25, "fontSize": 12, "rotation": 45, "color": "#ff8800", "easing": "in" },
+        { "t": 200, "x": 10, "y": 4, "opacity": 0.5, "fontSize": 14, "rotation": 90, "color": "#ffff00", "easing": "out" },
+        { "t": 300, "x": 15, "y": 6, "opacity": 0.75, "fontSize": 16, "rotation": 135, "color": "#00ff00", "easing": "inout" },
+        { "t": 500, "x": 20, "y": 8, "opacity": 1, "fontSize": 18, "rotation": 180, "color": "#0000ff" },
+        { "t": 800, "x": 25, "y": 10, "opacity": 0.9, "fontSize": 20, "rotation": 225 },
+        { "t": 1200, "x": 30, "y": 12, "opacity": 0.8, "fontSize": 22, "rotation": 270 },
+        { "t": 1600, "x": 35, "y": 14, "opacity": 0.7, "fontSize": 24, "rotation": 315 },
+        { "t": 2000, "x": 40, "y": 16, "opacity": 0.6, "fontSize": 26, "rotation": 360 },
+        { "t": 2500, "x": 35, "y": 14, "opacity": 0.7, "fontSize": 24, "rotation": 315 },
+        { "t": 3000, "x": 30, "y": 12, "opacity": 0.8, "fontSize": 22, "rotation": 270 },
+        { "t": 3500, "x": 25, "y": 10, "opacity": 0.9, "fontSize": 20, "rotation": 225 },
+        { "t": 4000, "x": 20, "y": 8, "opacity": 1, "fontSize": 18, "rotation": 180 },
+        { "t": 4500, "x": 10, "y": 4, "opacity": 0.5, "fontSize": 14, "rotation": 90 },
+        { "t": 5000, "x": 0, "y": 0, "opacity": 0, "fontSize": 10, "rotation": 0 }
+      ],
+      "text": "*"
+    },
+    {
+      "id": "texter",
+      "keyframes": [
+        { "t": 0, "x": 40, "y": 5, "text": "frame-0" },
+        { "t": 1000, "x": 40, "y": 5, "text": "frame-1" },
+        { "t": 2000, "x": 40, "y": 5, "text": "frame-2" },
+        { "t": 3000, "x": 40, "y": 5, "text": "frame-3" },
+        { "t": 4000, "x": 40, "y": 5, "text": "frame-4" },
+        { "t": 5000, "x": 40, "y": 5, "text": "frame-5" }
+      ],
+      "text": "frame-start"
+    },
+    {
+      "hidden": true,
+      "id": "hidden-sprite",
+      "keyframes": [
+        { "t": 0, "x": 0, "y": 0 }
+      ],
+      "text": "invisible"
+    }
+  ],
+  "version": 1
+}

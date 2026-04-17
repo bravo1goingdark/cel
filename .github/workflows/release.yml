@@ -1,0 +1,121 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-desktop:
+    name: Build Desktop (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux
+            runner: ubuntu-latest
+            targets: deb,rpm,appimage
+          - name: macOS (Intel)
+            runner: macos-13
+            targets: dmg
+          - name: macOS (Apple Silicon)
+            runner: macos-latest
+            targets: dmg
+          - name: Windows
+            runner: windows-latest
+            targets: nsis,msi
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: apps/desktop/src-tauri
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build Tauri
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: apps/desktop
+          tauriScript: pnpm run tauri
+          tagName: ${{ github.ref_name }}
+          releaseName: 'Cel ${{ github.ref_name }}'
+          releaseBody: |
+            See the [full changelog](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}).
+          releaseDraft: false
+          prerelease: false
+
+  build-cli:
+    name: Build CLI (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux x86_64
+            runner: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            artifact: cel-cli-linux-x86_64
+          - name: macOS Intel
+            runner: macos-13
+            target: x86_64-apple-darwin
+            artifact: cel-cli-macos-x86_64
+          - name: macOS ARM
+            runner: macos-latest
+            target: aarch64-apple-darwin
+            artifact: cel-cli-macos-aarch64
+          - name: Windows
+            runner: windows-latest
+            target: x86_64-pc-windows-msvc
+            artifact: cel-cli-windows-x86_64.exe
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: apps/cli
+
+      - name: Build CLI
+        run: cargo build --release --manifest-path apps/cli/Cargo.toml --target ${{ matrix.target }}
+
+      - name: Rename artifact (Unix)
+        if: runner.os != 'Windows'
+        run: cp apps/cli/target/${{ matrix.target }}/release/cel ${{ matrix.artifact }}
+
+      - name: Rename artifact (Windows)
+        if: runner.os == 'Windows'
+        run: copy apps\cli\target\${{ matrix.target }}\release\cel.exe ${{ matrix.artifact }}
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.artifact }}

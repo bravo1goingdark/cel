@@ -1,8 +1,18 @@
 /**
- * @ascii-anim/react — React wrapper for ASCII Anim scenes.
- * Implementation deferred to Phase 4.
+ * @cel/react — React components for playing Cel ASCII animations.
  *
  * @packageDocumentation
  */
 
-export type { Scene } from '@ascii-anim/core';
+export { CelAnimation } from './CelAnimation';
+export type { CelAnimationProps } from './CelAnimation';
+
+export { useCelPlayer } from './useCelPlayer';
+
+export type {
+  Scene,
+  Player,
+  RenderTarget,
+  SampledSprite,
+  ColorResolver,
+} from '@cel/core';

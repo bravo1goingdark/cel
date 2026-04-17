@@ -333,6 +333,9 @@ label {
 }
 .sr:hover .sdel { opacity: 1; }
 .sdel:hover { color: var(--danger); }
+.sr[draggable="true"] { cursor: grab; }
+.sr.dragging { opacity: 0.3; }
+.sr.drag-over { border-top: 2px solid var(--accent); margin-top: -2px; }
 
 /* timeline */
 #tl {
@@ -522,3 +525,31 @@ label {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--fg-4); }
+
+/* ── bezier editor ─────────────────────────────────────────── */
+.bezier-editor { display: flex; flex-direction: column; gap: 8px; padding: 4px 0; }
+.bezier-svg { display: block; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-2); }
+.bezier-curve { stroke: var(--accent); stroke-width: 2; fill: none; }
+.bezier-handle { stroke: var(--fg-4); stroke-width: 1; }
+.bezier-point { fill: var(--accent); cursor: grab; transition: r 100ms; }
+.bezier-point:hover { r: 8; }
+.bezier-presets { display: flex; flex-wrap: wrap; gap: 4px; }
+.bezier-presets .b { font-size: 9px; padding: 2px 6px; }
+.bezier-inputs { display: flex; gap: 4px; }
+.bezier-inputs input { width: 46px; text-align: center; font-size: 10px; }
+
+/* ── loading skeleton ──────────────────────────────────────── */
+.loading-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: var(--fg-3);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}

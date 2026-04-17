@@ -5,10 +5,10 @@ import { listen } from "@tauri-apps/api/event";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { open as dialogOpen, save as dialogSave } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
-import { sampleSprite as coreSample, serialize as coreSerialize, DEFAULT_TRANSFORM } from "@ascii-anim/core";
-import { exporters as allExporters } from "@ascii-anim/export";
+import { sampleSprite as coreSample, serialize as coreSerialize, DEFAULT_TRANSFORM } from "@cel/core";
+import { exporters as allExporters } from "@cel/export";
 
-const store = new LazyStore("ascii-anim.json");
+const store = new LazyStore("cel.json");
 
 // ─── Store keys ─────────────────────────────────────────────────────
 const K = { current: "current", settings: "settings", scenes: "scenes" };
@@ -36,7 +36,7 @@ function markClean() {
 function updateTitle() {
   const name = _openedPath ? _openedPath.split(/[/\\]/).pop() : "Untitled";
   const indicator = _dirty ? " ●" : "";
-  getCurrentWindow().setTitle(`${name}${indicator} — Ascii Anim`);
+  getCurrentWindow().setTitle(`${name}${indicator} — Cel`);
 }
 
 // ─── Color resolution (for color interpolation) ─────────────────────
@@ -46,21 +46,26 @@ const COLOR_OPTS = ["primary", "secondary", "tertiary", "info", "success", "warn
 window.matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", () => colorCache.clear());
 const parseRgb = c => (c.match(/\d+/g) || [0, 0, 0]).slice(0, 3).map(Number);
+// Persistent off-screen probe element — created once, never removed.
+// Setting its color and reading computed style forces browser resolution to rgb() format.
 let _probe;
+function _getProbe() {
+  if (!_probe) {
+    _probe = document.createElement("span");
+    _probe.style.cssText = "position:fixed;top:-9999px;left:-9999px;pointer-events:none;visibility:hidden";
+    document.body.appendChild(_probe);
+  }
+  return _probe;
+}
 
 function resolveColor(c) {
   if (!c) return null;
   if (c.startsWith("rgb") || c.startsWith("#")) return c;
   const cached = colorCache.get(c);
   if (cached) return cached.str;
-  if (!_probe) {
-    _probe = document.createElement("span");
-    _probe.style.cssText = "position:absolute;opacity:0;pointer-events:none";
-  }
-  _probe.style.color = `var(--${c})`;
-  document.body.appendChild(_probe);
-  const str = getComputedStyle(_probe).color;
-  document.body.removeChild(_probe);
+  const probe = _getProbe();
+  probe.style.color = `var(--${c})`;
+  const str = getComputedStyle(probe).color;
   colorCache.set(c, { str, rgb: parseRgb(str) });
   return str;
 }
@@ -81,7 +86,7 @@ function lerpColor(a, b, t) {
   return `rgb(${Math.round(lerp(pa[0], pb[0], t))},${Math.round(lerp(pa[1], pb[1], t))},${Math.round(lerp(pa[2], pb[2], t))})`;
 }
 
-// ─── Keyframe interpolation (delegates to @ascii-anim/core) ────────
+// ─── Keyframe interpolation (delegates to @cel/core) ────────
 // DOM-based color resolver for named tokens
 const _domResolver = {
   resolve(token) {
@@ -90,10 +95,10 @@ const _domResolver = {
   },
 };
 
+const _tmpSprite = { id: "_tmp", text: "", keyframes: [] };
 function interpKfs(kfs, t, out) {
-  // Build a temporary sprite to use the core sampler
-  const sprite = { id: "_tmp", text: "", keyframes: kfs };
-  const sampled = coreSample(sprite, t, _domResolver);
+  _tmpSprite.keyframes = kfs;
+  const sampled = coreSample(_tmpSprite, t, _domResolver);
   const dest = out || {};
   dest.x = sampled.x;
   dest.y = sampled.y;
@@ -183,15 +188,15 @@ const MAX_UNDO = 30;
 let _clipboard = null;
 
 function pushUndo() {
-  undoStack.push(JSON.stringify({ sprites: S.sprites, duration: S.duration }));
+  undoStack.push(structuredClone({ sprites: S.sprites, duration: S.duration }));
   if (undoStack.length > MAX_UNDO) undoStack.shift();
   redoStack.length = 0;
 }
 
 function undo() {
   if (!undoStack.length) return;
-  redoStack.push(JSON.stringify({ sprites: S.sprites, duration: S.duration }));
-  const snap = JSON.parse(undoStack.pop());
+  redoStack.push(structuredClone({ sprites: S.sprites, duration: S.duration }));
+  const snap = undoStack.pop();
   S.sprites = snap.sprites;
   S.duration = snap.duration;
   S.selSprite = S.sprites[0]?.id || null;
@@ -204,8 +209,8 @@ function undo() {
 
 function redo() {
   if (!redoStack.length) return;
-  undoStack.push(JSON.stringify({ sprites: S.sprites, duration: S.duration }));
-  const snap = JSON.parse(redoStack.pop());
+  undoStack.push(structuredClone({ sprites: S.sprites, duration: S.duration }));
+  const snap = redoStack.pop();
   S.sprites = snap.sprites;
   S.duration = snap.duration;
   S.selSprite = S.sprites[0]?.id || null;
@@ -218,6 +223,7 @@ function redo() {
 
 // ─── Store integration ─────────────────────────────────────────────
 let saveTimer = null;
+let _lastSaveErrTime = 0;
 const _state = { current: null, settings: null, scenes: null };
 async function autosave() {
   clearTimeout(saveTimer);
@@ -227,8 +233,12 @@ async function autosave() {
         || { sprites: S.sprites, duration: S.duration };
       await store.set(K.current, _state.current);
       await store.save();
-      markDirty();
-    } catch (e) { console.error("autosave failed:", e); }
+      markClean();
+    } catch (e) {
+      console.error("autosave failed:", e);
+      const now = Date.now();
+      if (now - _lastSaveErrTime > 5000) { toast("autosave failed", "err"); _lastSaveErrTime = now; }
+    }
   }, 400);
 }
 
@@ -236,7 +246,11 @@ async function saveSettings() {
   try {
     await store.set(K.settings, { looping: S.looping, speed: S.speed, duration: S.duration, theme: S.theme });
     await store.save();
-  } catch (e) { console.error("saveSettings:", e); }
+  } catch (e) {
+    console.error("saveSettings:", e);
+    const now = Date.now();
+    if (now - _lastSaveErrTime > 5000) { toast("settings save failed", "err"); _lastSaveErrTime = now; }
+  }
 }
 
 async function saveSceneAs(name) {
@@ -433,7 +447,32 @@ function renderSpriteList() {
     const sp = S.sprites[si];
     const row = document.createElement("div");
     row.className = "sr" + (sp.id === S.selSprite ? " on" : "");
+    row.draggable = true;
+    row.dataset.si = String(si);
     row.innerHTML = `<span class="snm">${escapeHtml(sp.id)}</span><span class="sdel" title="delete">×</span>`;
+    // Drag-and-drop for z-order reordering
+    row.addEventListener("dragstart", e => {
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", String(si));
+      row.classList.add("dragging");
+    });
+    row.addEventListener("dragend", () => {
+      row.classList.remove("dragging");
+      _slist.querySelectorAll(".sr").forEach(r => r.classList.remove("drag-over"));
+    });
+    row.addEventListener("dragover", e => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; row.classList.add("drag-over"); });
+    row.addEventListener("dragleave", () => row.classList.remove("drag-over"));
+    row.addEventListener("drop", e => {
+      e.preventDefault();
+      const fromIdx = parseInt(e.dataTransfer.getData("text/plain"), 10);
+      const toIdx = parseInt(row.dataset.si, 10);
+      if (fromIdx === toIdx || isNaN(fromIdx)) return;
+      pushUndo();
+      const [moved] = S.sprites.splice(fromIdx, 1);
+      S.sprites.splice(toIdx, 0, moved);
+      S.selKf = null;
+      renderAll(); autosave();
+    });
     const si_f = si;
     row.querySelector(".sdel").onclick = e => {
       e.stopPropagation();
@@ -455,11 +494,12 @@ function renderProps() {
     const sp = S.sprites.find(s => s.id === S.selSprite);
     if (!sp) { panel.innerHTML = '<span class="hint">no sprite selected</span>'; return; }
     panel.innerHTML = `
-      <label>id <input class="pt" id="pid" value="${escapeHtml(sp.id)}" /></label>
+      <label>id <input class="pt" id="pid" value="${escapeHtml(sp.id)}" maxlength="40" /></label>
       <label>default text <input class="pt" id="ptxt" value="${escapeHtml(sp.text)}" /></label>
       <span class="hint">click a keyframe to edit</span>`;
     $("pid").onchange = e => {
       const n = e.target.value.trim() || sp.id;
+      if (!/^[a-zA-Z0-9_-]+$/.test(n)) { toast("ID must be alphanumeric (a-z, 0-9, _, -)", "err"); e.target.value = sp.id; return; }
       if (n !== sp.id && !S.sprites.find(s => s.id === n)) {
         pushUndo();
         const old = sp.id; sp.id = n;
@@ -482,9 +522,12 @@ function renderProps() {
     ${field("x", "x", -5, 60, 0.5)}${field("y", "y", -3, 20, 0.5)}
     ${field("op", "opacity", 0, 1, 0.05)}${field("size", "fontSize", 6, 64, 1)}${field("rot", "rotation", -360, 360, 5)}
     <label>color <select class="ps" data-key="color">${colorOpts}</select></label>
-    <label>ease <select class="ps" data-key="easing">${["linear", "in", "out", "inout"].map(e => `<option value="${e}"${(kf.easing || "linear") === e ? " selected" : ""}>${e}</option>`).join("")}</select></label>
+    <label>ease <select class="ps" data-key="easing">${["linear", "in", "out", "inout", "custom"].map(e => `<option value="${e}"${(typeof kf.easing === "object" ? "custom" : (kf.easing || "linear")) === e ? " selected" : ""}>${e}</option>`).join("")}</select></label>
+    <div id="bezier-wrap"></div>
     <label>text <input class="pt" value="${kf.text != null ? escapeHtml(kf.text) : ""}" data-key="text" placeholder="(inherit)" /></label>
+    <button class="b" id="kfclose">done</button>
     <button class="b danger" id="kfdel">delete keyframe</button>`;
+  $("kfclose").onclick = () => { S.selKf = null; renderAll(); };
   $("kfdel").onclick = () => {
     if (sp.keyframes.length <= 1) return;
     pushUndo();
@@ -499,7 +542,15 @@ function renderProps() {
       else if (key === "text") val = el.value;
       else { val = parseFloat(el.value); if (isNaN(val)) return; }
       if (commit) pushUndo();
-      if (key === "text" && val === "") delete kf.text;
+      if (key === "easing") {
+        if (val === "custom") {
+          kf.easing = typeof kf.easing === "object" ? kf.easing : { cubic: [0.25, 0.1, 0.25, 1.0] };
+          renderBezierEditor($("bezier-wrap"), kf, sp);
+        } else {
+          kf.easing = val;
+          $("bezier-wrap").innerHTML = "";
+        }
+      } else if (key === "text" && val === "") delete kf.text;
       else kf[key] = val;
       if (key === "t") { sp.keyframes.sort((a, b) => a.t - b.t); S.selKf.ki = sp.keyframes.indexOf(kf); }
       renderPreview(S.t);
@@ -507,6 +558,101 @@ function renderProps() {
     };
     el.addEventListener("change", () => update(true));
     if (el.tagName !== "SELECT") el.addEventListener("input", () => update(false));
+  });
+  // Show bezier editor if easing is already cubic
+  if (typeof kf.easing === "object" && kf.easing.cubic) {
+    renderBezierEditor($("bezier-wrap"), kf, sp);
+  }
+}
+
+function renderBezierEditor(wrap, kf, sp) {
+  const S_ = 180, PAD = 20, INNER = S_ - 2 * PAD;
+  const pts = kf.easing && kf.easing.cubic ? [...kf.easing.cubic] : [0.25, 0.1, 0.25, 1.0];
+  const sx = v => PAD + v * INNER;
+  const sy = v => PAD + (1 - v) * INNER;
+
+  function buildSVG() {
+    const x1 = pts[0], y1 = pts[1], x2 = pts[2], y2 = pts[3];
+    return `<svg class="bezier-svg" viewBox="0 0 ${S_} ${S_}" width="${S_}" height="${S_}">
+      <line x1="${PAD}" y1="${PAD}" x2="${PAD}" y2="${PAD + INNER}" stroke="var(--border)" stroke-width="0.5"/>
+      <line x1="${PAD}" y1="${PAD + INNER}" x2="${PAD + INNER}" y2="${PAD + INNER}" stroke="var(--border)" stroke-width="0.5"/>
+      <line x1="${PAD}" y1="${PAD + INNER}" x2="${PAD + INNER}" y2="${PAD}" stroke="var(--fg-4)" stroke-width="0.5" stroke-dasharray="4"/>
+      <line class="bezier-handle" x1="${sx(0)}" y1="${sy(0)}" x2="${sx(x1)}" y2="${sy(y1)}"/>
+      <line class="bezier-handle" x1="${sx(1)}" y1="${sy(1)}" x2="${sx(x2)}" y2="${sy(y2)}"/>
+      <path class="bezier-curve" d="M ${sx(0)},${sy(0)} C ${sx(x1)},${sy(y1)} ${sx(x2)},${sy(y2)} ${sx(1)},${sy(1)}"/>
+      <circle class="bezier-point" data-pt="1" cx="${sx(x1)}" cy="${sy(y1)}" r="6"/>
+      <circle class="bezier-point" data-pt="2" cx="${sx(x2)}" cy="${sy(y2)}" r="6"/>
+    </svg>`;
+  }
+
+  const PRESETS = [
+    { name: "ease", v: [0.25, 0.1, 0.25, 1.0] },
+    { name: "ease-in", v: [0.42, 0, 1, 1] },
+    { name: "ease-out", v: [0, 0, 0.58, 1] },
+    { name: "ease-in-out", v: [0.42, 0, 0.58, 1] },
+  ];
+
+  function refresh() {
+    kf.easing = { cubic: pts.map(v => Math.round(v * 1000) / 1000) };
+    wrap.querySelector(".bezier-svg-wrap").innerHTML = buildSVG();
+    attachDrag();
+    wrap.querySelectorAll(".bezier-val").forEach((inp, i) => { inp.value = pts[i].toFixed(2); });
+    renderPreview(S.t);
+  }
+
+  function attachDrag() {
+    wrap.querySelectorAll(".bezier-point").forEach(circle => {
+      circle.addEventListener("mousedown", e => {
+        e.preventDefault();
+        const ptIdx = circle.dataset.pt === "1" ? 0 : 2;
+        const svg = wrap.querySelector(".bezier-svg");
+        const rect = svg.getBoundingClientRect();
+        const scale = S_ / rect.width;
+        let moved = false;
+        const onMove = ev => {
+          moved = true;
+          const mx = (ev.clientX - rect.left) * scale;
+          const my = (ev.clientY - rect.top) * scale;
+          pts[ptIdx] = clamp((mx - PAD) / INNER, 0, 1);
+          pts[ptIdx + 1] = clamp(1 - (my - PAD) / INNER, 0, 1);
+          refresh();
+        };
+        const onUp = () => {
+          document.removeEventListener("mousemove", onMove);
+          document.removeEventListener("mouseup", onUp);
+          if (moved) { pushUndo(); autosave(); }
+        };
+        document.addEventListener("mousemove", onMove);
+        document.addEventListener("mouseup", onUp);
+      });
+    });
+  }
+
+  wrap.innerHTML = `
+    <div class="bezier-editor">
+      <div class="bezier-svg-wrap">${buildSVG()}</div>
+      <div class="bezier-presets">${PRESETS.map(p => `<button class="b" data-bpre="${p.name}">${p.name}</button>`).join("")}</div>
+      <div class="bezier-inputs">
+        ${pts.map((v, i) => `<input class="pi bezier-val" type="number" min="0" max="1" step="0.05" value="${v.toFixed(2)}" data-bi="${i}"/>`).join("")}
+      </div>
+    </div>`;
+  attachDrag();
+
+  // Preset buttons
+  wrap.querySelectorAll("[data-bpre]").forEach(btn => {
+    btn.onclick = () => {
+      const pre = PRESETS.find(p => p.name === btn.dataset.bpre);
+      if (pre) { pushUndo(); pts[0] = pre.v[0]; pts[1] = pre.v[1]; pts[2] = pre.v[2]; pts[3] = pre.v[3]; refresh(); autosave(); }
+    };
+  });
+
+  // Numeric inputs
+  wrap.querySelectorAll(".bezier-val").forEach(inp => {
+    inp.addEventListener("change", () => {
+      const i = parseInt(inp.dataset.bi, 10);
+      const v = parseFloat(inp.value);
+      if (!isNaN(v)) { pushUndo(); pts[i] = clamp(v, 0, 1); refresh(); autosave(); }
+    });
   });
 }
 
@@ -560,6 +706,15 @@ function toast(msg, type = "ok") {
   toast._t = setTimeout(() => t.classList.remove("on"), 1800);
 }
 
+function normalizeEasing(e) {
+  if (typeof e === "string" && ["linear", "in", "out", "inout"].includes(e)) return e;
+  if (e && typeof e === "object" && Array.isArray(e.cubic) && e.cubic.length === 4
+      && e.cubic.every(v => typeof v === "number")) {
+    return { cubic: e.cubic.map(v => Math.round(v * 1000) / 1000) };
+  }
+  return "linear";
+}
+
 function safeString(v, fallback = "") {
   return typeof v === "string" ? v : fallback;
 }
@@ -580,8 +735,8 @@ function normalizeKeyframe(raw, duration) {
     opacity: safeNumber(kf.opacity, 1, 0, 1),
     fontSize: safeNumber(kf.fontSize, 18, 6, 120),
     rotation: safeNumber(kf.rotation, 0, -3600, 3600),
-    color: COLOR_OPTS.includes(kf.color) ? kf.color : "secondary",
-    easing: ["linear", "in", "out", "inout"].includes(kf.easing) ? kf.easing : "linear",
+    color: typeof kf.color === "string" ? kf.color : "secondary",
+    easing: normalizeEasing(kf.easing),
     ...(typeof kf.text === "string" ? { text: kf.text } : {}),
   };
 }
@@ -641,9 +796,8 @@ function applyTheme(pref) {
 }
 
 function toggleTheme() {
-  const order = ["auto", "dark", "light"];
-  const next = order[(order.indexOf(S.theme) + 1) % order.length];
-  applyTheme(next);
+  const effective = getEffectiveTheme(S.theme);
+  applyTheme(effective === "dark" ? "light" : "dark");
   saveSettings();
 }
 
@@ -674,7 +828,7 @@ async function saveFile() {
 async function saveFileAs() {
   const path = await dialogSave({
     title: "Save Scene As",
-    filters: [{ name: "ASCII Anim", extensions: ["aanim", "json"] }],
+    filters: [{ name: "Cel", extensions: ["aanim", "json"] }],
   });
   if (!path) return;
   _openedPath = path;
@@ -689,7 +843,7 @@ async function saveFileAs() {
 async function openFile() {
   const path = await dialogOpen({
     title: "Open Scene",
-    filters: [{ name: "ASCII Anim", extensions: ["aanim", "json"] }],
+    filters: [{ name: "Cel", extensions: ["aanim", "json"] }],
     multiple: false,
   });
   if (!path) return;
@@ -762,7 +916,7 @@ async function showExportDialog() {
 
 function exportScene() {
   const data = buildScene();
-  const blob = new Blob([coreSerialize(data)], { type: "application/vnd.ascii-anim+json" });
+  const blob = new Blob([coreSerialize(data)], { type: "application/vnd.cel+json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url; a.download = "scene.aanim";
@@ -993,11 +1147,13 @@ document.addEventListener("keydown", e => {
   if ((e.ctrlKey || e.metaKey) && (e.key === "y" || (e.key === "z" && e.shiftKey))) { e.preventDefault(); redo(); return; }
   // Copy / Paste keyframe
   if ((e.ctrlKey || e.metaKey) && e.key === "c" && S.selKf) {
+    e.preventDefault();
     const sp = S.sprites[S.selKf.si];
     if (sp) { _clipboard = { type: "kf", data: structuredClone(sp.keyframes[S.selKf.ki]) }; toast("copied keyframe"); }
     return;
   }
   if ((e.ctrlKey || e.metaKey) && e.key === "v" && _clipboard?.type === "kf") {
+    e.preventDefault();
     const sp = S.sprites.find(s => s.id === S.selSprite);
     if (!sp) return;
     pushUndo();
@@ -1028,6 +1184,7 @@ document.addEventListener("keydown", e => {
   }
   // Delete keyframe
   if (e.key === "Delete" && S.selKf) {
+    e.preventDefault();
     const sp = S.sprites[S.selKf.si];
     if (sp && sp.keyframes.length > 1) {
       pushUndo();
@@ -1063,7 +1220,7 @@ listen("menu-action", ({ payload }) => {
       saveSettings();
       break;
     case "shortcuts": toast("Space=play [/]=kf ←→=seek Ctrl+Z=undo"); break;
-    case "about": toast("ASCII Anim v0.1.0"); break;
+    case "about": toast("Cel v0.1.0"); break;
   }
 });
 

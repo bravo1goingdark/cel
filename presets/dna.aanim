@@ -1,0 +1,211 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 3000,
+  "sprites": [
+    {
+      "id": "strand-a1",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 10.00,
+          "y": 2.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 750,
+          "x": 14.00,
+          "y": 4.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 1500,
+          "x": 10.00,
+          "y": 6.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 2250,
+          "x": 14.00,
+          "y": 8.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 3000,
+          "x": 10.00,
+          "y": 2.00
+        }
+      ],
+      "text": "A"
+    },
+    {
+      "id": "strand-b1",
+      "keyframes": [
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 0,
+          "x": 14.00,
+          "y": 2.00
+        },
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 750,
+          "x": 10.00,
+          "y": 4.00
+        },
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 1500,
+          "x": 14.00,
+          "y": 6.00
+        },
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 2250,
+          "x": 10.00,
+          "y": 8.00
+        },
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 3000,
+          "x": 14.00,
+          "y": 2.00
+        }
+      ],
+      "text": "T"
+    },
+    {
+      "id": "strand-a2",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 0,
+          "x": 14.00,
+          "y": 3.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 750,
+          "x": 10.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 1500,
+          "x": 14.00,
+          "y": 7.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 2250,
+          "x": 10.00,
+          "y": 9.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 3000,
+          "x": 14.00,
+          "y": 3.00
+        }
+      ],
+      "text": "G"
+    },
+    {
+      "id": "strand-b2",
+      "keyframes": [
+        {
+          "color": "warning",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 10.00,
+          "y": 3.00
+        },
+        {
+          "color": "warning",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 750,
+          "x": 14.00,
+          "y": 5.00
+        },
+        {
+          "color": "warning",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 1500,
+          "x": 10.00,
+          "y": 7.00
+        },
+        {
+          "color": "warning",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 0.50,
+          "t": 2250,
+          "x": 14.00,
+          "y": 9.00
+        },
+        {
+          "color": "warning",
+          "easing": "inout",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 3000,
+          "x": 10.00,
+          "y": 3.00
+        }
+      ],
+      "text": "C"
+    }
+  ],
+  "version": 1
+}

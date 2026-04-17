@@ -1,0 +1,73 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2000,
+  "sprites": [
+    {
+      "id": "line",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 20,
+          "opacity": 0.80,
+          "t": 0,
+          "x": 0.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 20,
+          "opacity": 1.00,
+          "t": 1000,
+          "x": 24.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 20,
+          "opacity": 0.80,
+          "t": 2000,
+          "x": 0.00,
+          "y": 5.00
+        }
+      ],
+      "text": "\u2588"
+    },
+    {
+      "id": "trail",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 20,
+          "opacity": 0.30,
+          "t": 0,
+          "x": -1.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 20,
+          "opacity": 0.40,
+          "t": 1000,
+          "x": 23.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 20,
+          "opacity": 0.30,
+          "t": 2000,
+          "x": -1.00,
+          "y": 5.00
+        }
+      ],
+      "text": "\u2591"
+    }
+  ],
+  "version": 1
+}

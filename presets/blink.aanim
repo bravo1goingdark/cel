@@ -1,0 +1,58 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 1000,
+  "sprites": [
+    {
+      "id": "cursor",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 499,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 0.00,
+          "t": 500,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 0.00,
+          "t": 999,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 1000,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "_"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2000,
+  "sprites": [
+    {
+      "id": "dot1",
+      "keyframes": [
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 0,
+          "x": 10.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 300,
+          "x": 10.00,
+          "y": 5.00
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 600,
+          "x": 10.00,
+          "y": 5.00
+        }
+      ],
+      "text": "."
+    },
+    {
+      "id": "dot2",
+      "keyframes": [
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 300,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 600,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 900,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "."
+    },
+    {
+      "id": "dot3",
+      "keyframes": [
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 0,
+          "x": 14.00,
+          "y": 5.00
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 600,
+          "x": 14.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 900,
+          "x": 14.00,
+          "y": 5.00
+        },
+        {
+          "color": "secondary",
+          "easing": "inout",
+          "fontSize": 24,
+          "opacity": 0.20,
+          "t": 1200,
+          "x": 14.00,
+          "y": 5.00
+        }
+      ],
+      "text": "."
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 4000,
+  "sprites": [
+    {
+      "id": "text",
+      "keyframes": [
+        {
+          "color": "warning",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 26.00,
+          "y": 5.00
+        },
+        {
+          "color": "warning",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 400,
+          "x": 22.00,
+          "y": 5.00
+        },
+        {
+          "color": "warning",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 3600,
+          "x": -4.00,
+          "y": 5.00
+        },
+        {
+          "color": "warning",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 0.00,
+          "t": 4000,
+          "x": -8.00,
+          "y": 5.00
+        }
+      ],
+      "text": "BREAKING NEWS"
+    }
+  ],
+  "version": 1
+}

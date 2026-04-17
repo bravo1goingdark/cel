@@ -1,0 +1,78 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2000,
+  "sprites": [
+    {
+      "id": "pivot",
+      "keyframes": [
+        {
+          "color": "secondary",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.60,
+          "t": 0,
+          "x": 12.00,
+          "y": 1.00
+        }
+      ],
+      "text": "."
+    },
+    {
+      "id": "pendulum",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "rotation": -30.0,
+          "t": 0,
+          "x": 8.00,
+          "y": 7.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "rotation": 0.0,
+          "t": 500,
+          "x": 12.00,
+          "y": 8.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "rotation": 30.0,
+          "t": 1000,
+          "x": 16.00,
+          "y": 7.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "rotation": 0.0,
+          "t": 1500,
+          "x": 12.00,
+          "y": 8.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "rotation": -30.0,
+          "t": 2000,
+          "x": 8.00,
+          "y": 7.00
+        }
+      ],
+      "text": "O"
+    }
+  ],
+  "version": 1
+}

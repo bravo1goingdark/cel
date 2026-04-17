@@ -1,0 +1,63 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2000,
+  "sprites": [
+    {
+      "id": "circle",
+      "keyframes": [
+        {
+          "color": "tertiary",
+          "easing": "inout",
+          "fontSize": 28,
+          "opacity": 0.60,
+          "t": 0,
+          "text": "\u25cb",
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "tertiary",
+          "easing": "inout",
+          "fontSize": 36,
+          "opacity": 1.00,
+          "t": 500,
+          "text": "\u25cf",
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "tertiary",
+          "easing": "inout",
+          "fontSize": 28,
+          "opacity": 0.60,
+          "t": 1000,
+          "text": "\u25cb",
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "tertiary",
+          "easing": "inout",
+          "fontSize": 36,
+          "opacity": 1.00,
+          "t": 1500,
+          "text": "\u25cf",
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "tertiary",
+          "easing": "inout",
+          "fontSize": 28,
+          "opacity": 0.60,
+          "t": 2000,
+          "text": "\u25cb",
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "\u25cb"
+    }
+  ],
+  "version": 1
+}

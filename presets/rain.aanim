@@ -1,0 +1,172 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2500,
+  "sprites": [
+    {
+      "id": "drop1",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 5.00,
+          "y": 0.00
+        },
+        {
+          "color": "info",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.80,
+          "t": 100,
+          "x": 5.00,
+          "y": 0.50
+        },
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 800,
+          "x": 5.00,
+          "y": 10.00
+        }
+      ],
+      "text": "|"
+    },
+    {
+      "id": "drop2",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 200,
+          "x": 10.00,
+          "y": 0.00
+        },
+        {
+          "color": "info",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.80,
+          "t": 300,
+          "x": 10.00,
+          "y": 0.50
+        },
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1000,
+          "x": 10.00,
+          "y": 10.00
+        }
+      ],
+      "text": "|"
+    },
+    {
+      "id": "drop3",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 500,
+          "x": 16.00,
+          "y": 0.00
+        },
+        {
+          "color": "info",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.80,
+          "t": 600,
+          "x": 16.00,
+          "y": 0.50
+        },
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1300,
+          "x": 16.00,
+          "y": 10.00
+        }
+      ],
+      "text": "|"
+    },
+    {
+      "id": "drop4",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 400,
+          "x": 8.00,
+          "y": 0.00
+        },
+        {
+          "color": "info",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.80,
+          "t": 500,
+          "x": 8.00,
+          "y": 0.50
+        },
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1200,
+          "x": 8.00,
+          "y": 10.00
+        }
+      ],
+      "text": "|"
+    },
+    {
+      "id": "drop5",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 800,
+          "x": 20.00,
+          "y": 0.00
+        },
+        {
+          "color": "info",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.80,
+          "t": 900,
+          "x": 20.00,
+          "y": 0.50
+        },
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1600,
+          "x": 20.00,
+          "y": 10.00
+        }
+      ],
+      "text": "|"
+    }
+  ],
+  "version": 1
+}

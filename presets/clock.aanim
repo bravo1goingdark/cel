@@ -1,0 +1,78 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 4000,
+  "sprites": [
+    {
+      "id": "face",
+      "keyframes": [
+        {
+          "color": "secondary",
+          "easing": "linear",
+          "fontSize": 30,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "\u25cb"
+    },
+    {
+      "id": "hand",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 18,
+          "opacity": 1.00,
+          "rotation": 0.0,
+          "t": 0,
+          "x": 12.00,
+          "y": 3.50
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 18,
+          "opacity": 1.00,
+          "rotation": 90.0,
+          "t": 1000,
+          "x": 13.50,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 18,
+          "opacity": 1.00,
+          "rotation": 180.0,
+          "t": 2000,
+          "x": 12.00,
+          "y": 6.50
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 18,
+          "opacity": 1.00,
+          "rotation": 270.0,
+          "t": 3000,
+          "x": 10.50,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 18,
+          "opacity": 1.00,
+          "rotation": 360.0,
+          "t": 4000,
+          "x": 12.00,
+          "y": 3.50
+        }
+      ],
+      "text": "|"
+    }
+  ],
+  "version": 1
+}

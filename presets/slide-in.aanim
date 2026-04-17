@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 1500,
+  "sprites": [
+    {
+      "id": "text",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "out",
+          "fontSize": 22,
+          "opacity": 0.00,
+          "t": 0,
+          "x": -5.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "out",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 800,
+          "x": 8.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 1500,
+          "x": 8.00,
+          "y": 5.00
+        }
+      ],
+      "text": "Slide In"
+    }
+  ],
+  "version": 1
+}

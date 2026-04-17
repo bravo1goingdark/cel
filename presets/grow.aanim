@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2000,
+  "sprites": [
+    {
+      "id": "text",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "out",
+          "fontSize": 8,
+          "opacity": 0.30,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 36,
+          "opacity": 1.00,
+          "t": 1200,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 36,
+          "opacity": 1.00,
+          "t": 2000,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "BIG"
+    }
+  ],
+  "version": 1
+}

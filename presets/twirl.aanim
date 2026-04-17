@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 1500,
+  "sprites": [
+    {
+      "id": "at",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 28,
+          "opacity": 1.00,
+          "rotation": 0.0,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "tertiary",
+          "easing": "linear",
+          "fontSize": 28,
+          "opacity": 1.00,
+          "rotation": 120.0,
+          "t": 500,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 28,
+          "opacity": 1.00,
+          "rotation": 240.0,
+          "t": 1000,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "info",
+          "easing": "linear",
+          "fontSize": 28,
+          "opacity": 1.00,
+          "rotation": 360.0,
+          "t": 1500,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "@"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,163 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 3000,
+  "sprites": [
+    {
+      "id": "char1",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 4.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 1.00,
+          "t": 200,
+          "x": 4.00,
+          "y": 5.00
+        }
+      ],
+      "text": "H"
+    },
+    {
+      "id": "char2",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 5.50,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 399,
+          "x": 5.50,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 1.00,
+          "t": 400,
+          "x": 5.50,
+          "y": 5.00
+        }
+      ],
+      "text": "e"
+    },
+    {
+      "id": "char3",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 7.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 599,
+          "x": 7.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 1.00,
+          "t": 600,
+          "x": 7.00,
+          "y": 5.00
+        }
+      ],
+      "text": "l"
+    },
+    {
+      "id": "char4",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 8.50,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 799,
+          "x": 8.50,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 1.00,
+          "t": 800,
+          "x": 8.50,
+          "y": 5.00
+        }
+      ],
+      "text": "l"
+    },
+    {
+      "id": "char5",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 10.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 0.00,
+          "t": 999,
+          "x": 10.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 20,
+          "opacity": 1.00,
+          "t": 1000,
+          "x": 10.00,
+          "y": 5.00
+        }
+      ],
+      "text": "o"
+    }
+  ],
+  "version": 1
+}

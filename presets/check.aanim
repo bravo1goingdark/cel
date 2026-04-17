@@ -1,0 +1,86 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 1500,
+  "sprites": [
+    {
+      "id": "check",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "out",
+          "fontSize": 8,
+          "opacity": 0.00,
+          "rotation": -45.0,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "out",
+          "fontSize": 36,
+          "opacity": 1.00,
+          "rotation": 0.0,
+          "t": 400,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "inout",
+          "fontSize": 32,
+          "opacity": 1.00,
+          "rotation": 0.0,
+          "t": 600,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 32,
+          "opacity": 1.00,
+          "rotation": 0.0,
+          "t": 1500,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "\u2713"
+    },
+    {
+      "id": "ring",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "out",
+          "fontSize": 10,
+          "opacity": 0.00,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "out",
+          "fontSize": 48,
+          "opacity": 0.60,
+          "t": 400,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "in",
+          "fontSize": 60,
+          "opacity": 0.00,
+          "t": 800,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "\u25cb"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2000,
+  "sprites": [
+    {
+      "id": "dot",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "in",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 12.00,
+          "y": 1.00
+        },
+        {
+          "color": "success",
+          "easing": "out",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 500,
+          "x": 12.00,
+          "y": 9.00
+        },
+        {
+          "color": "success",
+          "easing": "in",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 1000,
+          "x": 12.00,
+          "y": 2.00
+        },
+        {
+          "color": "success",
+          "easing": "out",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 1500,
+          "x": 12.00,
+          "y": 9.00
+        },
+        {
+          "color": "success",
+          "easing": "in",
+          "fontSize": 24,
+          "opacity": 1.00,
+          "t": 2000,
+          "x": 12.00,
+          "y": 1.00
+        }
+      ],
+      "text": "o"
+    },
+    {
+      "id": "shadow",
+      "keyframes": [
+        {
+          "color": "secondary",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.20,
+          "t": 0,
+          "x": 12.00,
+          "y": 9.50
+        },
+        {
+          "color": "secondary",
+          "easing": "out",
+          "fontSize": 24,
+          "opacity": 0.50,
+          "t": 500,
+          "x": 12.00,
+          "y": 9.50
+        },
+        {
+          "color": "secondary",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.20,
+          "t": 1000,
+          "x": 12.00,
+          "y": 9.50
+        },
+        {
+          "color": "secondary",
+          "easing": "out",
+          "fontSize": 24,
+          "opacity": 0.50,
+          "t": 1500,
+          "x": 12.00,
+          "y": 9.50
+        },
+        {
+          "color": "secondary",
+          "easing": "in",
+          "fontSize": 16,
+          "opacity": 0.20,
+          "t": 2000,
+          "x": 12.00,
+          "y": 9.50
+        }
+      ],
+      "text": "."
+    }
+  ],
+  "version": 1
+}

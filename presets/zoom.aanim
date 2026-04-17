@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 2000,
+  "sprites": [
+    {
+      "id": "text",
+      "keyframes": [
+        {
+          "color": "primary",
+          "easing": "out",
+          "fontSize": 8,
+          "opacity": 0.20,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "inout",
+          "fontSize": 48,
+          "opacity": 1.00,
+          "t": 800,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "in",
+          "fontSize": 8,
+          "opacity": 0.20,
+          "t": 1600,
+          "x": 12.00,
+          "y": 5.00
+        },
+        {
+          "color": "primary",
+          "easing": "linear",
+          "fontSize": 8,
+          "opacity": 0.00,
+          "t": 2000,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "ZOOM"
+    }
+  ],
+  "version": 1
+}

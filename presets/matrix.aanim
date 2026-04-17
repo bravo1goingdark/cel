@@ -1,0 +1,191 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 3000,
+  "sprites": [
+    {
+      "id": "col1",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 0,
+          "text": "1",
+          "x": 4.00,
+          "y": -1.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 200,
+          "text": "0",
+          "x": 4.00,
+          "y": 1.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.60,
+          "t": 600,
+          "text": "1",
+          "x": 4.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1000,
+          "text": "0",
+          "x": 4.00,
+          "y": 10.00
+        }
+      ],
+      "text": "1"
+    },
+    {
+      "id": "col2",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 300,
+          "text": "0",
+          "x": 10.00,
+          "y": -1.00
+        },
+        {
+          "color": "#00ff00",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 500,
+          "text": "1",
+          "x": 10.00,
+          "y": 1.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.60,
+          "t": 900,
+          "text": "0",
+          "x": 10.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1300,
+          "text": "1",
+          "x": 10.00,
+          "y": 10.00
+        }
+      ],
+      "text": "0"
+    },
+    {
+      "id": "col3",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 100,
+          "text": "1",
+          "x": 16.00,
+          "y": -1.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 300,
+          "text": "1",
+          "x": 16.00,
+          "y": 1.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.60,
+          "t": 700,
+          "text": "0",
+          "x": 16.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1100,
+          "text": "1",
+          "x": 16.00,
+          "y": 10.00
+        }
+      ],
+      "text": "1"
+    },
+    {
+      "id": "col4",
+      "keyframes": [
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 600,
+          "text": "0",
+          "x": 22.00,
+          "y": -1.00
+        },
+        {
+          "color": "#00ff00",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 1.00,
+          "t": 800,
+          "text": "0",
+          "x": 22.00,
+          "y": 1.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.60,
+          "t": 1200,
+          "text": "1",
+          "x": 22.00,
+          "y": 5.00
+        },
+        {
+          "color": "success",
+          "easing": "linear",
+          "fontSize": 16,
+          "opacity": 0.00,
+          "t": 1600,
+          "text": "0",
+          "x": 22.00,
+          "y": 10.00
+        }
+      ],
+      "text": "0"
+    }
+  ],
+  "version": 1
+}

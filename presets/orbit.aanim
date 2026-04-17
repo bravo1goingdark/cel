@@ -1,0 +1,73 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 3000,
+  "sprites": [
+    {
+      "id": "center",
+      "keyframes": [
+        {
+          "color": "warning",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 12.00,
+          "y": 5.00
+        }
+      ],
+      "text": "*"
+    },
+    {
+      "id": "orbiter",
+      "keyframes": [
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 18,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 16.00,
+          "y": 5.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 18,
+          "opacity": 0.80,
+          "t": 750,
+          "x": 12.00,
+          "y": 2.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 18,
+          "opacity": 0.60,
+          "t": 1500,
+          "x": 8.00,
+          "y": 5.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 18,
+          "opacity": 0.80,
+          "t": 2250,
+          "x": 12.00,
+          "y": 8.00
+        },
+        {
+          "color": "info",
+          "easing": "inout",
+          "fontSize": 18,
+          "opacity": 1.00,
+          "t": 3000,
+          "x": 16.00,
+          "y": 5.00
+        }
+      ],
+      "text": "o"
+    }
+  ],
+  "version": 1
+}

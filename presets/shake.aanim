@@ -1,0 +1,67 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 1000,
+  "sprites": [
+    {
+      "id": "text",
+      "keyframes": [
+        {
+          "color": "danger",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 10.00,
+          "y": 5.00
+        },
+        {
+          "color": "danger",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 100,
+          "x": 11.00,
+          "y": 5.00
+        },
+        {
+          "color": "danger",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 200,
+          "x": 9.00,
+          "y": 5.00
+        },
+        {
+          "color": "danger",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 300,
+          "x": 11.00,
+          "y": 5.00
+        },
+        {
+          "color": "danger",
+          "easing": "linear",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 400,
+          "x": 9.00,
+          "y": 5.00
+        },
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 22,
+          "opacity": 1.00,
+          "t": 500,
+          "x": 10.00,
+          "y": 5.00
+        }
+      ],
+      "text": "ERROR!"
+    }
+  ],
+  "version": 1
+}

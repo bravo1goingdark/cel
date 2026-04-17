@@ -1,0 +1,67 @@
+{
+  "$schema": "https://ascii-anim.app/schema/v1.json",
+  "duration": 1200,
+  "sprites": [
+    {
+      "id": "heart",
+      "keyframes": [
+        {
+          "color": "danger",
+          "easing": "out",
+          "fontSize": 28,
+          "opacity": 1.00,
+          "t": 0,
+          "x": 12.00,
+          "y": 4.50
+        },
+        {
+          "color": "danger",
+          "easing": "in",
+          "fontSize": 44,
+          "opacity": 1.00,
+          "t": 100,
+          "x": 12.00,
+          "y": 4.30
+        },
+        {
+          "color": "danger",
+          "easing": "out",
+          "fontSize": 26,
+          "opacity": 1.00,
+          "t": 250,
+          "x": 12.00,
+          "y": 4.50
+        },
+        {
+          "color": "danger",
+          "easing": "in",
+          "fontSize": 38,
+          "opacity": 1.00,
+          "t": 400,
+          "x": 12.00,
+          "y": 4.30
+        },
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 28,
+          "opacity": 1.00,
+          "t": 550,
+          "x": 12.00,
+          "y": 4.50
+        },
+        {
+          "color": "danger",
+          "easing": "inout",
+          "fontSize": 28,
+          "opacity": 1.00,
+          "t": 1200,
+          "x": 12.00,
+          "y": 4.50
+        }
+      ],
+      "text": "<3"
+    }
+  ],
+  "version": 1
+}

@@ -577,6 +577,7 @@ footer a:hover { color: var(--fg); }
   .fc p { font-size: 12px; }
 
   .export-grid { gap: 6px; margin-top: 28px; }
+  #stats div[style*="grid-template-columns: repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
   .export-chip { padding: 8px 14px; font-size: 12px; border-radius: 8px; }
 
   .code-block { font-size: 12px; padding: 14px 18px; border-radius: 10px; margin: 24px 0 20px; }
@@ -628,8 +629,8 @@ footer a:hover { color: var(--fg); }
   </div>
   <div class="nav-right">
     <button class="theme-toggle" id="theme-btn" title="Toggle theme" aria-label="Toggle light/dark mode">&#9790;</button>
-    <a href="https://github.com/ascii-anim/ascii-anim" class="btn btn-ghost">GitHub</a>
-    <a href="https://github.com/ascii-anim/ascii-anim/releases" class="btn btn-accent">Download</a>
+    <a href="https://github.com/bravo1goingdark/cel" class="btn btn-ghost">GitHub</a>
+    <a href="https://github.com/bravo1goingdark/cel" class="btn btn-accent">Download</a>
   </div>
 </nav>
 
@@ -639,7 +640,7 @@ footer a:hover { color: var(--fg); }
   <h1>Characters<br><span class="thin">in motion.</span></h1>
   <p class="hero-sub">Design ASCII animations visually. Export to any format. Ship in seconds. Open source, offline, under 4KB.</p>
   <div class="hero-actions">
-    <a href="https://github.com/ascii-anim/ascii-anim/releases" class="btn btn-accent btn-large">Download free</a>
+    <a href="https://github.com/bravo1goingdark/cel" class="btn btn-accent btn-large">Download free</a>
     <a href="#demo" class="btn btn-ghost btn-large">Watch demo</a>
   </div>
 </section>
@@ -658,10 +659,12 @@ footer a:hover { color: var(--fg); }
       </div>
       <div class="demo-tabs">
         <button class="on" data-p="sleeping">sleeping</button>
+        <button data-p="cityscape">cityscape</button>
+        <button data-p="fireworks">fireworks</button>
+        <button data-p="typewriter">typewriter</button>
         <button data-p="rocket">rocket</button>
         <button data-p="ocean">ocean</button>
         <button data-p="neon">neon</button>
-        <button data-p="heartbeat">heartbeat</button>
         <button data-p="rain">rain</button>
       </div>
     </div>
@@ -725,6 +728,66 @@ footer a:hover { color: var(--fg); }
   </div>
 </section>
 
+<section id="engine">
+  <div class="features-wrap">
+    <div class="section-label">Engine</div>
+    <h2>3.9KB. Zero deps.<br>Runs everywhere.</h2>
+    <p class="section-desc">The core engine works in Node, Deno, Bun, and any browser. Import three functions and you're done.</p>
+    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
+<span style="color:var(--fg-3)">// install</span><br>
+<span class="dim">$</span> npm install <span class="hl">@cel/core</span><br><br>
+<span style="color:var(--fg-3)">// sample a scene at any timestamp</span><br>
+<span style="color:var(--accent)">import</span> { sampleScene } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/core'</span>;<br>
+<span style="color:var(--fg-3)">const</span> frame = sampleScene(scene, 1500);<br><br>
+<span style="color:var(--fg-3)">// deterministic serialization</span><br>
+<span style="color:var(--accent)">import</span> { serialize } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/core'</span>;<br>
+<span style="color:var(--fg-3)">const</span> json = serialize(scene); <span style="color:var(--fg-3)">// identical input = identical bytes</span><br><br>
+<span style="color:var(--fg-3)">// validate with full error paths</span><br>
+<span style="color:var(--accent)">import</span> { validate } <span style="color:var(--accent)">from</span> <span style="color:var(--fg)">'@cel/core'</span>;<br>
+<span style="color:var(--fg-3)">const</span> { valid, errors } = validate(input);
+    </div>
+  </div>
+</section>
+
+<section id="cli">
+  <div class="features-wrap">
+    <div class="section-label">CLI</div>
+    <h2>Validate, play, render.<br>From your terminal.</h2>
+    <p class="section-desc">1.3MB static Rust binary. Batch export from YAML configs. Plays animations directly in the terminal with ANSI.</p>
+    <div class="code-block" style="max-width:640px;margin-top:32px;font-family:var(--mono);font-size:13px;line-height:1.8;background:var(--bg-3);border:1px solid var(--fg-4);border-radius:12px;padding:24px 28px;color:var(--fg-2)">
+<span class="dim">$</span> ascii-anim validate scenes/*.aanim<br>
+&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> sleeping.aanim<br>
+&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> spinner.aanim<br>
+&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> heartbeat.aanim<br>
+&nbsp;&nbsp;<span style="color:var(--accent)">&check;</span> 31 files validated, 0 errors<br><br>
+<span class="dim">$</span> ascii-anim info presets/sleeping.aanim<br>
+&nbsp;&nbsp;duration: 4000ms (4.0s)<br>
+&nbsp;&nbsp;sprites:&nbsp; 4<br>
+&nbsp;&nbsp;keyframes: 17 total<br><br>
+<span class="dim">$</span> ascii-anim play presets/sleeping.aanim --loop
+    </div>
+  </div>
+</section>
+
+<section id="stats-section">
+  <div class="features-wrap" style="text-align:center;">
+    <div class="section-label">By the numbers</div>
+    <h2>Built to be measured</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fg-4);border:1px solid var(--fg-4);border-radius:16px;overflow:hidden;margin-top:48px;">
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">3.9<span style="font-size:16px;font-weight:500">KB</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">engine gzipped</div></div>
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">210</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">tests passing</div></div>
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">0.6<span style="font-size:16px;font-weight:500">ms</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">per frame render</div></div>
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--accent);">0</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">dependencies</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fg-4);border:1px solid var(--fg-4);border-top:none;border-radius:0 0 16px 16px;overflow:hidden;">
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">31</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">bundled presets</div></div>
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">7</div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">export formats</div></div>
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">100<span style="font-size:16px;font-weight:500">%</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">line coverage</div></div>
+      <div style="padding:32px 16px;background:var(--bg);"><div style="font-size:32px;font-weight:700;color:var(--fg);">1.3<span style="font-size:16px;font-weight:500">MB</span></div><div style="font-size:12px;color:var(--fg-3);margin-top:6px;">CLI binary</div></div>
+    </div>
+  </div>
+</section>
+
 <section id="install">
   <div class="install-wrap">
     <div class="section-label">Get started</div>
@@ -733,9 +796,9 @@ footer a:hover { color: var(--fg); }
     <div class="code-block">
       <span class="dim">$</span> npm install <span class="hl">@cel/core</span>
     </div>
-    <div style="display:flex;gap:12px;justify-content:center;">
-      <a href="https://github.com/ascii-anim/ascii-anim/releases" class="btn btn-accent btn-large">Download desktop app</a>
-      <a href="https://github.com/ascii-anim/ascii-anim" class="btn btn-ghost btn-large">View source</a>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://github.com/bravo1goingdark/cel" class="btn btn-accent btn-large">Get Cel on GitHub</a>
+      <a href="https://github.com/bravo1goingdark/cel" class="btn btn-ghost btn-large">View source</a>
     </div>
   </div>
 </section>
@@ -743,9 +806,9 @@ footer a:hover { color: var(--fg); }
 <footer>
   <span>Cel is MIT licensed.</span>
   <div class="footer-links">
-    <a href="https://github.com/ascii-anim/ascii-anim">GitHub</a>
-    <a href="/schema/v1.json">Schema</a>
-    <a href="https://github.com/ascii-anim/ascii-anim/releases">Releases</a>
+    <a href="https://github.com/bravo1goingdark/cel">GitHub</a>
+    <a href="/cel/schema/v1.json">Schema</a>
+    <a href="https://github.com/bravo1goingdark/cel">Source</a>
   </div>
 </footer>
 
@@ -941,6 +1004,56 @@ const P={
       {t:400,x:16,y:4,op:.25,fs:38,e:"out"},
       {t:650,x:16,y:4,op:0,fs:65,e:"in"},
       {t:1200,x:16,y:4,op:0,fs:32,e:"linear"}]}
+  ]},
+  cityscape:{duration:6000,sprites:[
+    {id:"bld1",text:"\u2588\u2588\u2588",kf:[{t:0,x:4,y:6,op:.5,fs:16,e:"linear"},{t:6000,x:4,y:6,op:.5,fs:16,e:"linear"}]},
+    {id:"bld2",text:"\u2588\u2588\u2588\u2588\u2588",kf:[{t:0,x:8,y:5,op:.45,fs:16,e:"linear"},{t:6000,x:8,y:5,op:.45,fs:16,e:"linear"}]},
+    {id:"bld3",text:"\u2588\u2588",kf:[{t:0,x:14,y:3,op:.55,fs:16,e:"linear"},{t:6000,x:14,y:3,op:.55,fs:16,e:"linear"}]},
+    {id:"bld4",text:"\u2588\u2588\u2588\u2588",kf:[{t:0,x:17,y:4.5,op:.4,fs:16,e:"linear"},{t:6000,x:17,y:4.5,op:.4,fs:16,e:"linear"}]},
+    {id:"bld5",text:"\u2588\u2588\u2588",kf:[{t:0,x:22,y:5.5,op:.5,fs:16,e:"linear"},{t:6000,x:22,y:5.5,op:.5,fs:16,e:"linear"}]},
+    {id:"bld6",text:"\u2588\u2588\u2588\u2588\u2588\u2588",kf:[{t:0,x:26,y:4,op:.35,fs:16,e:"linear"},{t:6000,x:26,y:4,op:.35,fs:16,e:"linear"}]},
+    {id:"ground",text:"\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",kf:[{t:0,x:3,y:8,op:.2,fs:12,e:"linear"},{t:6000,x:3,y:8,op:.2,fs:12,e:"linear"}]},
+    {id:"w1",text:"\u25A0",kf:[{t:0,x:5,y:6.5,op:0,fs:6,e:"inout"},{t:500,x:5,y:6.5,op:.8,fs:6,e:"inout"},{t:2000,x:5,y:6.5,op:.8,fs:6,e:"inout"},{t:2200,x:5,y:6.5,op:0,fs:6,e:"inout"},{t:6000,x:5,y:6.5,op:0,fs:6,e:"linear"}]},
+    {id:"w2",text:"\u25A0",kf:[{t:0,x:15,y:3.8,op:.7,fs:6,e:"inout"},{t:1500,x:15,y:3.8,op:.7,fs:6,e:"inout"},{t:1700,x:15,y:3.8,op:0,fs:6,e:"inout"},{t:3500,x:15,y:3.8,op:0,fs:6,e:"inout"},{t:3700,x:15,y:3.8,op:.8,fs:6,e:"inout"},{t:6000,x:15,y:3.8,op:.8,fs:6,e:"linear"}]},
+    {id:"w3",text:"\u25A0",kf:[{t:0,x:23,y:6,op:0,fs:6,e:"inout"},{t:800,x:23,y:6,op:.6,fs:6,e:"inout"},{t:3000,x:23,y:6,op:.6,fs:6,e:"inout"},{t:3300,x:23,y:6,op:0,fs:6,e:"inout"},{t:6000,x:23,y:6,op:0,fs:6,e:"linear"}]},
+    {id:"w4",text:"\u25A0",kf:[{t:0,x:28,y:4.8,op:.5,fs:6,e:"inout"},{t:1000,x:28,y:4.8,op:0,fs:6,e:"inout"},{t:4000,x:28,y:4.8,op:0,fs:6,e:"inout"},{t:4300,x:28,y:4.8,op:.7,fs:6,e:"inout"},{t:6000,x:28,y:4.8,op:.7,fs:6,e:"linear"}]},
+    {id:"moon",text:"\u25D1",kf:[{t:0,x:30,y:1,op:.6,fs:18,e:"inout"},{t:3000,x:30,y:.8,op:.7,fs:19,e:"inout"},{t:6000,x:30,y:1,op:.6,fs:18,e:"inout"}]},
+    {id:"s1",text:"\u00B7",kf:[{t:0,x:10,y:1.5,op:.2,fs:8,e:"inout"},{t:2000,x:10,y:1.5,op:.6,fs:8,e:"inout"},{t:4000,x:10,y:1.5,op:.2,fs:8,e:"inout"},{t:6000,x:10,y:1.5,op:.5,fs:8,e:"inout"}]},
+    {id:"s2",text:"*",kf:[{t:0,x:20,y:.5,op:.4,fs:8,e:"inout"},{t:1500,x:20,y:.5,op:.1,fs:8,e:"inout"},{t:3500,x:20,y:.5,op:.5,fs:8,e:"inout"},{t:6000,x:20,y:.5,op:.3,fs:8,e:"inout"}]},
+    {id:"s3",text:"\u00B7",kf:[{t:0,x:7,y:2.5,op:.3,fs:8,e:"inout"},{t:3000,x:7,y:2.5,op:.6,fs:8,e:"inout"},{t:6000,x:7,y:2.5,op:.3,fs:8,e:"inout"}]}
+  ]},
+  fireworks:{duration:4000,sprites:[
+    {id:"c",text:"\u2022",kf:[{t:0,x:17,y:10,op:.8,fs:10,e:"out"},{t:800,x:17,y:3,op:1,fs:10,e:"in"},{t:801,x:17,y:3,op:0,fs:10,e:"linear"},{t:4000,x:17,y:10,op:0,fs:10,e:"linear"}]},
+    {id:"e1",text:"\u2727",kf:[{t:0,x:17,y:3,op:0,fs:14,e:"linear"},{t:800,x:17,y:3,op:0,fs:14,e:"linear"},{t:801,x:17,y:3,op:1,fs:18,e:"out"},{t:1800,x:12,y:0,op:0,fs:10,e:"in"},{t:4000,x:12,y:0,op:0,fs:10,e:"linear"}]},
+    {id:"e2",text:"*",kf:[{t:0,x:17,y:3,op:0,fs:14,e:"linear"},{t:800,x:17,y:3,op:0,fs:14,e:"linear"},{t:801,x:17,y:3,op:1,fs:16,e:"out"},{t:1800,x:22,y:0,op:0,fs:8,e:"in"},{t:4000,x:22,y:0,op:0,fs:8,e:"linear"}]},
+    {id:"e3",text:"\u2022",kf:[{t:0,x:17,y:3,op:0,fs:12,e:"linear"},{t:800,x:17,y:3,op:0,fs:12,e:"linear"},{t:801,x:17,y:3,op:1,fs:14,e:"out"},{t:1800,x:14,y:6,op:0,fs:8,e:"in"},{t:4000,x:14,y:6,op:0,fs:8,e:"linear"}]},
+    {id:"e4",text:"\u2727",kf:[{t:0,x:17,y:3,op:0,fs:14,e:"linear"},{t:800,x:17,y:3,op:0,fs:14,e:"linear"},{t:801,x:17,y:3,op:1,fs:16,e:"out"},{t:1800,x:20,y:7,op:0,fs:8,e:"in"},{t:4000,x:20,y:7,op:0,fs:8,e:"linear"}]},
+    {id:"e5",text:"*",kf:[{t:0,x:17,y:3,op:0,fs:12,e:"linear"},{t:800,x:17,y:3,op:0,fs:12,e:"linear"},{t:801,x:17,y:3,op:.8,fs:14,e:"out"},{t:1800,x:10,y:4,op:0,fs:8,e:"in"},{t:4000,x:10,y:4,op:0,fs:8,e:"linear"}]},
+    {id:"e6",text:"\u2022",kf:[{t:0,x:17,y:3,op:0,fs:10,e:"linear"},{t:800,x:17,y:3,op:0,fs:10,e:"linear"},{t:801,x:17,y:3,op:.9,fs:12,e:"out"},{t:1800,x:24,y:4,op:0,fs:6,e:"in"},{t:4000,x:24,y:4,op:0,fs:6,e:"linear"}]},
+    {id:"e7",text:"\u2727",kf:[{t:0,x:17,y:3,op:0,fs:12,e:"linear"},{t:800,x:17,y:3,op:0,fs:12,e:"linear"},{t:801,x:17,y:3,op:.7,fs:14,e:"out"},{t:1800,x:17,y:8,op:0,fs:6,e:"in"},{t:4000,x:17,y:8,op:0,fs:6,e:"linear"}]},
+    {id:"e8",text:"*",kf:[{t:0,x:17,y:3,op:0,fs:10,e:"linear"},{t:800,x:17,y:3,op:0,fs:10,e:"linear"},{t:801,x:17,y:3,op:.6,fs:12,e:"out"},{t:1800,x:17,y:-1,op:0,fs:6,e:"in"},{t:4000,x:17,y:-1,op:0,fs:6,e:"linear"}]},
+    {id:"f1",text:"\u00B7",kf:[{t:1200,x:13,y:1,op:0,fs:8,e:"linear"},{t:1300,x:13,y:1,op:.5,fs:8,e:"out"},{t:2200,x:13,y:1,op:0,fs:4,e:"in"},{t:4000,x:13,y:1,op:0,fs:4,e:"linear"}]},
+    {id:"f2",text:"\u00B7",kf:[{t:1200,x:21,y:2,op:0,fs:8,e:"linear"},{t:1400,x:21,y:2,op:.4,fs:8,e:"out"},{t:2400,x:21,y:2,op:0,fs:4,e:"in"},{t:4000,x:21,y:2,op:0,fs:4,e:"linear"}]},
+    {id:"c2",text:"\u2022",kf:[{t:2000,x:10,y:10,op:0,fs:10,e:"linear"},{t:2100,x:10,y:10,op:.7,fs:10,e:"out"},{t:2700,x:10,y:4,op:1,fs:10,e:"in"},{t:2701,x:10,y:4,op:0,fs:10,e:"linear"},{t:4000,x:10,y:4,op:0,fs:10,e:"linear"}]},
+    {id:"x1",text:"\u2727",kf:[{t:2700,x:10,y:4,op:0,fs:12,e:"linear"},{t:2701,x:10,y:4,op:1,fs:14,e:"out"},{t:3500,x:7,y:2,op:0,fs:8,e:"in"},{t:4000,x:7,y:2,op:0,fs:8,e:"linear"}]},
+    {id:"x2",text:"*",kf:[{t:2700,x:10,y:4,op:0,fs:12,e:"linear"},{t:2701,x:10,y:4,op:.8,fs:14,e:"out"},{t:3500,x:13,y:2,op:0,fs:8,e:"in"},{t:4000,x:13,y:2,op:0,fs:8,e:"linear"}]},
+    {id:"x3",text:"\u2022",kf:[{t:2700,x:10,y:4,op:0,fs:10,e:"linear"},{t:2701,x:10,y:4,op:.9,fs:12,e:"out"},{t:3500,x:8,y:7,op:0,fs:6,e:"in"},{t:4000,x:8,y:7,op:0,fs:6,e:"linear"}]},
+    {id:"x4",text:"\u2727",kf:[{t:2700,x:10,y:4,op:0,fs:10,e:"linear"},{t:2701,x:10,y:4,op:.7,fs:12,e:"out"},{t:3500,x:12,y:7,op:0,fs:6,e:"in"},{t:4000,x:12,y:7,op:0,fs:6,e:"linear"}]}
+  ]},
+  typewriter:{duration:5000,sprites:[
+    {id:"t1",text:"H",kf:[{t:0,x:10,y:4.5,op:0,fs:22,e:"linear"},{t:200,x:10,y:4.5,op:0,fs:22,e:"linear"},{t:250,x:10,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:10,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t2",text:"e",kf:[{t:0,x:11.3,y:4.5,op:0,fs:22,e:"linear"},{t:400,x:11.3,y:4.5,op:0,fs:22,e:"linear"},{t:450,x:11.3,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:11.3,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t3",text:"l",kf:[{t:0,x:12.6,y:4.5,op:0,fs:22,e:"linear"},{t:600,x:12.6,y:4.5,op:0,fs:22,e:"linear"},{t:650,x:12.6,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:12.6,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t4",text:"l",kf:[{t:0,x:13.9,y:4.5,op:0,fs:22,e:"linear"},{t:800,x:13.9,y:4.5,op:0,fs:22,e:"linear"},{t:850,x:13.9,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:13.9,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t5",text:"o",kf:[{t:0,x:15.2,y:4.5,op:0,fs:22,e:"linear"},{t:1000,x:15.2,y:4.5,op:0,fs:22,e:"linear"},{t:1050,x:15.2,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:15.2,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t6",text:",",kf:[{t:0,x:16.5,y:4.5,op:0,fs:22,e:"linear"},{t:1400,x:16.5,y:4.5,op:0,fs:22,e:"linear"},{t:1450,x:16.5,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:16.5,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t7",text:"W",kf:[{t:0,x:18.5,y:4.5,op:0,fs:22,e:"linear"},{t:1800,x:18.5,y:4.5,op:0,fs:22,e:"linear"},{t:1850,x:18.5,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:18.5,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t8",text:"o",kf:[{t:0,x:19.8,y:4.5,op:0,fs:22,e:"linear"},{t:2000,x:19.8,y:4.5,op:0,fs:22,e:"linear"},{t:2050,x:19.8,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:19.8,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t9",text:"r",kf:[{t:0,x:21.1,y:4.5,op:0,fs:22,e:"linear"},{t:2200,x:21.1,y:4.5,op:0,fs:22,e:"linear"},{t:2250,x:21.1,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:21.1,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t10",text:"l",kf:[{t:0,x:22.4,y:4.5,op:0,fs:22,e:"linear"},{t:2400,x:22.4,y:4.5,op:0,fs:22,e:"linear"},{t:2450,x:22.4,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:22.4,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t11",text:"d",kf:[{t:0,x:23.7,y:4.5,op:0,fs:22,e:"linear"},{t:2600,x:23.7,y:4.5,op:0,fs:22,e:"linear"},{t:2650,x:23.7,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:23.7,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"t12",text:".",kf:[{t:0,x:25,y:4.5,op:0,fs:22,e:"linear"},{t:2900,x:25,y:4.5,op:0,fs:22,e:"linear"},{t:2950,x:25,y:4.5,op:1,fs:22,e:"out"},{t:5000,x:25,y:4.5,op:1,fs:22,e:"linear"}]},
+    {id:"cursor",text:"\u2588",kf:[{t:0,x:10,y:4.5,op:.8,fs:22,e:"linear"},{t:200,x:10,y:4.5,op:.8,fs:22,e:"linear"},{t:250,x:11.3,y:4.5,op:.8,fs:22,e:"linear"},{t:450,x:12.6,y:4.5,op:.8,fs:22,e:"linear"},{t:650,x:13.9,y:4.5,op:.8,fs:22,e:"linear"},{t:850,x:15.2,y:4.5,op:.8,fs:22,e:"linear"},{t:1050,x:16.5,y:4.5,op:.8,fs:22,e:"linear"},{t:1450,x:18.5,y:4.5,op:.8,fs:22,e:"linear"},{t:1850,x:19.8,y:4.5,op:.8,fs:22,e:"linear"},{t:2050,x:21.1,y:4.5,op:.8,fs:22,e:"linear"},{t:2250,x:22.4,y:4.5,op:.8,fs:22,e:"linear"},{t:2450,x:23.7,y:4.5,op:.8,fs:22,e:"linear"},{t:2650,x:25,y:4.5,op:.8,fs:22,e:"linear"},{t:2950,x:26.3,y:4.5,op:.8,fs:22,e:"linear"},{t:3200,x:26.3,y:4.5,op:0,fs:22,e:"inout"},{t:3600,x:26.3,y:4.5,op:.8,fs:22,e:"inout"},{t:4000,x:26.3,y:4.5,op:0,fs:22,e:"inout"},{t:4400,x:26.3,y:4.5,op:.8,fs:22,e:"inout"},{t:4800,x:26.3,y:4.5,op:0,fs:22,e:"inout"},{t:5000,x:26.3,y:4.5,op:.8,fs:22,e:"inout"}]}
   ]},
   rain:{duration:4000,sprites:[
     {id:"r1",text:"|",kf:[{t:0,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:801,x:8,y:-1,op:0,fs:14,e:"linear"},{t:1000,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:1800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:1801,x:8,y:-1,op:0,fs:14,e:"linear"},{t:2000,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:2800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:4000,x:8,y:-1,op:0,fs:14,e:"linear"}]},

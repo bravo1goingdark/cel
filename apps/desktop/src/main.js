@@ -163,6 +163,118 @@ const PRESETS = {
       { t: 1200, x: 12, y: 4.5, opacity: 1, fontSize: 28, color: "danger", easing: "inout" },
     ]},
   ]},
+  loading: { duration: 1500, sprites: [
+    { id: "dot1", text: ".", keyframes: [
+      { t: 0, x: 10, y: 5, opacity: 0, fontSize: 32, color: "info", easing: "out" },
+      { t: 200, x: 10, y: 5, opacity: 1, fontSize: 32, color: "info", easing: "inout" },
+      { t: 1500, x: 10, y: 5, opacity: 1, fontSize: 32, color: "info", easing: "linear" },
+    ]},
+    { id: "dot2", text: ".", keyframes: [
+      { t: 0, x: 12, y: 5, opacity: 0, fontSize: 32, color: "info", easing: "linear" },
+      { t: 300, x: 12, y: 5, opacity: 0, fontSize: 32, color: "info", easing: "out" },
+      { t: 500, x: 12, y: 5, opacity: 1, fontSize: 32, color: "info", easing: "inout" },
+      { t: 1500, x: 12, y: 5, opacity: 1, fontSize: 32, color: "info", easing: "linear" },
+    ]},
+    { id: "dot3", text: ".", keyframes: [
+      { t: 0, x: 14, y: 5, opacity: 0, fontSize: 32, color: "info", easing: "linear" },
+      { t: 600, x: 14, y: 5, opacity: 0, fontSize: 32, color: "info", easing: "out" },
+      { t: 800, x: 14, y: 5, opacity: 1, fontSize: 32, color: "info", easing: "inout" },
+      { t: 1500, x: 14, y: 5, opacity: 1, fontSize: 32, color: "info", easing: "linear" },
+    ]},
+  ]},
+  pulse: { duration: 2000, sprites: [
+    { id: "ring", text: "( * )", keyframes: [
+      { t: 0, x: 10, y: 5, opacity: 1, fontSize: 18, color: "success", easing: "out" },
+      { t: 500, x: 10, y: 5, opacity: 1, fontSize: 32, color: "success", easing: "in" },
+      { t: 1000, x: 10, y: 5, opacity: 1, fontSize: 18, color: "success", easing: "out" },
+      { t: 1500, x: 10, y: 5, opacity: 1, fontSize: 28, color: "success", easing: "in" },
+      { t: 2000, x: 10, y: 5, opacity: 1, fontSize: 18, color: "success", easing: "inout" },
+    ]},
+  ]},
+  blink: { duration: 1000, sprites: [
+    { id: "cursor", text: "_", keyframes: [
+      { t: 0, x: 12, y: 5, opacity: 1, fontSize: 24, color: "primary", easing: "linear" },
+      { t: 490, x: 12, y: 5, opacity: 1, fontSize: 24, color: "primary", easing: "linear" },
+      { t: 500, x: 12, y: 5, opacity: 0, fontSize: 24, color: "primary", easing: "linear" },
+      { t: 990, x: 12, y: 5, opacity: 0, fontSize: 24, color: "primary", easing: "linear" },
+      { t: 1000, x: 12, y: 5, opacity: 1, fontSize: 24, color: "primary", easing: "linear" },
+    ]},
+  ]},
+  bounce: { duration: 2000, sprites: [
+    { id: "ball", text: "O", keyframes: [
+      { t: 0, x: 12, y: 1, opacity: 1, fontSize: 22, color: "warning", easing: "in" },
+      { t: 500, x: 12, y: 9, opacity: 1, fontSize: 22, color: "warning", easing: "out" },
+      { t: 1000, x: 12, y: 1, opacity: 1, fontSize: 22, color: "warning", easing: "in" },
+      { t: 1500, x: 12, y: 9, opacity: 1, fontSize: 22, color: "warning", easing: "out" },
+      { t: 2000, x: 12, y: 1, opacity: 1, fontSize: 22, color: "warning", easing: "inout" },
+    ]},
+    { id: "shadow", text: "---", keyframes: [
+      { t: 0, x: 11.5, y: 10, opacity: 0.15, fontSize: 18, color: "secondary", easing: "in" },
+      { t: 500, x: 11.5, y: 10, opacity: 0.4, fontSize: 18, color: "secondary", easing: "out" },
+      { t: 1000, x: 11.5, y: 10, opacity: 0.15, fontSize: 18, color: "secondary", easing: "in" },
+      { t: 1500, x: 11.5, y: 10, opacity: 0.4, fontSize: 18, color: "secondary", easing: "out" },
+      { t: 2000, x: 11.5, y: 10, opacity: 0.15, fontSize: 18, color: "secondary", easing: "inout" },
+    ]},
+  ]},
+  wave: { duration: 2000, sprites: [
+    { id: "w1", text: "~", keyframes: [
+      { t: 0, x: 5, y: 6, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 1000, x: 5, y: 4, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 2000, x: 5, y: 6, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+    ]},
+    { id: "w2", text: "~", keyframes: [
+      { t: 0, x: 9, y: 4.5, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 1000, x: 9, y: 6.5, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 2000, x: 9, y: 4.5, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+    ]},
+    { id: "w3", text: "~", keyframes: [
+      { t: 0, x: 13, y: 6, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 1000, x: 13, y: 4, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 2000, x: 13, y: 6, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+    ]},
+    { id: "w4", text: "~", keyframes: [
+      { t: 0, x: 17, y: 4.5, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 1000, x: 17, y: 6.5, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 2000, x: 17, y: 4.5, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+    ]},
+    { id: "w5", text: "~", keyframes: [
+      { t: 0, x: 21, y: 6, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 1000, x: 21, y: 4, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+      { t: 2000, x: 21, y: 6, opacity: 0.8, fontSize: 20, color: "info", easing: "inout" },
+    ]},
+  ]},
+  matrix: { duration: 3000, sprites: [
+    { id: "c1", text: "0", keyframes: [
+      { t: 0, x: 3, y: -1, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+      { t: 100, x: 3, y: -1, opacity: 0.8, fontSize: 16, color: "success", easing: "linear" },
+      { t: 2000, x: 3, y: 12, opacity: 0.1, fontSize: 16, color: "success", easing: "linear" },
+      { t: 3000, x: 3, y: 12, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+    ]},
+    { id: "c2", text: "1", keyframes: [
+      { t: 400, x: 8, y: -1, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+      { t: 500, x: 8, y: -1, opacity: 0.9, fontSize: 16, color: "success", easing: "linear" },
+      { t: 2200, x: 8, y: 12, opacity: 0.1, fontSize: 16, color: "success", easing: "linear" },
+      { t: 3000, x: 8, y: 12, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+    ]},
+    { id: "c3", text: "0", keyframes: [
+      { t: 800, x: 14, y: -1, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+      { t: 900, x: 14, y: -1, opacity: 0.7, fontSize: 16, color: "success", easing: "linear" },
+      { t: 2600, x: 14, y: 12, opacity: 0.1, fontSize: 16, color: "success", easing: "linear" },
+      { t: 3000, x: 14, y: 12, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+    ]},
+    { id: "c4", text: "1", keyframes: [
+      { t: 200, x: 19, y: -1, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+      { t: 300, x: 19, y: -1, opacity: 0.85, fontSize: 16, color: "success", easing: "linear" },
+      { t: 1800, x: 19, y: 12, opacity: 0.1, fontSize: 16, color: "success", easing: "linear" },
+      { t: 3000, x: 19, y: 12, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+    ]},
+    { id: "c5", text: "0", keyframes: [
+      { t: 1200, x: 24, y: -1, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+      { t: 1300, x: 24, y: -1, opacity: 0.75, fontSize: 16, color: "success", easing: "linear" },
+      { t: 2800, x: 24, y: 12, opacity: 0.1, fontSize: 16, color: "success", easing: "linear" },
+      { t: 3000, x: 24, y: 12, opacity: 0, fontSize: 16, color: "success", easing: "linear" },
+    ]},
+  ]},
 };
 
 // ─── App state ──────────────────────────────────────────────────────

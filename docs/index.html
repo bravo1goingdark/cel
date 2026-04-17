@@ -3,493 +3,962 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>cel. — ascii animation studio</title>
-<meta name="description" content="desktop app for creating ascii character-grid animations. visual timeline editor, 7 export formats, 3.9KB engine. no account needed.">
+
+<!-- Primary SEO -->
+<title>Cel — ASCII Animation Studio | Design, Animate, Export</title>
+<meta name="description" content="Free open-source desktop app for creating ASCII character-grid animations. Visual timeline editor, 7 export formats (HTML, React, CSS, ANSI, JS), 3.9KB engine. No account needed.">
 <meta name="keywords" content="ascii animation, ascii art, terminal animation, cli spinner, text animation, react component, css keyframes, tauri app, open source, developer tools">
 <meta name="author" content="bravo1goingdark">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://bravo1goingdark.github.io/cel/">
+
+<!-- Open Graph / Facebook / Discord / Slack -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bravo1goingdark.github.io/cel/">
-<meta property="og:title" content="cel. — ascii animation studio">
-<meta property="og:description" content="design ascii animations visually. export to html, react, css, or terminal. open source, offline-first, 3.9KB engine.">
+<meta property="og:title" content="Cel — ASCII Animation Studio">
+<meta property="og:description" content="Design ASCII animations visually. Export to HTML, React, CSS, or terminal. Open source, offline-first, 3.9KB engine.">
 <meta property="og:image" content="https://bravo1goingdark.github.io/cel/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cel — ASCII animation studio showing a sleeping face animation with floating Z characters">
+<meta property="og:site_name" content="Cel">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="cel. — ascii animation studio">
-<meta name="twitter:description" content="design ascii animations visually. export to html, react, css, or terminal.">
+<meta name="twitter:url" content="https://bravo1goingdark.github.io/cel/">
+<meta name="twitter:title" content="Cel — ASCII Animation Studio">
+<meta name="twitter:description" content="Design ASCII animations visually. Export to HTML, React, CSS, or terminal. Open source, offline-first, 3.9KB engine.">
 <meta name="twitter:image" content="https://bravo1goingdark.github.io/cel/og.png">
-<meta name="theme-color" content="#F6F5F0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0E0E0C" media="(prefers-color-scheme: dark)">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"cel","description":"desktop app for creating ascii character-grid animations.","url":"https://bravo1goingdark.github.io/cel/","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS, Windows","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"codeRepository":"https://github.com/bravo1goingdark/cel"}</script>
+
+<!-- Theme -->
+<meta name="theme-color" content="#0a0a09" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<meta name="apple-mobile-web-app-title" content="Cel">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Cel",
+  "alternateName": "Cel ASCII Animation Studio",
+  "description": "A desktop app for creating ASCII character-grid animations. Visual timeline editor with export to HTML, React, CSS, ANSI terminal, and ES modules.",
+  "url": "https://bravo1goingdark.github.io/cel/",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Linux, macOS, Windows",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "codeRepository": "https://github.com/bravo1goingdark/cel",
+  "programmingLanguage": ["TypeScript", "Rust", "JavaScript"]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  --bg: #F6F5F0;
-  --bg-alt: #EDEBE3;
-  --ink: #0E0E0C;
-  --ink-muted: #6E6B63;
-  --line: #D8D4C8;
-  --accent: #E14D2A;
-  --accent-ink: #F6F5F0;
-  --font: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'SF Mono', monospace;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'Inter', -apple-system, system-ui, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0E0E0C;
-    --bg-alt: #171714;
-    --ink: #E8E6DE;
-    --ink-muted: #8A877D;
-    --line: #2A2822;
-    --accent: #FF6A3D;
-    --accent-ink: #0E0E0C;
-  }
+/* ── dark (default) ─────────────────────────── */
+:root, [data-theme="dark"] {
+  --bg: #0a0a09;
+  --bg-2: #131312;
+  --bg-3: #1c1c1a;
+  --bg-4: #262624;
+  --fg: #e8e5dd;
+  --fg-2: #a09e95;
+  --fg-3: #6b6a63;
+  --fg-4: #3d3d38;
+  --accent: #c8ff3e;
+  --accent-dim: rgba(200,255,62,0.08);
+  --accent-mid: rgba(200,255,62,0.15);
+  --nav-bg: rgba(10,10,9,0.8);
+  --btn-accent-fg: #0a0a09;
+  --demo-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  --glow: rgba(200,255,62,0.04);
 }
-[data-theme="dark"] {
-  --bg: #0E0E0C;
-  --bg-alt: #171714;
-  --ink: #E8E6DE;
-  --ink-muted: #8A877D;
-  --line: #2A2822;
-  --accent: #FF6A3D;
-  --accent-ink: #0E0E0C;
+
+/* ── light ──────────────────────────────────── */
+[data-theme="light"] {
+  --bg: #faf9f7;
+  --bg-2: #f0eee9;
+  --bg-3: #e4e1da;
+  --bg-4: #d5d2cb;
+  --fg: #1a1a19;
+  --fg-2: #555550;
+  --fg-3: #8a897f;
+  --fg-4: #c5c3bb;
+  --accent: #2d7a1e;
+  --accent-dim: rgba(45,122,30,0.06);
+  --accent-mid: rgba(45,122,30,0.12);
+  --nav-bg: rgba(250,249,247,0.85);
+  --btn-accent-fg: #ffffff;
+  --demo-shadow: 0 40px 100px rgba(0,0,0,0.08);
+  --glow: rgba(45,122,30,0.04);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #faf9f7;
+    --bg-2: #f0eee9;
+    --bg-3: #e4e1da;
+    --bg-4: #d5d2cb;
+    --fg: #1a1a19;
+    --fg-2: #555550;
+    --fg-3: #8a897f;
+    --fg-4: #c5c3bb;
+    --accent: #2d7a1e;
+    --accent-dim: rgba(45,122,30,0.06);
+    --accent-mid: rgba(45,122,30,0.12);
+    --nav-bg: rgba(250,249,247,0.85);
+    --btn-accent-fg: #ffffff;
+    --demo-shadow: 0 40px 100px rgba(0,0,0,0.08);
+    --glow: rgba(45,122,30,0.04);
+  }
 }
 
 html { scroll-behavior: smooth; }
 body {
-  font-family: var(--font);
-  font-size: 16px;
-  line-height: 1.65;
+  font-family: var(--sans);
   background: var(--bg);
-  color: var(--ink);
+  color: var(--fg);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  transition: background 0s, color 0s;
+  transition: background 300ms ease, color 300ms ease;
 }
-a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-a:hover { text-decoration-thickness: 2px; }
-::selection { background: var(--ink); color: var(--bg); }
 
-/* ── layout ────────────────────────────────── */
-.page { max-width: 88ch; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
-.wide { max-width: 120ch; }
-
-/* ── nav ───────────────────────────────────── */
-nav {
-  height: 56px;
-  display: flex; align-items: center; gap: 2ch;
-  border-bottom: 1px solid var(--line);
-  max-width: 88ch;
-  margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 48px);
-}
-.wordmark { font-size: 18px; font-weight: 500; text-decoration: none; color: var(--ink); }
-.wordmark-cursor { animation: blink 1.06s step-end infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-.version { font-size: 13px; color: var(--ink-muted); text-decoration: none; }
-.nav-spacer { flex: 1; }
-nav a { font-size: 13px; color: var(--ink-muted); text-decoration: none; }
-nav a:hover { color: var(--ink); }
-
-/* ── buttons ───────────────────────────────── */
-.tb {
-  display: inline-block;
-  font-family: var(--font);
-  font-size: inherit;
-  color: var(--ink);
-  background: none;
-  border: none;
+/* ── theme toggle ───────────────────────────── */
+.theme-toggle {
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: 1px solid var(--fg-4);
+  border-radius: 8px;
   cursor: pointer;
-  padding: 0;
-  text-decoration: none;
+  color: var(--fg-3);
+  font-size: 15px;
+  transition: all 200ms;
+  flex-shrink: 0;
 }
-.tb::before { content: '[ '; color: var(--ink-muted); }
-.tb::after { content: ' ]'; color: var(--ink-muted); }
-.tb:hover { background: var(--ink); color: var(--bg); }
-.tb:hover::before, .tb:hover::after { color: var(--bg); }
-.tb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.tb-primary { background: var(--ink); color: var(--bg); }
-.tb-primary::before { content: '\u2588 '; color: var(--bg); }
-.tb-primary::after { content: ' \u2588'; color: var(--bg); }
-.tb-primary:hover { background: var(--bg); color: var(--ink); }
-.tb-primary:hover::before, .tb-primary:hover::after { color: var(--ink); }
+.theme-toggle:hover { border-color: var(--fg-3); color: var(--fg); background: var(--bg-3); }
 
-/* ── dividers ──────────────────────────────── */
-.rule { color: var(--line); font-size: 14px; overflow: hidden; white-space: nowrap; margin: clamp(48px, 8vw, 96px) 0; user-select: none; }
-.rule-light { color: var(--line); font-size: 14px; letter-spacing: 0.5ch; margin: clamp(32px, 6vw, 64px) 0; user-select: none; }
-.section-head { color: var(--line); font-size: 14px; margin-bottom: 40px; }
-.section-num { color: var(--ink-muted); }
+a { color: inherit; text-decoration: none; }
 
-/* ── sections ──────────────────────────────── */
-section { padding: clamp(48px, 8vw, 96px) 0; }
-h2 { font-size: 32px; font-weight: 500; line-height: 1.15; margin-bottom: 24px; }
-h2 .num { color: var(--ink-muted); font-weight: 400; margin-right: 1ch; }
-h3 { font-size: 20px; font-weight: 500; line-height: 1.3; margin-bottom: 12px; }
-p { max-width: 68ch; }
-p + p { margin-top: 1em; }
-.muted { color: var(--ink-muted); }
-.accent { color: var(--accent); }
-.inv { background: var(--ink); color: var(--bg); padding: 0 0.3ch; }
-
-/* ── hero ──────────────────────────────────── */
-.hero {
-  padding: clamp(80px, 14vw, 160px) 0 clamp(48px, 8vw, 80px);
+/* ── nav ────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  padding: 0 40px;
+  height: 56px;
+  display: flex; align-items: center; gap: 32px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--fg-4);
+  transition: background 300ms ease, border-color 300ms ease;
 }
-.hero-title {
-  font-size: clamp(44px, 6vw, 88px);
-  font-weight: 500;
-  line-height: 1.0;
-  margin-bottom: 20px;
+
+nav *, .demo-frame, .demo-bar, .demo-tabs, .demo-tabs button,
+.fc, .feature-grid, .export-chip, .code-block, .btn-ghost, footer {
+  transition: background 300ms ease, color 300ms ease, border-color 300ms ease;
 }
-.hero-sub {
+
+.logo {
+  font-family: var(--mono);
   font-size: 16px;
-  color: var(--ink-muted);
-  max-width: 60ch;
-  margin-bottom: 48px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--fg);
 }
-.hero-sub .typed { border-right: 2px solid var(--ink-muted); padding-right: 2px; }
-.hero-actions { display: flex; gap: 2ch; font-size: 16px; flex-wrap: wrap; }
+.logo em { font-style: normal; color: var(--accent); }
 
-/* ── canvas ────────────────────────────────── */
-.canvas-wrap {
-  margin: 48px 0 24px;
-  background: var(--bg-alt);
-  padding: 24px;
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-size: 13px;
+  color: var(--fg-3);
+  transition: color 200ms;
+}
+.nav-links a:hover { color: var(--fg); }
+
+.nav-right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 18px;
+  font-size: 13px; font-weight: 500; font-family: var(--sans);
+  border-radius: 8px;
+  border: none; cursor: pointer;
+  transition: all 200ms var(--ease);
+}
+.btn-accent {
+  background: var(--accent);
+  color: var(--btn-accent-fg);
+}
+.btn-accent:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--fg-2);
+  border: 1px solid var(--fg-4);
+}
+.btn-ghost:hover { border-color: var(--fg-3); color: var(--fg); }
+.btn-large {
+  padding: 12px 28px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+/* ── hero ───────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px 40px;
   position: relative;
-  min-height: 200px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 800px; height: 600px;
+  transform: translate(-50%, -30%);
+  background: radial-gradient(ellipse, var(--glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+  opacity: 0.8;
+}
+
+h1 {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  max-width: 680px;
+}
+
+h1 .thin { font-weight: 400; color: var(--fg-2); }
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--fg-2);
+  max-width: 420px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.hero-actions {
+  display: flex; gap: 12px;
+  margin-bottom: 80px;
+}
+
+/* ── demo ───────────────────────────────────── */
+.demo {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.demo-frame {
+  border: 1px solid var(--fg-4);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-2);
+  box-shadow: var(--demo-shadow);
+}
+
+.demo-bar {
+  display: flex; align-items: center;
+  padding: 12px 16px;
+  gap: 8px;
+  border-bottom: 1px solid var(--fg-4);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #28c840; }
+.demo-bar-title {
+  flex: 1; text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-3);
+}
+
+#stage-wrap {
+  display: flex; align-items: center; justify-content: center;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
 }
 #canvas {
   position: relative;
-  width: 88ch;
-  max-width: 100%;
-  height: 16em;
-  font-size: 16px;
-  line-height: 1.375;
-  overflow: hidden;
+  width: 520px; height: 240px;
 }
 #canvas .sp {
   position: absolute; top: 0; left: 0;
   white-space: pre;
-  font-family: var(--font);
+  font-family: var(--mono);
   line-height: 1.375;
-  color: var(--ink);
+  color: var(--fg-2);
   will-change: transform, opacity;
 }
-.canvas-controls {
-  display: flex; gap: 2ch; font-size: 13px; margin-top: 16px;
+
+.demo-tabs {
+  display: flex;
+  border-top: 1px solid var(--fg-4);
 }
-.canvas-controls .tb { font-size: 13px; }
-.preset-name { color: var(--ink-muted); font-size: 13px; font-style: italic; }
-
-/* ── code ──────────────────────────────────── */
-.code-block {
-  background: var(--bg-alt);
-  padding: 24px;
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-x: auto;
-  max-width: 100%;
-}
-.code-block .cm { color: var(--ink-muted); font-style: italic; }
-.code-block .str { color: var(--accent); }
-.code-block .kw { font-weight: 500; }
-
-/* ── table ─────────────────────────────────── */
-.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
-.tbl th { text-align: left; font-weight: 500; padding: 8px 2ch 8px 0; border-bottom: 1px solid var(--ink); }
-.tbl td { padding: 8px 2ch 8px 0; border-bottom: 1px solid var(--line); }
-.tbl .planned { color: var(--ink-muted); }
-
-/* ── facts strip ───────────────────────────── */
-.facts { font-size: 13px; color: var(--ink-muted); margin-top: 32px; }
-
-/* ── two-col ───────────────────────────────── */
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4ch; align-items: start; }
-
-/* ── feature list ──────────────────────────── */
-.flist { list-style: none; font-size: 14px; }
-.flist li { padding: 4px 0; }
-.flist li::before { content: '\203A '; color: var(--ink-muted); }
-.flist .fdesc { color: var(--ink-muted); }
-
-/* ── install ───────────────────────────────── */
-.install-lines { font-size: 14px; }
-.install-lines .prompt { color: var(--ink-muted); user-select: none; }
-
-/* ── footer ────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--line);
-  padding: 40px 0;
-  font-size: 13px;
-  display: flex; align-items: flex-start; gap: 4ch; flex-wrap: wrap;
-}
-footer .wordmark { font-size: 16px; }
-footer nav { border: none; height: auto; padding: 0; max-width: none; margin: 0; }
-footer nav a { font-size: 13px; }
-.footer-copy { color: var(--ink-muted); font-style: italic; max-width: 50ch; }
-.footer-spacer { flex: 1; }
-
-/* ── theme toggle ──────────────────────────── */
-#theme-btn {
-  font-family: var(--font);
-  font-size: 13px;
-  background: none;
+.demo-tabs button {
+  flex: 1;
+  padding: 11px 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  background: transparent;
   border: none;
-  color: var(--ink-muted);
+  color: var(--fg-3);
   cursor: pointer;
-  padding: 0;
+  transition: all 150ms;
+  border-right: 1px solid var(--fg-4);
+  position: relative;
 }
-#theme-btn:hover { color: var(--ink); }
+.demo-tabs button:last-child { border-right: none; }
+.demo-tabs button:hover { color: var(--fg); background: var(--bg-3); }
+.demo-tabs button.on {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.demo-tabs button.on::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 20%; right: 20%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
 
-/* ── a11y ──────────────────────────────────── */
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-@media (prefers-reduced-motion: reduce) {
-  .wordmark-cursor { animation: none; opacity: 1; }
-  .hero-sub .typed { border-right: none; }
+/* ── section styling ────────────────────────── */
+section { padding: 120px 24px; }
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  opacity: 0.7;
 }
 
-/* ── responsive ────────────────────────────── */
-@media (max-width: 960px) {
-  .two-col { grid-template-columns: 1fr; }
+h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 14px;
 }
+
+.section-desc {
+  font-size: 16px;
+  color: var(--fg-2);
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+/* ── features ───────────────────────────────── */
+.features-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--fg-4);
+  border: 1px solid var(--fg-4);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 56px;
+}
+
+.fc {
+  padding: 36px 30px;
+  background: var(--bg);
+  transition: background 300ms;
+}
+.fc:hover { background: var(--bg-2); }
+
+.fc-icon {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: block;
+  opacity: 0.8;
+}
+
+.fc h3 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.fc p {
+  font-size: 13px;
+  color: var(--fg-3);
+  line-height: 1.65;
+}
+
+/* ── exports ────────────────────────────────── */
+.exports-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.export-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.export-chip {
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 10px 20px;
+  background: var(--bg-3);
+  border: 1px solid var(--fg-4);
+  border-radius: 10px;
+  color: var(--fg-2);
+  transition: all 200ms;
+}
+.export-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* ── install ────────────────────────────────── */
+.install-wrap {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.code-block {
+  font-family: var(--mono);
+  font-size: 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--fg-4);
+  border-radius: 12px;
+  padding: 20px 28px;
+  text-align: left;
+  margin: 32px 0 24px;
+  color: var(--fg-2);
+}
+.code-block .dim { color: var(--fg-4); }
+.code-block .hl { color: var(--accent); }
+
+/* ── footer ─────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--fg-4);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--fg-4);
+}
+footer a { color: var(--fg-3); transition: color 200ms; }
+footer a:hover { color: var(--fg); }
+.footer-links { display: flex; gap: 20px; }
+
+/* ── hero background canvas ──────────────────── */
+#hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+#hero-bg .glyph {
+  position: absolute;
+  font-family: var(--mono);
+  color: var(--accent);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.hero > *:not(#hero-bg) { position: relative; z-index: 1; }
+
+/* ── responsive: tablet ──────────────────────── */
+@media (max-width: 900px) {
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  #stage-wrap { height: 260px; }
+  #canvas { width: 440px; height: 210px; transform: scale(0.95); }
+}
+
+/* ── responsive: mobile ─────────────────────── */
 @media (max-width: 640px) {
-  nav { gap: 1.5ch; flex-wrap: wrap; height: auto; padding-top: 12px; padding-bottom: 12px; }
-  .hero-title { font-size: clamp(32px, 8vw, 44px); }
-  .hero-actions { flex-direction: column; gap: 1ch; }
-  .canvas-wrap { padding: 16px; margin: 32px -16px; }
-  #canvas { height: 12em; font-size: 14px; }
-  .canvas-controls { flex-wrap: wrap; }
-  h2 { font-size: 24px; }
-  .code-block { padding: 16px; font-size: 13px; }
-  .tbl { font-size: 13px; }
-  .tbl td, .tbl th { padding: 6px 1ch 6px 0; }
-  footer { flex-direction: column; gap: 16px; }
+  nav {
+    padding: 0 16px;
+    gap: 12px;
+    height: 50px;
+  }
+  .nav-links { display: none; }
+  .nav-right .btn-ghost { display: none; }
+  .nav-right { gap: 8px; }
+  .btn { padding: 6px 14px; font-size: 12px; }
+  .btn-large { padding: 10px 22px; font-size: 13px; }
+
+  .hero {
+    padding: 70px 18px 32px;
+    min-height: auto;
+  }
+  .hero::before { width: 400px; height: 300px; }
+  .hero-tag { font-size: 10px; margin-bottom: 20px; }
+  h1 { font-size: 32px; margin-bottom: 16px; }
+  .hero-sub { font-size: 15px; margin-bottom: 28px; max-width: 320px; }
+  .hero-actions { flex-direction: column; width: 100%; max-width: 280px; margin-bottom: 48px; }
+  .hero-actions .btn { justify-content: center; }
+
+  .demo { padding: 0 12px; }
+  .demo-frame { border-radius: 12px; }
+  .demo-bar { padding: 10px 12px; gap: 6px; }
+  .dot { width: 8px; height: 8px; }
+  #stage-wrap { height: 200px; }
+  #canvas { width: 320px; height: 160px; transform: scale(0.85); transform-origin: center; }
+  .demo-tabs { flex-wrap: wrap; }
+  .demo-tabs button {
+    flex: 1 1 calc(33.33% - 1px);
+    padding: 9px 4px;
+    font-size: 11px;
+    border-bottom: 1px solid var(--fg-4);
+  }
+  .demo-tabs button:nth-child(3) { border-right: none; }
+  .demo-tabs button:nth-child(n+4) { border-bottom: none; }
+
+  section { padding: 72px 18px; }
+  .section-label { font-size: 10px; margin-bottom: 12px; }
+  h2 { font-size: 24px; margin-bottom: 10px; }
+  .section-desc { font-size: 14px; }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    border-radius: 12px;
+    margin-top: 36px;
+  }
+  .fc { padding: 24px 20px; }
+  .fc-icon { font-size: 18px; margin-bottom: 12px; }
+  .fc h3 { font-size: 14px; }
+  .fc p { font-size: 12px; }
+
+  .export-grid { gap: 6px; margin-top: 28px; }
+  .export-chip { padding: 8px 14px; font-size: 12px; border-radius: 8px; }
+
+  .code-block { font-size: 12px; padding: 14px 18px; border-radius: 10px; margin: 24px 0 20px; }
+  .install-wrap .btn-large { width: 100%; justify-content: center; }
+  #install > .install-wrap > div { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
+  #install > .install-wrap > div .btn { justify-content: center; }
+
+  footer {
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    padding: 28px 18px;
+  }
+  .footer-links { gap: 16px; }
 }
+
+/* ── responsive: small mobile ───────────────── */
 @media (max-width: 380px) {
-  #canvas { height: 10em; font-size: 12px; }
+  h1 { font-size: 28px; }
+  .hero-sub { font-size: 14px; }
+  #canvas { width: 280px; height: 140px; transform: scale(0.75); }
+  #stage-wrap { height: 170px; }
+  .demo-tabs button { font-size: 10px; padding: 8px 2px; }
+  .fc { padding: 20px 16px; }
+}
+
+/* ── touch improvements ─────────────────────── */
+@media (hover: none) {
+  .btn:active:not(:disabled) { transform: scale(0.96); }
+  .fc:hover { background: var(--bg); }
+  .export-chip:hover { border-color: var(--fg-4); color: var(--fg-2); background: var(--bg-3); }
+}
+
+/* ── safe area for notched phones ───────────── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  footer { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
+  nav { padding-left: calc(16px + env(safe-area-inset-left)); padding-right: calc(16px + env(safe-area-inset-right)); }
 }
 </style>
 </head>
 <body>
 
-<a href="#main" class="sr-only">skip to content</a>
-
 <nav>
-  <a href="/" class="wordmark">cel<span class="wordmark-cursor">&#9646;</span></a>
-  <span class="version">v0.1.0</span>
-  <div class="nav-spacer"></div>
-  <a href="#engine">docs</a>
-  <a href="#exports">exports</a>
-  <a href="https://github.com/bravo1goingdark/cel">github &#8599;</a>
-  <button id="theme-btn" title="toggle theme">&#9681;</button>
+  <a href="/" class="logo">cel<em>.</em></a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#exports">Exports</a>
+    <a href="#install">Install</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-btn" title="Toggle theme" aria-label="Toggle light/dark mode">&#9790;</button>
+    <a href="https://github.com/ascii-anim/ascii-anim" class="btn btn-ghost">GitHub</a>
+    <a href="https://github.com/ascii-anim/ascii-anim/releases" class="btn btn-accent">Download</a>
+  </div>
 </nav>
 
-<main id="main" class="page">
-
-<!-- ── 01 hero ──────────────────────────────── -->
 <section class="hero">
-  <div class="hero-title">cel.</div>
-  <p class="hero-sub" id="hero-sub"></p>
+  <div id="hero-bg"></div>
+  <div class="hero-tag">ascii animation studio</div>
+  <h1>Characters<br><span class="thin">in motion.</span></h1>
+  <p class="hero-sub">Design ASCII animations visually. Export to any format. Ship in seconds. Open source, offline, under 4KB.</p>
   <div class="hero-actions">
-    <a href="https://github.com/bravo1goingdark/cel/releases" class="tb tb-primary">install</a>
-    <a href="https://github.com/bravo1goingdark/cel" class="tb">source</a>
-    <a href="#format" class="tb">docs &#8594;</a>
+    <a href="https://github.com/ascii-anim/ascii-anim/releases" class="btn btn-accent btn-large">Download free</a>
+    <a href="#demo" class="btn btn-ghost btn-large">Watch demo</a>
   </div>
 </section>
 
-<div class="canvas-wrap">
-  <div id="canvas" aria-label="live ascii animation preview">
-    <p class="sr-only">a sleeping face animation with floating z characters, breathing slowly.</p>
-  </div>
-  <div class="canvas-controls">
-    <button class="tb" id="btn-play">pause</button>
-    <button class="tb" id="btn-restart">&#8635;</button>
-    <button class="tb" id="btn-next">next preset &#8594;</button>
-    <span class="preset-name" id="preset-label">sleeping</span>
-  </div>
-</div>
-
-<div class="rule" aria-hidden="true">&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;</div>
-
-<!-- ── 02 what it is ────────────────────────── -->
-<section>
-  <p class="muted" style="font-size:20px;line-height:1.5">cel is a desktop app for creating ascii animations — the kind that appear in CLI spinners, terminal UIs, documentation banners, and retro web interfaces.</p>
-  <p style="font-size:20px;line-height:1.5;margin-top:12px">work with characters on a grid, not pixels. keyframe timeline, real-time preview, one-click export to <span class="accent">seven formats</span>.</p>
-</section>
-
-<div class="rule-light" aria-hidden="true">&#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183;</div>
-
-<!-- ── 03 engine ────────────────────────────── -->
-<section id="engine">
-  <h2><span class="num">[01]</span> engine</h2>
-  <div class="two-col">
-    <div>
-      <p>zero runtime dependencies. works in node, deno, bun, any browser. the entire engine is <span class="inv">3.9KB</span> gzipped.</p>
-      <p>three functions cover 90% of use cases. sampling uses binary search. serialization is deterministic — identical input, byte-identical output.</p>
-    </div>
-    <div class="code-block">
-<span class="kw">import</span> { sampleScene, serialize, validate }
-  <span class="kw">from</span> <span class="str">'@cel/core'</span>;
-
-<span class="cm">// sample all sprites at 1500ms</span>
-<span class="kw">const</span> frame = sampleScene(scene, 1500);
-
-<span class="cm">// deterministic json (git-friendly)</span>
-<span class="kw">const</span> json = serialize(scene);
-
-<span class="cm">// full validation with error paths</span>
-<span class="kw">const</span> result = validate(input);
+<section id="demo" style="padding-top:0; padding-bottom: 140px;">
+  <div class="demo">
+    <div class="demo-frame">
+      <div class="demo-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="demo-bar-title">cel.</div>
+      </div>
+      <div id="stage-wrap">
+        <div id="canvas"></div>
+      </div>
+      <div class="demo-tabs">
+        <button class="on" data-p="sleeping">sleeping</button>
+        <button data-p="rocket">rocket</button>
+        <button data-p="ocean">ocean</button>
+        <button data-p="neon">neon</button>
+        <button data-p="heartbeat">heartbeat</button>
+        <button data-p="rain">rain</button>
+      </div>
     </div>
   </div>
-  <div class="facts">210 tests &middot; 100% core coverage &middot; 0.6ms per frame &middot; 3.9KB gzipped</div>
 </section>
 
-<div class="rule" aria-hidden="true">&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;</div>
-
-<!-- ── 04 file format ───────────────────────── -->
-<section id="format">
-  <h2><span class="num">[02]</span> file format</h2>
-  <div class="code-block">
-{
-  <span class="str">"$schema"</span>: <span class="str">"https://ascii-anim.app/schema/v1.json"</span>,
-  <span class="str">"version"</span>: 1,
-  <span class="str">"duration"</span>: 4000,          <span class="cm">// ms</span>
-  <span class="str">"sprites"</span>: [
-    {
-      <span class="str">"id"</span>: <span class="str">"face"</span>,
-      <span class="str">"text"</span>: <span class="str">"( -_- )"</span>,      <span class="cm">// default text</span>
-      <span class="str">"keyframes"</span>: [
-        { <span class="str">"t"</span>: 0, <span class="str">"x"</span>: 5.5, <span class="str">"y"</span>: 5, <span class="str">"fontSize"</span>: 22, <span class="str">"easing"</span>: <span class="str">"inout"</span> },
-        { <span class="str">"t"</span>: 2000, <span class="str">"x"</span>: 5.5, <span class="str">"y"</span>: 5.6, <span class="str">"rotation"</span>: -1 }
-      ]
-    }
-  ]
-}                              <span class="cm">// .aanim — utf-8 json, deterministic, git-diffable</span>
+<section id="features">
+  <div class="features-wrap">
+    <div class="section-label">Capabilities</div>
+    <h2>Everything you need.<br>Nothing you don't.</h2>
+    <p class="section-desc">A focused tool for one job: making ASCII characters move beautifully.</p>
+    <div class="feature-grid">
+      <div class="fc">
+        <span class="fc-icon">&#9654;</span>
+        <h3>Visual timeline</h3>
+        <p>Drag keyframes, scrub the playhead, preview at any speed. Feels like editing video.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">{&thinsp;}</span>
+        <h3>Git-friendly format</h3>
+        <p>Deterministic JSON. Alphabetical keys, fixed precision. Every save produces a clean diff.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#8594;</span>
+        <h3>One-click export</h3>
+        <p>HTML, React, CSS keyframes, ANSI terminal, ES module. Pick a format, get working code.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">3.9K</span>
+        <h3>Tiny runtime</h3>
+        <p>The engine is 3.9KB gzipped. Zero dependencies. Runs in Node, Deno, Bun, or any browser.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&#9632;</span>
+        <h3>Native desktop</h3>
+        <p>Built with Tauri + Rust. Sub-second launch, native menus, atomic file saves. Under 10MB.</p>
+      </div>
+      <div class="fc">
+        <span class="fc-icon">&gt;_</span>
+        <h3>CLI included</h3>
+        <p>Validate, render, and play scenes from the command line. Batch export from YAML configs.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="rule-light" aria-hidden="true">&#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183;</div>
-
-<!-- ── 05 exports ───────────────────────────── -->
 <section id="exports">
-  <h2><span class="num">[03]</span> exports</h2>
-  <table class="tbl">
-    <thead><tr><th>format</th><th>output</th><th>status</th></tr></thead>
-    <tbody>
-      <tr><td>html</td><td>standalone page with embedded player</td><td>ready</td></tr>
-      <tr><td>react</td><td>typed .tsx component with props</td><td>ready</td></tr>
-      <tr><td>css</td><td>@keyframes rules per sprite</td><td>ready</td></tr>
-      <tr><td>ansi</td><td>node.js terminal playback script</td><td>ready</td></tr>
-      <tr><td>js module</td><td>esm/cjs with mount()</td><td>ready</td></tr>
-      <tr><td>json</td><td>deterministic .aanim</td><td>ready</td></tr>
-      <tr><td>gif</td><td>animated gif via rust rasterizer</td><td class="planned">[planned]</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<div class="rule" aria-hidden="true">&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;</div>
-
-<!-- ── 06 desktop ───────────────────────────── -->
-<section>
-  <h2><span class="num">[04]</span> desktop app</h2>
-  <div class="two-col">
-    <ul class="flist">
-      <li>visual timeline <span class="fdesc">— drag keyframes, scrub playhead</span></li>
-      <li>real-time preview <span class="fdesc">— 60fps playback at any speed</span></li>
-      <li>sprite management <span class="fdesc">— add, rename, duplicate, reorder</span></li>
-      <li>undo/redo <span class="fdesc">— 30-entry stack with coalescing</span></li>
-      <li>autosave <span class="fdesc">— 400ms debounce to tauri store</span></li>
-    </ul>
-    <ul class="flist">
-      <li>native menus <span class="fdesc">— file, edit, view, help</span></li>
-      <li>atomic saves <span class="fdesc">— write-tmp, fsync, rename-over</span></li>
-      <li>native dialogs <span class="fdesc">— open, save, export</span></li>
-      <li>dark/light theme <span class="fdesc">— system detection</span></li>
-      <li>31 bundled presets <span class="fdesc">— ready to use or remix</span></li>
-    </ul>
+  <div class="exports-wrap">
+    <div class="section-label">Formats</div>
+    <h2>Export to anything</h2>
+    <p class="section-desc" style="margin: 0 auto 0;">Every exporter is a pure function. No side effects. Deterministic output.</p>
+    <div class="export-grid">
+      <div class="export-chip">.html</div>
+      <div class="export-chip">.tsx</div>
+      <div class="export-chip">.css</div>
+      <div class="export-chip">.js&thinsp;esm</div>
+      <div class="export-chip">.js&thinsp;ansi</div>
+      <div class="export-chip">.aanim</div>
+      <div class="export-chip" style="opacity:0.4">.gif&thinsp;soon</div>
+    </div>
   </div>
-  <p style="margin-top:24px">built with tauri + rust. sub-second launch. under 10MB installed.</p>
 </section>
 
-<div class="rule-light" aria-hidden="true">&#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183; &#183;</div>
-
-<!-- ── 07 cli ───────────────────────────────── -->
-<section>
-  <h2><span class="num">[05]</span> CLI</h2>
-  <div class="code-block">
-<span class="prompt">$</span> ascii-anim validate scenes/*.aanim
-  &#10003; sleeping.aanim
-  &#10003; spinner.aanim
-  &#10003; heartbeat.aanim
-
-<span class="prompt">$</span> ascii-anim info presets/sleeping.aanim
-  duration: 4000ms (4.0s)
-  sprites:  4
-  keyframes: 17 total
-
-<span class="prompt">$</span> ascii-anim play presets/sleeping.aanim --loop
-  </div>
-  <p style="margin-top:16px">1.3MB static binary. validate, render, play, batch export.</p>
-</section>
-
-<div class="rule" aria-hidden="true">&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;&#9473;</div>
-
-<!-- ── 08 install ───────────────────────────── -->
 <section id="install">
-  <h2><span class="num">[06]</span> install</h2>
-  <div class="install-lines">
-    <p><span class="prompt">$ </span>pnpm install</p>
-    <p><span class="prompt">$ </span>cd apps/desktop && pnpm run tauri dev</p>
-    <p><span class="prompt">$ </span>cargo install ascii-anim-cli</p>
+  <div class="install-wrap">
+    <div class="section-label">Get started</div>
+    <h2>Add to any project</h2>
+    <p class="section-desc" style="margin: 0 auto;">Install the engine. Import it. Ship.</p>
+    <div class="code-block">
+      <span class="dim">$</span> npm install <span class="hl">@cel/core</span>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <a href="https://github.com/ascii-anim/ascii-anim/releases" class="btn btn-accent btn-large">Download desktop app</a>
+      <a href="https://github.com/ascii-anim/ascii-anim" class="btn btn-ghost btn-large">View source</a>
+    </div>
   </div>
 </section>
 
-</main>
-
-<!-- ── 09 footer ────────────────────────────── -->
-<footer class="page">
-  <span class="wordmark" style="text-decoration:none">cel.</span>
-  <nav>
-    <a href="#engine">docs</a>
-    <a href="https://github.com/bravo1goingdark/cel">github &#8599;</a>
-    <a href="https://github.com/bravo1goingdark/cel/blob/main/LICENSE">license</a>
-    <a href="/cel/schema/v1.json">schema</a>
-  </nav>
-  <div class="footer-spacer"></div>
-  <p class="footer-copy">built with tauri, rust, and too much coffee. MIT licensed.</p>
+<footer>
+  <span>Cel is MIT licensed.</span>
+  <div class="footer-links">
+    <a href="https://github.com/ascii-anim/ascii-anim">GitHub</a>
+    <a href="/schema/v1.json">Schema</a>
+    <a href="https://github.com/ascii-anim/ascii-anim/releases">Releases</a>
+  </div>
 </footer>
 
 <script>
-// ── theme ─────────────────────────────────────
-(function(){
-  const b=document.getElementById('theme-btn'),r=document.documentElement;
-  function get(){try{return localStorage.getItem('cel-theme')}catch{return null}}
-  function set(t){try{localStorage.setItem('cel-theme',t)}catch{}}
-  function eff(){const s=get();if(s==='light'||s==='dark')return s;return matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'}
-  function apply(t){r.setAttribute('data-theme',t);b.textContent=t==='dark'?'light':'dark'}
-  apply(eff());
-  b.addEventListener('click',()=>{const n=eff()==='dark'?'light':'dark';set(n);apply(n)});
+// ── Theme toggle ─────────────────────────────────
+(function() {
+  const btn = document.getElementById('theme-btn');
+  const root = document.documentElement;
+
+  function getStored() { try { return localStorage.getItem('cel-theme'); } catch { return null; } }
+  function setStored(t) { try { localStorage.setItem('cel-theme', t); } catch {} }
+
+  function getEffective() {
+    const stored = getStored();
+    if (stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  function apply(theme) {
+    root.setAttribute('data-theme', theme);
+    btn.textContent = theme === 'dark' ? '\u263E' : '\u2600';
+    btn.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#0a0a09' : '#faf9f7';
+  }
+
+  apply(getEffective());
+
+  btn.addEventListener('click', () => {
+    const next = getEffective() === 'dark' ? 'light' : 'dark';
+    setStored(next);
+    apply(next);
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (!getStored()) apply(getEffective());
+  });
 })();
 
-// ── typewriter ────────────────────────────────
+// ── Hero floating glyphs ─────────────────────────
 (function(){
-  const el=document.getElementById('hero-sub');
-  const text='ascii animation studio \u2014 draw on a grid, export everywhere.';
-  const prefersReduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if(prefersReduced){el.textContent=text;return}
-  let i=0;
-  function type(){if(i<=text.length){el.innerHTML=text.slice(0,i)+'<span class="typed"></span>';i++;setTimeout(type,22)}else{el.textContent=text}}
-  type();
+  const bg=document.getElementById('hero-bg');
+  if(!bg)return;
+  const chars='{ } [ ] < > / \\ | ~ * + = _ # @ . , ; : ( ) 0 1'.split(' ');
+  const particles=[];
+  for(let i=0;i<40;i++){
+    const el=document.createElement('span');
+    el.className='glyph';
+    el.textContent=chars[Math.floor(Math.random()*chars.length)];
+    const x=Math.random()*100;
+    const size=10+Math.random()*16;
+    const dur=12000+Math.random()*20000;
+    const delay=Math.random()*dur;
+    const drift=(Math.random()-0.5)*40;
+    el.style.cssText=`left:${x}%;font-size:${size}px;opacity:0;`;
+    bg.appendChild(el);
+    particles.push({el,x,size,dur,delay,drift,born:performance.now()});
+  }
+  function animParticles(now){
+    for(const p of particles){
+      const elapsed=((now-p.born+p.delay)%p.dur)/p.dur;
+      const y=(1-elapsed)*110-10;
+      const xOff=Math.sin(elapsed*Math.PI*2)*p.drift;
+      const op=elapsed<0.1?elapsed*10:elapsed>0.85?(1-elapsed)/0.15:1;
+      p.el.style.transform=`translate(${xOff.toFixed(1)}px,${y.toFixed(1)}vh)`;
+      p.el.style.opacity=(op*0.12).toFixed(3);
+    }
+    requestAnimationFrame(animParticles);
+  }
+  requestAnimationFrame(animParticles);
 })();
 
-// ── animation engine ──────────────────────────
-const D={x:5,y:5,op:1,fs:16,rot:0},CW=9.6,LH=22;
-function ease(t,e){if(!e||e==='linear')return t;if(e==='in')return t*t;if(e==='out')return 1-(1-t)**2;if(e==='inout')return t<.5?2*t*t:1-2*(1-t)**2;return t}
+// ── Presets ───────────────────────────────────────
+const P={
+  sleeping:{duration:4000,sprites:[
+    {id:"face",text:"( -_- )",kf:[
+      {t:0,x:13,y:5,op:1,fs:24,rot:0,e:"inout"},
+      {t:1500,x:13,y:5.6,op:1,fs:24,rot:-1,tx:"( -_- )",e:"inout"},
+      {t:1600,x:13,y:5.6,op:1,fs:24,rot:-1,tx:"( ._. )",e:"inout"},
+      {t:1700,x:13,y:5.6,op:1,fs:24,rot:0,tx:"( -_- )",e:"inout"},
+      {t:4000,x:13,y:5,op:1,fs:24,rot:0,e:"inout"}]},
+    {id:"z1",text:"z",kf:[{t:0,x:21,y:5,op:0,fs:12,e:"linear"},{t:120,x:21,y:5,op:.7,fs:14,e:"out"},{t:800,x:23,y:1.5,op:0,fs:24,e:"in"},{t:4000,x:21,y:5,op:0,fs:12,e:"linear"}]},
+    {id:"z2",text:"z",kf:[{t:700,x:21,y:5,op:0,fs:12,e:"linear"},{t:820,x:21,y:5,op:.7,fs:16,e:"out"},{t:1600,x:24,y:1,op:0,fs:28,e:"in"},{t:4000,x:21,y:5,op:0,fs:12,e:"linear"}]},
+    {id:"Z3",text:"Z",kf:[{t:1400,x:21,y:5,op:0,fs:12,e:"linear"},{t:1520,x:21,y:5,op:.7,fs:20,e:"out"},{t:2400,x:26,y:.5,op:0,fs:34,e:"in"},{t:4000,x:21,y:5,op:0,fs:12,e:"linear"}]}
+  ]},
+  rocket:{duration:5000,sprites:[
+    {id:"rocket",text:"\u25B2",kf:[
+      {t:0,x:17,y:9,op:1,fs:32,rot:0,e:"in"},
+      {t:400,x:17,y:9,op:1,fs:32,rot:0,e:"in"},
+      {t:2500,x:17,y:1,op:1,fs:32,rot:0,e:"out"},
+      {t:3500,x:17,y:-2,op:0,fs:32,rot:0,e:"in"},
+      {t:4200,x:17,y:9,op:0,fs:32,rot:0,e:"linear"},
+      {t:4800,x:17,y:9,op:1,fs:32,rot:0,e:"out"},
+      {t:5000,x:17,y:9,op:1,fs:32,rot:0,e:"linear"}]},
+    {id:"flame1",text:"\u2592",kf:[
+      {t:0,x:17,y:10.2,op:0,fs:20,rot:0,e:"linear"},
+      {t:400,x:17,y:10.2,op:.8,fs:20,rot:0,e:"out"},
+      {t:800,x:17,y:10.2,op:.9,fs:28,rot:0,e:"inout"},
+      {t:2500,x:17,y:10.2,op:1,fs:36,rot:0,e:"inout"},
+      {t:3500,x:17,y:10.2,op:0,fs:20,rot:0,e:"in"},
+      {t:5000,x:17,y:10.2,op:0,fs:20,rot:0,e:"linear"}]},
+    {id:"flame2",text:"\u2591",kf:[
+      {t:0,x:17,y:11,op:0,fs:18,rot:0,e:"linear"},
+      {t:400,x:17,y:11.4,op:.5,fs:16,rot:0,e:"out"},
+      {t:1200,x:17,y:11.4,op:.7,fs:24,rot:0,e:"inout"},
+      {t:2500,x:17,y:11.4,op:.8,fs:32,rot:0,e:"inout"},
+      {t:3500,x:17,y:11.4,op:0,fs:14,rot:0,e:"in"},
+      {t:5000,x:17,y:11.4,op:0,fs:14,rot:0,e:"linear"}]},
+    {id:"s1",text:"\u2727",kf:[{t:0,x:10,y:2,op:.3,fs:10,e:"inout"},{t:2500,x:10,y:2,op:.8,fs:14,e:"inout"},{t:5000,x:10,y:2,op:.3,fs:10,e:"inout"}]},
+    {id:"s2",text:"\u00B7",kf:[{t:0,x:24,y:4,op:.4,fs:12,e:"inout"},{t:1500,x:24,y:4,op:1,fs:12,e:"inout"},{t:3000,x:24,y:4,op:.4,fs:12,e:"inout"},{t:5000,x:24,y:4,op:.8,fs:12,e:"inout"}]},
+    {id:"s3",text:"\u2022",kf:[{t:0,x:8,y:7,op:.2,fs:8,e:"inout"},{t:2000,x:8,y:7,op:.6,fs:10,e:"inout"},{t:4000,x:8,y:7,op:.2,fs:8,e:"inout"},{t:5000,x:8,y:7,op:.4,fs:9,e:"inout"}]},
+    {id:"s4",text:"*",kf:[{t:0,x:28,y:1,op:.5,fs:11,e:"inout"},{t:1200,x:28,y:1,op:.2,fs:9,e:"inout"},{t:3500,x:28,y:1,op:.7,fs:13,e:"inout"},{t:5000,x:28,y:1,op:.5,fs:11,e:"inout"}]},
+    {id:"ground",text:"\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",kf:[{t:0,x:8,y:10.5,op:.2,fs:12,e:"linear"},{t:5000,x:8,y:10.5,op:.2,fs:12,e:"linear"}]}
+  ]},
+  ocean:{duration:6000,sprites:[
+    {id:"w1",text:"~~~~~~~~~~~~~~~~~~~~~",kf:[
+      {t:0,x:5,y:5.5,op:.6,fs:18,e:"inout"},
+      {t:1500,x:6,y:5.2,op:.7,fs:18,e:"inout"},
+      {t:3000,x:5,y:5.5,op:.6,fs:18,e:"inout"},
+      {t:4500,x:4,y:5.8,op:.5,fs:18,e:"inout"},
+      {t:6000,x:5,y:5.5,op:.6,fs:18,e:"inout"}]},
+    {id:"w2",text:"\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248",kf:[
+      {t:0,x:4,y:6.5,op:.45,fs:16,e:"inout"},
+      {t:2000,x:5.5,y:6.2,op:.55,fs:16,e:"inout"},
+      {t:4000,x:4,y:6.5,op:.45,fs:16,e:"inout"},
+      {t:6000,x:4,y:6.5,op:.45,fs:16,e:"inout"}]},
+    {id:"w3",text:"~~~\u2248~~~\u2248~~~\u2248~~~\u2248~~",kf:[
+      {t:0,x:6,y:7.5,op:.3,fs:14,e:"inout"},
+      {t:1000,x:4.5,y:7.3,op:.35,fs:14,e:"inout"},
+      {t:3000,x:6,y:7.6,op:.3,fs:14,e:"inout"},
+      {t:5000,x:4.5,y:7.3,op:.35,fs:14,e:"inout"},
+      {t:6000,x:6,y:7.5,op:.3,fs:14,e:"inout"}]},
+    {id:"w4",text:"\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~\u2248~",kf:[
+      {t:0,x:5,y:8.5,op:.2,fs:12,e:"inout"},
+      {t:2500,x:6.5,y:8.3,op:.25,fs:12,e:"inout"},
+      {t:5000,x:5,y:8.5,op:.2,fs:12,e:"inout"},
+      {t:6000,x:5,y:8.5,op:.2,fs:12,e:"inout"}]},
+    {id:"sun",text:"\u25CB",kf:[
+      {t:0,x:24,y:1.5,op:.8,fs:28,e:"inout"},
+      {t:3000,x:24,y:1.2,op:.9,fs:30,e:"inout"},
+      {t:6000,x:24,y:1.5,op:.8,fs:28,e:"inout"}]},
+    {id:"ray1",text:"\u2500",kf:[{t:0,x:22,y:1.8,op:.3,fs:10,e:"inout"},{t:1500,x:21.5,y:1.8,op:.5,fs:12,e:"inout"},{t:3000,x:22,y:1.8,op:.3,fs:10,e:"inout"},{t:6000,x:22,y:1.8,op:.3,fs:10,e:"inout"}]},
+    {id:"ray2",text:"\u2500",kf:[{t:0,x:27,y:1.8,op:.3,fs:10,e:"inout"},{t:2000,x:27.5,y:1.8,op:.5,fs:12,e:"inout"},{t:4000,x:27,y:1.8,op:.3,fs:10,e:"inout"},{t:6000,x:27,y:1.8,op:.3,fs:10,e:"inout"}]},
+    {id:"bird1",text:"~",kf:[{t:0,x:6,y:2,op:.4,fs:11,rot:-5,e:"linear"},{t:6000,x:30,y:1.5,op:.4,fs:11,rot:5,e:"linear"}]},
+    {id:"bird2",text:"~",kf:[{t:0,x:8,y:2.8,op:.3,fs:9,rot:3,e:"linear"},{t:6000,x:28,y:2.2,op:.3,fs:9,rot:-3,e:"linear"}]}
+  ]},
+  neon:{duration:4000,sprites:[
+    {id:"open",text:"O P E N",kf:[
+      {t:0,x:11,y:3.5,op:0,fs:28,e:"out"},
+      {t:200,x:11,y:3.5,op:1,fs:28,e:"in"},
+      {t:1800,x:11,y:3.5,op:1,fs:28,e:"in"},
+      {t:1900,x:11,y:3.5,op:.1,fs:28,e:"out"},
+      {t:2000,x:11,y:3.5,op:1,fs:28,e:"in"},
+      {t:2100,x:11,y:3.5,op:.15,fs:28,e:"out"},
+      {t:2200,x:11,y:3.5,op:1,fs:28,e:"linear"},
+      {t:3600,x:11,y:3.5,op:1,fs:28,e:"in"},
+      {t:3700,x:11,y:3.5,op:0,fs:28,e:"out"},
+      {t:3900,x:11,y:3.5,op:.8,fs:28,e:"out"},
+      {t:4000,x:11,y:3.5,op:0,fs:28,e:"linear"}]},
+    {id:"hr",text:"\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",kf:[
+      {t:0,x:10.5,y:5.2,op:0,fs:12,e:"out"},
+      {t:300,x:10.5,y:5.2,op:.4,fs:12,e:"linear"},
+      {t:3600,x:10.5,y:5.2,op:.4,fs:12,e:"in"},
+      {t:3800,x:10.5,y:5.2,op:0,fs:12,e:"linear"},
+      {t:4000,x:10.5,y:5.2,op:0,fs:12,e:"linear"}]},
+    {id:"sub",text:"2 4 / 7",kf:[
+      {t:0,x:14,y:6.5,op:0,fs:18,e:"out"},
+      {t:500,x:14,y:6.5,op:.7,fs:18,e:"linear"},
+      {t:3400,x:14,y:6.5,op:.7,fs:18,e:"in"},
+      {t:3800,x:14,y:6.5,op:0,fs:18,e:"linear"},
+      {t:4000,x:14,y:6.5,op:0,fs:18,e:"linear"}]},
+    {id:"glow",text:"\u2022",kf:[
+      {t:0,x:10,y:3.6,op:0,fs:40,e:"out"},
+      {t:200,x:10,y:3.6,op:.05,fs:80,e:"inout"},
+      {t:2000,x:10,y:3.6,op:.08,fs:90,e:"inout"},
+      {t:3700,x:10,y:3.6,op:0,fs:40,e:"in"},
+      {t:4000,x:10,y:3.6,op:0,fs:40,e:"linear"}]}
+  ]},
+  heartbeat:{duration:1200,sprites:[
+    {id:"h",text:"\u2665",kf:[
+      {t:0,x:16,y:4,op:1,fs:32,e:"out"},
+      {t:100,x:16,y:3.6,op:1,fs:52,e:"in"},
+      {t:250,x:16,y:4,op:1,fs:30,e:"out"},
+      {t:400,x:16,y:3.6,op:1,fs:46,e:"in"},
+      {t:550,x:16,y:4,op:1,fs:32,e:"inout"},
+      {t:1200,x:16,y:4,op:1,fs:32,e:"inout"}]},
+    {id:"ring1",text:"\u25CB",kf:[
+      {t:0,x:16,y:4,op:0,fs:32,e:"linear"},
+      {t:100,x:16,y:4,op:.3,fs:40,e:"out"},
+      {t:350,x:16,y:4,op:0,fs:70,e:"in"},
+      {t:1200,x:16,y:4,op:0,fs:32,e:"linear"}]},
+    {id:"ring2",text:"\u25CB",kf:[
+      {t:0,x:16,y:4,op:0,fs:32,e:"linear"},
+      {t:400,x:16,y:4,op:.25,fs:38,e:"out"},
+      {t:650,x:16,y:4,op:0,fs:65,e:"in"},
+      {t:1200,x:16,y:4,op:0,fs:32,e:"linear"}]}
+  ]},
+  rain:{duration:4000,sprites:[
+    {id:"r1",text:"|",kf:[{t:0,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:801,x:8,y:-1,op:0,fs:14,e:"linear"},{t:1000,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:1800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:1801,x:8,y:-1,op:0,fs:14,e:"linear"},{t:2000,x:8,y:-1,op:.5,fs:14,e:"linear"},{t:2800,x:8,y:11,op:.15,fs:14,e:"linear"},{t:4000,x:8,y:-1,op:0,fs:14,e:"linear"}]},
+    {id:"r2",text:"|",kf:[{t:0,x:13,y:3,op:.4,fs:14,e:"linear"},{t:600,x:13,y:11,op:.1,fs:14,e:"linear"},{t:601,x:13,y:-1,op:0,fs:14,e:"linear"},{t:900,x:13,y:-1,op:.4,fs:14,e:"linear"},{t:1700,x:13,y:11,op:.1,fs:14,e:"linear"},{t:1701,x:13,y:-1,op:0,fs:14,e:"linear"},{t:2100,x:13,y:-1,op:.4,fs:14,e:"linear"},{t:2900,x:13,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:13,y:-1,op:0,fs:14,e:"linear"}]},
+    {id:"r3",text:"|",kf:[{t:0,x:18,y:-1,op:0,fs:14,e:"linear"},{t:300,x:18,y:-1,op:.45,fs:14,e:"linear"},{t:1100,x:18,y:11,op:.1,fs:14,e:"linear"},{t:1101,x:18,y:-1,op:0,fs:14,e:"linear"},{t:1500,x:18,y:-1,op:.45,fs:14,e:"linear"},{t:2300,x:18,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:18,y:-1,op:0,fs:14,e:"linear"}]},
+    {id:"r4",text:"|",kf:[{t:0,x:23,y:1,op:.35,fs:14,e:"linear"},{t:700,x:23,y:11,op:.1,fs:14,e:"linear"},{t:701,x:23,y:-1,op:0,fs:14,e:"linear"},{t:1100,x:23,y:-1,op:.35,fs:14,e:"linear"},{t:1900,x:23,y:11,op:.1,fs:14,e:"linear"},{t:1901,x:23,y:-1,op:0,fs:14,e:"linear"},{t:2400,x:23,y:-1,op:.35,fs:14,e:"linear"},{t:3200,x:23,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:23,y:-1,op:0,fs:14,e:"linear"}]},
+    {id:"r5",text:"|",kf:[{t:0,x:28,y:-1,op:0,fs:14,e:"linear"},{t:500,x:28,y:-1,op:.4,fs:14,e:"linear"},{t:1300,x:28,y:11,op:.1,fs:14,e:"linear"},{t:1301,x:28,y:-1,op:0,fs:14,e:"linear"},{t:1800,x:28,y:-1,op:.4,fs:14,e:"linear"},{t:2600,x:28,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:28,y:-1,op:0,fs:14,e:"linear"}]},
+    {id:"r6",text:"|",kf:[{t:0,x:11,y:5,op:.3,fs:14,e:"linear"},{t:500,x:11,y:11,op:.08,fs:14,e:"linear"},{t:501,x:11,y:-1,op:0,fs:14,e:"linear"},{t:800,x:11,y:-1,op:.3,fs:14,e:"linear"},{t:1600,x:11,y:11,op:.08,fs:14,e:"linear"},{t:1601,x:11,y:-1,op:0,fs:14,e:"linear"},{t:2200,x:11,y:-1,op:.3,fs:14,e:"linear"},{t:3000,x:11,y:11,op:.08,fs:14,e:"linear"},{t:4000,x:11,y:-1,op:0,fs:14,e:"linear"}]},
+    {id:"r7",text:"|",kf:[{t:0,x:26,y:-1,op:0,fs:14,e:"linear"},{t:200,x:26,y:-1,op:.38,fs:14,e:"linear"},{t:1000,x:26,y:11,op:.1,fs:14,e:"linear"},{t:1001,x:26,y:-1,op:0,fs:14,e:"linear"},{t:1400,x:26,y:-1,op:.38,fs:14,e:"linear"},{t:2200,x:26,y:11,op:.1,fs:14,e:"linear"},{t:4000,x:26,y:-1,op:0,fs:14,e:"linear"}]},
+    {id:"puddle",text:"\u00B7 \u00B7   \u00B7  \u00B7 \u00B7  \u00B7",kf:[
+      {t:0,x:7,y:10,op:.15,fs:10,e:"inout"},
+      {t:2000,x:7,y:10,op:.25,fs:10,e:"inout"},
+      {t:4000,x:7,y:10,op:.15,fs:10,e:"inout"}]}
+  ]}
+};
+
+const D={x:5,y:5,op:1,fs:18,rot:0},CW=10.2,LH=22;
+function ease(t,e){if(!e||e==="linear")return t;if(e==="in")return t*t;if(e==="out")return 1-(1-t)**2;if(e==="inout")return t<.5?2*t*t:1-2*(1-t)**2;return t}
 function lerp(a,b,t){return a+(b-a)*t}
 function sam(kf,t){
   if(!kf.length)return{x:D.x,y:D.y,op:D.op,fs:D.fs,rot:D.rot};
@@ -501,64 +970,38 @@ function sam(kf,t){
 }
 function txt(sp,t){let r=sp.text;for(const k of sp.kf){if(k.t>t)break;if(k.tx!=null)r=k.tx}return r}
 
-const P={
-  sleeping:{duration:4000,sprites:[
-    {id:"face",text:"( -_- )",kf:[{t:0,x:20,y:6,op:1,fs:20,rot:0,e:"inout"},{t:1500,x:20,y:6.6,op:1,fs:20,rot:-1,tx:"( -_- )",e:"inout"},{t:1600,x:20,y:6.6,op:1,fs:20,rot:-1,tx:"( ._. )",e:"inout"},{t:1700,x:20,y:6.6,op:1,fs:20,rot:0,tx:"( -_- )",e:"inout"},{t:4000,x:20,y:6,op:1,fs:20,rot:0,e:"inout"}]},
-    {id:"z1",text:"z",kf:[{t:0,x:28,y:6,op:0,fs:11,e:"linear"},{t:120,x:28,y:6,op:.7,fs:12,e:"out"},{t:800,x:30,y:2,op:0,fs:20,e:"in"},{t:4000,x:28,y:6,op:0,fs:11,e:"linear"}]},
-    {id:"z2",text:"z",kf:[{t:700,x:28,y:6,op:0,fs:11,e:"linear"},{t:820,x:28,y:6,op:.7,fs:14,e:"out"},{t:1600,x:31,y:1.5,op:0,fs:24,e:"in"},{t:4000,x:28,y:6,op:0,fs:11,e:"linear"}]},
-    {id:"Z3",text:"Z",kf:[{t:1400,x:28,y:6,op:0,fs:11,e:"linear"},{t:1520,x:28,y:6,op:.7,fs:16,e:"out"},{t:2400,x:33,y:1,op:0,fs:28,e:"in"},{t:4000,x:28,y:6,op:0,fs:11,e:"linear"}]}
-  ]},
-  spinner:{duration:800,sprites:[
-    {id:"s",text:"|",kf:[{t:0,tx:"|",x:24,y:5.5,op:1,fs:28,e:"linear"},{t:200,tx:"/",x:24,y:5.5,op:1,fs:28,e:"linear"},{t:400,tx:"\u2500",x:24,y:5.5,op:1,fs:28,e:"linear"},{t:600,tx:"\\",x:24,y:5.5,op:1,fs:28,e:"linear"},{t:800,tx:"|",x:24,y:5.5,op:1,fs:28,e:"linear"}]}
-  ]},
-  heartbeat:{duration:1200,sprites:[
-    {id:"h",text:"\u2665",kf:[{t:0,x:23,y:5,op:1,fs:26,e:"out"},{t:100,x:23,y:4.7,op:1,fs:42,e:"in"},{t:250,x:23,y:5,op:1,fs:24,e:"out"},{t:400,x:23,y:4.7,op:1,fs:36,e:"in"},{t:550,x:23,y:5,op:1,fs:26,e:"inout"},{t:1200,x:23,y:5,op:1,fs:26,e:"inout"}]}
-  ]},
-  loading:{duration:2000,sprites:[
-    {id:"a",text:"\u2022",kf:[{t:0,x:22,y:5.5,op:.15,fs:24,e:"inout"},{t:300,x:22,y:5.5,op:1,fs:24,e:"inout"},{t:600,x:22,y:5.5,op:.15,fs:24,e:"inout"},{t:2000,x:22,y:5.5,op:.15,fs:24,e:"linear"}]},
-    {id:"b",text:"\u2022",kf:[{t:0,x:24,y:5.5,op:.15,fs:24,e:"linear"},{t:300,x:24,y:5.5,op:.15,fs:24,e:"inout"},{t:600,x:24,y:5.5,op:1,fs:24,e:"inout"},{t:900,x:24,y:5.5,op:.15,fs:24,e:"inout"},{t:2000,x:24,y:5.5,op:.15,fs:24,e:"linear"}]},
-    {id:"c",text:"\u2022",kf:[{t:0,x:26,y:5.5,op:.15,fs:24,e:"linear"},{t:600,x:26,y:5.5,op:.15,fs:24,e:"inout"},{t:900,x:26,y:5.5,op:1,fs:24,e:"inout"},{t:1200,x:26,y:5.5,op:.15,fs:24,e:"inout"},{t:2000,x:26,y:5.5,op:.15,fs:24,e:"linear"}]}
-  ]},
-  wave:{duration:3000,sprites:[
-    {id:"w1",text:"~",kf:[{t:0,x:18,y:6,op:.6,fs:18,e:"inout"},{t:750,x:18,y:4,op:.8,fs:18,e:"inout"},{t:1500,x:18,y:6,op:.6,fs:18,e:"inout"},{t:2250,x:18,y:4,op:.8,fs:18,e:"inout"},{t:3000,x:18,y:6,op:.6,fs:18,e:"inout"}]},
-    {id:"w2",text:"~",kf:[{t:0,x:21,y:5,op:.6,fs:18,e:"inout"},{t:750,x:21,y:7,op:.4,fs:18,e:"inout"},{t:1500,x:21,y:5,op:.6,fs:18,e:"inout"},{t:2250,x:21,y:7,op:.4,fs:18,e:"inout"},{t:3000,x:21,y:5,op:.6,fs:18,e:"inout"}]},
-    {id:"w3",text:"~",kf:[{t:0,x:24,y:6,op:.6,fs:18,e:"inout"},{t:750,x:24,y:4,op:.8,fs:18,e:"inout"},{t:1500,x:24,y:6,op:.6,fs:18,e:"inout"},{t:2250,x:24,y:4,op:.8,fs:18,e:"inout"},{t:3000,x:24,y:6,op:.6,fs:18,e:"inout"}]},
-    {id:"w4",text:"~",kf:[{t:0,x:27,y:5,op:.6,fs:18,e:"inout"},{t:750,x:27,y:7,op:.4,fs:18,e:"inout"},{t:1500,x:27,y:5,op:.6,fs:18,e:"inout"},{t:2250,x:27,y:7,op:.4,fs:18,e:"inout"},{t:3000,x:27,y:5,op:.6,fs:18,e:"inout"}]},
-    {id:"w5",text:"~",kf:[{t:0,x:30,y:6,op:.6,fs:18,e:"inout"},{t:750,x:30,y:4,op:.8,fs:18,e:"inout"},{t:1500,x:30,y:6,op:.6,fs:18,e:"inout"},{t:2250,x:30,y:4,op:.8,fs:18,e:"inout"},{t:3000,x:30,y:6,op:.6,fs:18,e:"inout"}]}
-  ]}
-};
+const cv=document.getElementById("canvas");
+let scene,els=[],time=0,last=null,raf=0;
 
-const names=Object.keys(P);
-let ci=0,scene,els=[],time=0,last=null,raf=0,playing=true;
-const cv=document.getElementById('canvas');
-const lbl=document.getElementById('preset-label');
-
-function load(idx){
+function load(name){
   cancelAnimationFrame(raf);
-  ci=idx;scene=P[names[ci]];cv.querySelectorAll('.sp').forEach(e=>e.remove());els=[];
-  for(const sp of scene.sprites){const el=document.createElement('span');el.className='sp';cv.appendChild(el);els.push({sp,el})}
-  time=0;last=null;lbl.textContent=names[ci];
-  if(playing)raf=requestAnimationFrame(tick);else render();
+  scene=P[name]; cv.innerHTML=""; els=[];
+  for(const sp of scene.sprites){
+    const el=document.createElement("span");
+    el.className="sp"; cv.appendChild(el);
+    els.push({sp,el});
+  }
+  time=0;last=null;
+  document.querySelectorAll(".demo-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.p===name));
+  raf=requestAnimationFrame(tick);
 }
-function render(){
-  for(const{sp,el}of els){const p=sam(sp.kf,time);el.textContent=txt(sp,time);el.style.transform=`translate(${(p.x*CW).toFixed(1)}px,${(p.y*LH).toFixed(1)}px) rotate(${(p.rot||0).toFixed(1)}deg)`;el.style.opacity=p.op.toFixed(2);el.style.fontSize=Math.round(p.fs)+'px'}
-}
+
 function tick(now){
-  if(last===null)last=now;time+=Math.min(now-last,100);last=now;
+  if(last===null)last=now;
+  time+=Math.min(now-last,100);last=now;
   if(time>=scene.duration)time%=scene.duration;
-  render();
-  if(playing)raf=requestAnimationFrame(tick);
+  for(const{sp,el}of els){
+    const p=sam(sp.kf,time);
+    el.textContent=txt(sp,time);
+    el.style.transform=`translate(${(p.x*CW).toFixed(1)}px,${(p.y*LH).toFixed(1)}px) rotate(${(p.rot||0).toFixed(1)}deg)`;
+    el.style.opacity=p.op.toFixed(2);
+    el.style.fontSize=Math.round(p.fs)+"px";
+  }
+  raf=requestAnimationFrame(tick);
 }
 
-document.getElementById('btn-play').addEventListener('click',function(){
-  playing=!playing;this.textContent=playing?'pause':'play';
-  if(playing){last=null;raf=requestAnimationFrame(tick)}else cancelAnimationFrame(raf);
-});
-document.getElementById('btn-restart').addEventListener('click',()=>{time=0;last=null;render()});
-document.getElementById('btn-next').addEventListener('click',()=>load((ci+1)%names.length));
-
-if(matchMedia('(prefers-reduced-motion:reduce)').matches){playing=false;document.getElementById('btn-play').textContent='play'}
-load(0);
+document.querySelectorAll(".demo-tabs button").forEach(b=>b.addEventListener("click",()=>load(b.dataset.p)));
+load("sleeping");
 </script>
 </body>
 </html>
